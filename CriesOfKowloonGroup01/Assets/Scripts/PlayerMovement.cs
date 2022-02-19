@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             if (doubleTapTime > Time.time && lastKeyCode == KeyCode.A)
             {
@@ -59,13 +59,13 @@ public class PlayerMovement : MonoBehaviour
             }
 
             lastKeyCode = KeyCode.D;
-        }
+        }*/
     }
 
-    void Dash()
+    /*void Dash()
     {
         animator.SetTrigger("Dash");
-    }
+    }*/
 
     void FixedUpdate()
     {
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    IEnumerator Dash (float direction)
+    /*IEnumerator Dash (float direction)
     {
         isDashing = true;
         rb.velocity = new Vector2(rb.velocity.x, 0f);
@@ -91,5 +91,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         isDashing = false;
         rb.gravityScale = gravity;
-    }
+    }*/
 }
