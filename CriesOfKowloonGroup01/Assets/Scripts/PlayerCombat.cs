@@ -8,7 +8,10 @@ public class PlayerCombat : MonoBehaviour
     public float AttackL;
     public float AttackH;
     private float NextAttack;
-    
+    public float attackRange = 0.5f;
+    public Transform AttackPoint;
+    public LayerMask enemyLayer;
+    public int attackDamage = 2;
 
     void Update()
     {
@@ -19,12 +22,15 @@ public class PlayerCombat : MonoBehaviour
             Debug.Log("light attack");
             NextAttack = Time.time + AttackL;
             Attack1();
+            Debug.Log(NextAttack);
+
         }
         else if (Input.GetKeyDown(KeyCode.L) && Time.time > NextAttack)
         {
             Debug.Log("heavy attack");
             NextAttack = Time.time + AttackH;
             Attack2();
+            Debug.Log(NextAttack);
 
         }
         else
@@ -32,19 +38,33 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
 
-        
-
-
-
     }
 
     void Attack1()
     {
         animator.SetTrigger("Attack");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position,attackRange,enemyLayer);
+
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Enemy hit");
+            enemy.GetComponent<enemy>().takeDmg(2);
+        }
     }
 
     void Attack2()
     {
         animator.SetTrigger("Attack2");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Enemy hit");
+            enemy.GetComponent<enemy>().takeDmg(attackDamage);
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
     }
 }
