@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float baseSpeed;
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
     public bool facingRight = true;
     public Animator animator;
 
-    public float dashDistance = 8f;
-    bool isDashing;
-    float doubleTapTime;
-    KeyCode lastKeyCode;
+    public float dashRate = 2f;
+    float nextDashTime = 0f;
+
+    public float dashPower;
+    public float dashTime;
+
+    bool isDashing = false;
 
     Vector2 movement;
+
+    void Start()
+    {
+        moveSpeed = baseSpeed;
+    }
 
     void Update()
     {
@@ -33,44 +42,23 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
-        /*if (Input.GetKeyDown(KeyCode.A))
+        if(Time.time >= nextDashTime)
         {
-            if (doubleTapTime > Time.time && lastKeyCode == KeyCode.A)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                StartCoroutine(Dash(-1f));
+                if (!isDashing)
+                {
+                    StartCoroutine(Dash());
+                    nextDashTime = Time.time + 2f / dashRate;
+                    animator.SetTrigger("Dash");
+                }
             }
-            else
-            {
-                doubleTapTime = Time.time + 0.5f;
-            }
-
-            lastKeyCode = KeyCode.A;
         }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (doubleTapTime > Time.time && lastKeyCode == KeyCode.D)
-            {
-                StartCoroutine(Dash(1f));
-            }
-            else
-            {
-                doubleTapTime = Time.time + 0.5f;
-            }
-
-            lastKeyCode = KeyCode.D;
-        }*/
     }
-
-    /*void Dash()
-    {
-        animator.SetTrigger("Dash");
-    }*/
 
     void FixedUpdate()
     {
-        if(!isDashing)
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     private void Flip()
@@ -81,15 +69,14 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    /*IEnumerator Dash (float direction)
+    IEnumerator Dash()
     {
         isDashing = true;
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
-        rb.AddForce(new Vector2(dashDistance * direction, 0f), ForceMode2D.Impulse);
-        float gravity = rb.gravityScale;
-        rb.gravityScale = 0;
-        yield return new WaitForSeconds(0.4f);
+        moveSpeed *= dashPower;
+
+        yield return new WaitForSeconds(dashTime);
+
+        moveSpeed = baseSpeed;
         isDashing = false;
-        rb.gravityScale = gravity;
-    }*/
+    }
 }
