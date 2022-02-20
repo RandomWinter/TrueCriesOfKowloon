@@ -608,6 +608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1698419982}
   - component: {fileID: 1698419983}
+  - component: {fileID: 1698419984}
   m_Layer: 0
   m_Name: background_concept_
   m_TagString: Untagged
@@ -682,6 +683,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &1698419984
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698419981}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -6.1233916, y: -1.5213565}
+  - {x: -6.1384277, y: 0.25932214}
+  - {x: 5.980647, y: 0.38194776}
+  - {x: 6.009974, y: -3.4020648}
+  - {x: -6.0903964, y: -3.2879791}
+  - {x: -6.116613, y: -1.4694922}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &1749767594
 GameObject:
   m_ObjectHideFlags: 0
