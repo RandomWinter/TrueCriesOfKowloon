@@ -6,7 +6,7 @@ public class SpawnDialogues : MonoBehaviour {
     public Text dialogueText;
     public bool initialDialogue;
     
-    private DialoguesText _ds;
+    public DialoguesText _ds;
 
     private void Start(){
         initialDialogue = false;

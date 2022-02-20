@@ -8,7 +8,7 @@ public class DialoguesText : MonoBehaviour {
     private int _index, _i;
     public float typingSpeed;
 
-    private SpawnDialogues _dt;
+    public SpawnDialogues _dt;
     public bool data;
 
     private void Start(){
