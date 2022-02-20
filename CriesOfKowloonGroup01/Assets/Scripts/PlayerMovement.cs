@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
-    private bool facingRight = true;
+    public bool facingRight = true;
     public Animator animator;
 
     public float dashDistance = 8f;
@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         if(!isDashing)
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     private void Flip()

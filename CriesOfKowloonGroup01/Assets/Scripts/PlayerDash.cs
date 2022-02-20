@@ -6,7 +6,7 @@ public class PlayerDash : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float dashDistance = 8f;
-    bool isDashing;
+    public bool isDashing;
     float doubleTapTime;
     KeyCode lastKeyCode;
 

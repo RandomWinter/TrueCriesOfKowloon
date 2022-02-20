@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MeleeEnemy
+  - HealthPotion
+  - AttackPlayerPosition
   layers:
   - Default
   - TransparentFX
@@ -11,9 +14,9 @@ TagManager:
   - enemy
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Players
+  - Enemies
+  - EnemyWeapon
   - 
   - 
   - 
@@ -43,4 +46,7 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 2131006701
+    locked: 0
+  - name: Background
+    uniqueID: 4149157807
     locked: 0
