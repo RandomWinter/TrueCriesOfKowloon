@@ -11,17 +11,9 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     // Update is called once per frame
-    private void Update(){
-        //Testing HealthBar
-        if(Input.GetKeyDown(KeyCode.L)){
-            takeDamage(5);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collisionInfo){
         if(collisionInfo.CompareTag("HealthPotion")){
             Destroy(collisionInfo.gameObject, .5f);
-            Debug.Log("Recovered");
 
             if(currentHealth >= 90){
                 currentHealth = maxHealth;
