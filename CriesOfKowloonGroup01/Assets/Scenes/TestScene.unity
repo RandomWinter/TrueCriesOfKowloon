@@ -1303,6 +1303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   rb: {fileID: 1098975430}
+  facingRight: 1
   animator: {fileID: 1098975429}
   dashDistance: 8
 --- !u!95 &1098975429
