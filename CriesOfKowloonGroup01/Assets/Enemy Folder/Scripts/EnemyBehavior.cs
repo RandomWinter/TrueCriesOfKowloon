@@ -184,6 +184,7 @@ public class EnemyBehavior : MonoBehaviour
 
     protected virtual void Stunning(){
         if (stunTimer >= coolDownTimer){
+            anim.SetBool("isHit", false);
             currentState = StateMachine.Chase;
             stunTimer = 0;
         }
@@ -203,15 +204,15 @@ public class EnemyBehavior : MonoBehaviour
         anim.SetBool("isAttack", false);
         anim.SetBool("isMoving", false);
         
-        anim.SetBool("IdleHit", true);
-        anim.SetBool("IdleHit", false);
+        anim.SetBool("isHit", true);
         currentState = StateMachine.Stun;
         baseHealth -= damage;
         hb.SetHealth(baseHealth);
 
         if(baseHealth <= 0){
-            anim.SetBool("IdleDeath", false);
-            FindObjectOfType<AudioManager>().Play("EnemyDeath");
+            anim.SetBool("isHit", false);
+            anim.SetBool("isDead", true);
+            //FindObjectOfType<AudioManager>().Play("EnemyDeath");
             DeathReset();
         }
     }

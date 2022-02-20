@@ -47,8 +47,8 @@ public class PlayerCombat : MonoBehaviour
 
         foreach(Collider2D enemy in hitEnemies)
         {
-            Debug.Log("Enemy hit");
-            enemy.GetComponent<enemy>().takeDmg(2);
+            // Debug.Log("Enemy hit");
+            enemy.GetComponent<EnemyBehavior>().ReceiveDamage(2);
         }
     }
 
@@ -58,8 +58,8 @@ public class PlayerCombat : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemy in hitEnemies)
         {
-            Debug.Log("Enemy hit");
-            enemy.GetComponent<enemy>().takeDmg(attackDamage);
+            // Debug.Log("Enemy hit");
+            enemy.GetComponent<EnemyBehavior>().ReceiveDamage(2);
         }
     }
 
