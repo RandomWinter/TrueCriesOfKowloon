@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GamePaused = false;
-    public static bool MenuOpened = false;
+    public static bool GamePaused;
+    public static bool MenuOpened;
     public GameObject pauseMenuUi;
     public GameObject MenuImage;
     public GameObject ComboList;
@@ -38,12 +38,13 @@ public class PauseMenu : MonoBehaviour
             {
                 Resume();
             }
-            //goes to main menu
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Time.timeScale = 1f;
                 SceneManager.LoadScene(0);
             }
+            //goes to main menu
+           
             //shows combo list
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
@@ -78,6 +79,8 @@ public class PauseMenu : MonoBehaviour
                 MenuOpened = false;
             }
         }
+
+
     }
 
     void Resume()
@@ -99,6 +102,7 @@ public class PauseMenu : MonoBehaviour
         GamePaused = true;
         
     }
+
 
     
 }
