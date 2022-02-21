@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha3)) {
                 Debug.Log("Combo List is opened");
                 pauseMenuUi.SetActive(false);
+                ControlScheme.SetActive(false);
                 ComboList.SetActive(true);
                 MenuOpened = true;
             }
@@ -49,6 +50,7 @@ public class PauseMenu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha4)) {
                 Debug.Log("ControlScheme Open");
                 pauseMenuUi.SetActive(false);
+                ComboList.SetActive(false);
                 ControlScheme.SetActive(true);
                 MenuOpened = true;
             }
