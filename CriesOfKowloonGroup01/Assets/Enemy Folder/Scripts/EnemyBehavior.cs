@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] public HealthBarUI hb;
     [SerializeField] public Animator anim;
 
+    [SerializeField] public int hit;
+    
     //Wander Setup
     //private Transform target;
     [SerializeField] public float wanderRadius;
@@ -87,7 +91,7 @@ public class EnemyBehavior : MonoBehaviour
         //Wander
         countTimer += Time.deltaTime;
         stunTimer += Time.deltaTime;
-        
+
         switch(currentState){
             case StateMachine.Idle:
                 Flip();
@@ -163,7 +167,11 @@ public class EnemyBehavior : MonoBehaviour
         
         if(!missAttack){
             anim.SetBool("isAttack", true);
-        } else {
+            Debug.Log("Num: " + hit);
+        } else
+        {
+            hit = 0;
+            Debug.Log("Num: " + hit);
             anim.SetBool("isAttack", false);
             anim.SetBool("chainAttack", false);
             currentState = StateMachine.Chase;
