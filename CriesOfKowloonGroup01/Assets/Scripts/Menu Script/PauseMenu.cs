@@ -10,8 +10,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject MenuImage;
     public GameObject ComboList;
     public GameObject ControlScheme;
-    public GameObject BackButton;
-    public GameObject BackButton2;
 
      void Start() {
         Debug.Log("Game is not paused");
@@ -20,18 +18,9 @@ public class PauseMenu : MonoBehaviour
     }
 
     // Update is called once per frame
-<<<<<<< Updated upstream
     void Update() {
         if(!GamePaused) {
             if (Input.GetKeyDown(KeyCode.Return)) {
-=======
-    void Update()
-    {
-        if(!GamePaused)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
->>>>>>> Stashed changes
                 Pause();
             }
         }
@@ -51,11 +40,6 @@ public class PauseMenu : MonoBehaviour
             //shows combo list
             if (Input.GetKeyDown(KeyCode.Alpha3)) {
                 Debug.Log("Combo List is opened");
-<<<<<<< Updated upstream
-=======
-                ComboList.SetActive(true);
-                BackButton.SetActive(true);
->>>>>>> Stashed changes
                 pauseMenuUi.SetActive(false);
                 ControlScheme.SetActive(false);
                 ComboList.SetActive(true);
@@ -65,11 +49,6 @@ public class PauseMenu : MonoBehaviour
             //shows controls
             if (Input.GetKeyDown(KeyCode.Alpha4)) {
                 Debug.Log("ControlScheme Open");
-<<<<<<< Updated upstream
-=======
-                ControlScheme.SetActive(true);
-                BackButton2.SetActive(true);
->>>>>>> Stashed changes
                 pauseMenuUi.SetActive(false);
                 ComboList.SetActive(false);
                 ControlScheme.SetActive(true);
@@ -77,21 +56,11 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-<<<<<<< Updated upstream
         if (MenuOpened) {
             if (Input.GetKeyDown(KeyCode.Backspace)) {
                 Debug.Log("Combo List is closed");
-=======
-        if (MenuOpened)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                //Debug.Log("Combo List is closed");
->>>>>>> Stashed changes
                 ComboList.SetActive(false);
                 ControlScheme.SetActive(false);
-                BackButton.SetActive(false);
-                BackButton2.SetActive(false);
                 pauseMenuUi.SetActive(true);
                 MenuOpened = false;
             }

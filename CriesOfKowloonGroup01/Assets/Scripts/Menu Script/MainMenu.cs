@@ -7,10 +7,10 @@ public class MainMenu : MonoBehaviour
 {
      void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Return))
-        //{
-        //    SceneManager.LoadScene(1);
-        //}
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
     public void PlayGame()

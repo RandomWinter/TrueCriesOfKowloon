@@ -25,7 +25,6 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] public float coolDownTimer;
     [SerializeField] private float countTimer;
     [SerializeField] private float stunTimer;
-    [SerializeField] public bool startTimer;
 
     //Fields
     [Header("Classic Stats")]
@@ -91,17 +90,8 @@ public class EnemyBehavior : MonoBehaviour
     {
         //Wander
         countTimer += Time.deltaTime;
-<<<<<<< Updated upstream
         stunTimer += Time.deltaTime;
 
-=======
-        
-        if (startTimer)
-        {
-            stunTimer += Time.deltaTime;
-        }
-        
->>>>>>> Stashed changes
         switch(currentState){
             case StateMachine.Idle:
                 Flip();
@@ -118,7 +108,6 @@ public class EnemyBehavior : MonoBehaviour
                 Stunning();
                 break;
         }
-
     }
 
     //Flip based on Player position
@@ -206,7 +195,6 @@ public class EnemyBehavior : MonoBehaviour
             anim.SetBool("isHit", false);
             currentState = StateMachine.Chase;
             stunTimer = 0;
-            startTimer = false;
         }
     }
 
@@ -221,7 +209,6 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     public virtual void ReceiveDamage(int damage) {
-        startTimer = true;
         anim.SetBool("isAttack", false);
         anim.SetBool("isMoving", false);
         

@@ -4,7 +4,6 @@ public class PlayerHealth : MonoBehaviour {
     public int currentHealth;
     public int maxHealth = 100;
     public HealthBarUI hb;
-    public GameObject playerCombat;
 
     private void Start(){
         currentHealth = maxHealth;
@@ -30,7 +29,7 @@ public class PlayerHealth : MonoBehaviour {
     public void takeDamage(int damage){
         currentHealth -= damage;
         hb.SetHealth(currentHealth);
-        playerCombat.GetComponent<PlayerCombat>().lightCount = 0;
+
         if (currentHealth <= 0){
             //Dead
         }
