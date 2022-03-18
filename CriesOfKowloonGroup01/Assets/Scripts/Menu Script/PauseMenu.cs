@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject MenuImage;
     public GameObject ComboList;
     public GameObject ControlScheme;
+    public GameObject BackButton;
 
      void Start() {
         Debug.Log("Game is not paused");
@@ -20,8 +21,9 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update() {
         if(!GamePaused) {
-            if (Input.GetKeyDown(KeyCode.Return)) {
+            if (Input.GetKeyDown(KeyCode.Escape)) {
                 Pause();
+                print("work");
             }
         }
 
@@ -43,6 +45,7 @@ public class PauseMenu : MonoBehaviour
                 pauseMenuUi.SetActive(false);
                 ControlScheme.SetActive(false);
                 ComboList.SetActive(true);
+                BackButton.SetActive(true);
                 MenuOpened = true;
             }
             
@@ -52,6 +55,7 @@ public class PauseMenu : MonoBehaviour
                 pauseMenuUi.SetActive(false);
                 ComboList.SetActive(false);
                 ControlScheme.SetActive(true);
+                BackButton.SetActive(true);
                 MenuOpened = true;
             }
         }
@@ -61,6 +65,7 @@ public class PauseMenu : MonoBehaviour
                 Debug.Log("Combo List is closed");
                 ComboList.SetActive(false);
                 ControlScheme.SetActive(false);
+                BackButton.SetActive(false);
                 pauseMenuUi.SetActive(true);
                 MenuOpened = false;
             }

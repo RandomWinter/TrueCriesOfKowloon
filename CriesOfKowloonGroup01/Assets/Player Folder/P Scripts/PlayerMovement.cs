@@ -31,11 +31,12 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("Speed", movement.sqrMagnitude);
+        //animator.SetFloat("Speed", movement.sqrMagnitude);
 
         if(movement.x > 0 && !facingRight)
         {
             Flip();
+            print("left");
         }
         else if(movement.x < 0 && facingRight)
         {
