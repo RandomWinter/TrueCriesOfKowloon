@@ -6,7 +6,7 @@ namespace _06_Scripts._05_Boss {
     public class AhKom : MonoBehaviour {
         //! This extract Player's Components
         [Header("Target Components Field")] 
-        [SerializeField] private GameObject targetInfo;
+        [SerializeField] public GameObject targetInfo;
         [SerializeField] private Transform targetL;
         [SerializeField] private Transform targetR;
         [SerializeField] private PlayerMovement tMovement;
@@ -23,6 +23,7 @@ namespace _06_Scripts._05_Boss {
         [SerializeField] private Transform castPoint;
         public float castDistance;
         public bool isCheck;
+        
         [SerializeField] private float mv = 4.25f;
         public int currentHealth = 100;
 
@@ -115,7 +116,7 @@ namespace _06_Scripts._05_Boss {
                     true => Vector2.MoveTowards(transform.position,
                         !tMovement.facingRight ? targetL.position : targetR.position, mv * Time.deltaTime),
                     false => Vector2.MoveTowards(transform.position,
-                        !tMovement.facingRight ? targetL.position : targetR.position, mv * Time.deltaTime)
+                        !tMovement.facingRight ? targetR.position : targetL.position, mv * Time.deltaTime)
                 };
             }
 
