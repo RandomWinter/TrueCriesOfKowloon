@@ -48,43 +48,32 @@ namespace _06_Scripts._04_Enemy
         // public bool isTargetFound;
         // public bool readyToFire;
 
-        public enum StateMachine
-        {
-            Idle,
-            Chase,
-            Fire,
-            Stun,
-            Dead
-        }
-
-        public StateMachine rangerState;
+        public enum StateMachine {
+            Idle, Chase, Fire, Stun, Dead
+        } public StateMachine rangerState;
 
         //! ==================================================
-        private void Awake()
-        {
+        private void Awake(){
             targetInfo = GameObject.FindGameObjectWithTag("Player");
             targetL = targetInfo.transform.Find("FarLPosition");
             targetR = targetInfo.transform.Find("FarRPosition");
             tMovement = targetInfo.GetComponent<PlayerMovement>();
 
             isDefeated = isShooting = isStunned = false;
-            rangerState = StateMachine.Idle;
+            //rangerState = StateMachine.Idle;
+            rangerState = StateMachine.Fire;
         }
 
-        private void Update()
-        {
-            if (isDefeated || isStunned)
-            {
+        private void Update() {
+            if (isDefeated || isStunned) {
                 countDown1 += Time.deltaTime;
             }
 
-            if (isShooting)
-            {
+            if (isShooting) {
                 countDown2 += Time.deltaTime;
             }
 
-            switch (rangerState)
-            {
+            switch (rangerState) {
                 case StateMachine.Idle:
                     Idle();
                     break;
@@ -93,6 +82,7 @@ namespace _06_Scripts._04_Enemy
                     ChaseTarget();
                     break;
                 case StateMachine.Fire:
+                    isShooting = true;
                     Fire();
                     break;
                 case StateMachine.Stun:
@@ -111,25 +101,19 @@ namespace _06_Scripts._04_Enemy
 
         //! ==================================================
         //! Method Field: State Event for Behaviour
-        private void Idle()
-        {
+        private void Idle() {
             Vector2 targetDistance = transform.position - targetInfo.transform.position;
-            if (targetDistance.sqrMagnitude < searchRadius * searchRadius)
-            {
+            if (targetDistance.sqrMagnitude < searchRadius * searchRadius) {
                 rangerState = StateMachine.Chase;
             }
         }
 
-        private void ChaseTarget()
-        {
-            if (InFireRange(10))
-            {
+        private void ChaseTarget() {
+            if (InFireRange(10)) {
                 rangerState = StateMachine.Fire;
             }
-            else
-            {
-                transform.position = faceRight switch
-                {
+            else {
+                transform.position = faceRight switch {
                     true => Vector2.MoveTowards(transform.position,
                         !tMovement.facingRight ? targetL.position : targetR.position, mv * Time.deltaTime),
                     false => Vector2.MoveTowards(transform.position,
@@ -138,10 +122,7 @@ namespace _06_Scripts._04_Enemy
             }
         }
 
-        private void Fire()
-        {
-            isShooting = true;
-
+        private void Fire() {
             if (countDown2 < preFire) return;
             Instantiate(bullet, launchOffset.position, transform.rotation);
             isShooting = false;
@@ -149,8 +130,7 @@ namespace _06_Scripts._04_Enemy
             rangerState = StateMachine.Chase;
         }
 
-        private void Stun()
-        {
+        private void Stun() {
             //Animation on
             if (countDown1 <= stunTimer) return;
             //Animation Off
@@ -159,40 +139,34 @@ namespace _06_Scripts._04_Enemy
             countDown1 = 0;
         }
 
-        private void Dead()
-        {
+        private void Dead() {
             if (countDown1 <= perishTimer) return;
             Destroy(gameObject);
         }
 
         //! ==================================================
         //! Method Field 2
-        private bool InFireRange(int distance)
-        {
+        private bool InFireRange(int distance) {
             var startPosition = castPoint.position;
             castDistance = distance;
             isCheck = false;
 
-            if (!faceRight)
-            {
+            if (!faceRight) {
                 castDistance = -distance;
             }
 
             Vector2 endPos = startPosition + Vector3.right * distance;
             RaycastHit2D hit = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Zone"));
-            if (hit.collider != null)
-            {
+            if (hit.collider != null) {
                 isCheck = hit.collider.gameObject.CompareTag("Player");
             }
 
             return isCheck;
         }
 
-        private void FacePlayer()
-        {
+        private void FacePlayer() {
             var localOffset = transform.position.x - targetInfo.transform.position.x;
-            switch (localOffset)
-            {
+            switch (localOffset) {
                 case < 0 when !faceRight:
                     faceRight = !faceRight;
                     transform.Rotate(0f, 180f, 0f);
@@ -204,8 +178,7 @@ namespace _06_Scripts._04_Enemy
             }
         }
 
-        public void DamageReceived(int damage)
-        {
+        public void DamageReceived(int damage) {
             currentHealth -= damage;
             //Update UI Health Bar
             rangerState = currentHealth > 0 ? StateMachine.Stun : StateMachine.Dead;

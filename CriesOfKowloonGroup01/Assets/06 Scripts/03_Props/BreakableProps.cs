@@ -24,7 +24,7 @@ namespace _06_Scripts._03_Props {
                 var radNum3 = Random.Range(0, 12); 
                 var foodSelect = Random.Range(0, 3); 
                 switch(sceneName){
-                   case "level 1-1": case "level 1-2":
+                   case "level 1-1": case "level 1-2": case "DavidExperiment":
                        if (radNum1 == 1)
                            SpawnObject(foodSelect);
                        break;

@@ -70,8 +70,8 @@ namespace _06_Scripts._05_Boss {
             
             //bossAnimation = GetComponent<Animator>();
             //bossHB = SetMaxHealth(currentHealth);
-            //holdLeft = GameObject.Find("L_END");
-            //holdRight = GameObject.Find("R_END");
+            holdLeft = GameObject.Find("L_END");
+            holdRight = GameObject.Find("R_END");
 
             wMActivated = bRActivated = defeated = false;
             ahKomStage = StateMachine.Chase;
