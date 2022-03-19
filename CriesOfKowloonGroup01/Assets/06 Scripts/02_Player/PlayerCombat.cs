@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     public int heavyCount;
     public float knockBack;
     public float knockForce;
-    public float cancelCombo;
+    public float cancelCombo = 3f;
 
 
     void Start()
@@ -45,13 +45,14 @@ public class PlayerCombat : MonoBehaviour
                     if (heavyCount == 2)
                     {
                         Debug.Log("Dragon Sweep");
+                        NextAttack = Time.time + AttackH;
                         ResetAttackCount();
                     }
 
                     break;
                 case 3:
                     Debug.Log("Flash Fist");
-                    NextAttack = Time.time + AttackL;
+                    NextAttack = Time.time + 2;
                     Attack2();
                     Debug.Log(NextAttack);
                     ResetAttackCount();
