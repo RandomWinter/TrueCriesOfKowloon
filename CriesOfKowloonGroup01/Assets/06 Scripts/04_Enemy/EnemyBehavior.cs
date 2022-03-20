@@ -16,7 +16,7 @@ namespace _06_Scripts._04_Enemy{
         [Header("Event Timer")] 
         [SerializeField] private bool stunActivated;
         [SerializeField] private float stunTimer;
-        public float coolDownTimer = 1.5f;
+        public float coolDownTimer = 0.5f;
         public int hit;
         
         [Header("Classic Stats")]
@@ -40,12 +40,6 @@ namespace _06_Scripts._04_Enemy{
         public enum StateMachine{
             Idle, Chase, Attack, Stun
         } public StateMachine currentState;
-        
-        //! Animation Boolean
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
-        private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
-        private static readonly int IsDead = Animator.StringToHash("isDead");
-        private static readonly int IsHit = Animator.StringToHash("isHit");
 
 
         private void Awake(){
@@ -100,49 +94,48 @@ namespace _06_Scripts._04_Enemy{
 
         private void Chasing() {
             if (InRange(1.5f)){
-                anim.SetBool(IsMoving, false);
+                anim.SetBool("isMoving", false);
                 currentState = StateMachine.Attack;   
             }
-            
-            if (!InRange(1.5f)){
-                anim.SetBool(IsMoving, true);
-                
-                transform.position = faceRight 
-                    ? Vector2.MoveTowards(transform.position, !playerMovement.facingRight 
-                        ? rightPosition.position 
-                        : leftPosition.position, mv * Time.deltaTime) 
-                    : Vector2.MoveTowards(transform.position, !playerMovement.facingRight 
-                        ? leftPosition.position 
-                        : rightPosition.position, mv * Time.deltaTime);
+
+            if (prepareForAttack){
+                if (!InRange(1.5f)){
+                    anim.SetBool("isMoving", true);
+                    transform.position = faceRight 
+                        ? Vector2.MoveTowards(transform.position, !playerMovement.facingRight 
+                            ? rightPosition.position 
+                            : leftPosition.position, mv * Time.deltaTime) 
+                        : Vector2.MoveTowards(transform.position, !playerMovement.facingRight 
+                            ? leftPosition.position 
+                            : rightPosition.position, mv * Time.deltaTime);
+                }
+            } else {
+                anim.SetBool("isMoving", false);
             }
-            
-            // if (prepareForAttack){
-            //     
-            // } else {
-            //     anim.SetBool(IsMoving, false);
-            // }
         }
 
         private void AttackPlayer(){
             if(!missAttack){
-                anim.SetBool(IsAttacking, true);
+                anim.SetBool("isAttacking", true);
             } else {
                 hit = 0; missAttack = false;
-                anim.SetBool(IsAttacking, false);
+                anim.SetBool("isAttacking", false);
                 currentState = StateMachine.Chase;
             }
         }
 
         private void DeathReset() {
             isDead = true;
-            anim.SetBool(IsDead, true);
+            anim.SetBool("isDead", true);
+            gameObject.SetActive(false);
         }
 
         private void Stunning(){
-            anim.SetBool(IsHit, true);
+            anim.SetBool("isHit", true);
             if(stunTimer >= coolDownTimer){
-                anim.SetBool(IsHit, false);
+                anim.SetBool("isHit", false);
                 currentState = StateMachine.Chase;
+                stunActivated = false;
                 stunTimer = 0;
             }
         }
@@ -171,7 +164,7 @@ namespace _06_Scripts._04_Enemy{
                 castDistance = -distance;
             }
             
-            Vector2 endPos = startPosition + Vector3.left * castDistance;
+            Vector2 endPos = startPosition + Vector3.right * castDistance;
             RaycastHit2D at = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
             if (at.collider != null){
                 isCheck = at.collider.gameObject.CompareTag("Player");
@@ -183,8 +176,8 @@ namespace _06_Scripts._04_Enemy{
         }
 
         public void ReceiveDamage(int damage) {
-            anim.SetBool(IsAttacking, false);
-            anim.SetBool(IsMoving, false);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isMoving", false);
             
             baseHealth -= damage;
             hb.SetHealth(baseHealth);
