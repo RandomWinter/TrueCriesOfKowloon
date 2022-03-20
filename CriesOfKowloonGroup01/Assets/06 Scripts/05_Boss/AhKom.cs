@@ -26,7 +26,7 @@ namespace _06_Scripts._05_Boss {
         public bool isCheck;
         
         [SerializeField] private float mv = 4.25f;
-        public int currentHealth = 100;
+        public int currentHealth = 40;
 
         [Header("Condition Event")]
         [SerializeField] private bool faceRight;

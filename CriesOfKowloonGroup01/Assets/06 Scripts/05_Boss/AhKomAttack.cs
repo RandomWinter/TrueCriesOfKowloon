@@ -26,16 +26,16 @@ namespace _06_Scripts._05_Boss {
             if (check == null || !isAttack) return;
             if (ahKom.GetComponent<AhKom>().comboHit == 0){
                 ahKom.GetComponent<AhKom>().comboHit += 1;
-                check.TakeDamage(6);
+                check.TakeDamage(20);
                 isTargetHit = true;
             }
             
             if (ahKom.GetComponent<AhKom>().wMActivated){
-                check.TakeDamage(12);
+                check.TakeDamage(21);
             }
 
             if (ahKom.GetComponent<AhKom>().bRActivated){
-                check.TakeDamage(16);
+                check.TakeDamage(35);
             }
             isAttack = false; 
         }

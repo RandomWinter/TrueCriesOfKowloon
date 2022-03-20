@@ -33,7 +33,7 @@ namespace _06_Scripts._03_Props {
                            SpawnObject(foodSelect);
                        break;
                    case "level 3-1": case "level 3-2":
-                       if (radNum3 is >= 0 and <= 2)
+                       if (radNum3 is >= 0 and <= 1)
                            SpawnObject(foodSelect);
                        break;
                 }

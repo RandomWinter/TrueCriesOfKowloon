@@ -2,7 +2,7 @@ using _06_Scripts._04_Enemy;
 using UnityEngine;
 
 public class EnemyHitBox : MonoBehaviour{
-    [SerializeField] private int attackDamage = 2;
+    [SerializeField] private int attackDamage = 15;
     [SerializeField] private bool attackOn;
     [SerializeField] private bool hit;
 
