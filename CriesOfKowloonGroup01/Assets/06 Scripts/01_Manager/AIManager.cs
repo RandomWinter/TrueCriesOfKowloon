@@ -5,22 +5,14 @@ using UnityEngine;
 public class AIManager : MonoBehaviour {
     [Header("Manager Component")]
     [SerializeField] public List<GameObject> enemyMember;
-
-    //Field
-    [Header("Classic States")]
     [SerializeField] private int numEnemy = 1;
-    // [SerializeField] private bool isUsed;
 
     public enum ManagerState{
-        Grooming,
-        InCombat
-    }
-    [SerializeField] public ManagerState currentStage;
+        Grooming, InCombat
+    } [SerializeField] public ManagerState currentStage;
 
     public void Awake(){
         enemyMember.AddRange(GameObject.FindGameObjectsWithTag("MeleeEnemy"));
-        // InvokeRepeating("EachXSecond", 1.0f, 20f);
-
         currentStage = ManagerState.Grooming;
     }
 
@@ -41,8 +33,7 @@ public class AIManager : MonoBehaviour {
         }
     } 
 
-    private void InCombat()
-    {
+    private void InCombat(){
         foreach (var c in enemyMember) {
             if (c.GetComponent<EnemyBehavior>().sawPlayer && !c.GetComponent<EnemyBehavior>().prepareForAttack && numEnemy < 2) {
                 c.GetComponent<EnemyBehavior>().prepareForAttack = true;
@@ -55,7 +46,6 @@ public class AIManager : MonoBehaviour {
                 }
                 enemyMember.Remove(c);
                 c.gameObject.SetActive(false);
-                Destroy(c);
             }
         }
 
@@ -73,8 +63,4 @@ public class AIManager : MonoBehaviour {
         }
         return true;
     }
-
-    // private void EachXSecond(){
-    //     //This will check active enemy
-    // }
 }

@@ -1,101 +1,75 @@
+using System;
 using UnityEngine;
-using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
-namespace _06_Scripts._04_Enemy
-{
-    public class EnemyBehavior : MonoBehaviour
-    {
+namespace _06_Scripts._04_Enemy{
+    public class EnemyBehavior : MonoBehaviour{
         [Header("Components Field")]
-        [SerializeField] private Transform playerInfo;
+        [SerializeField] private GameObject playerReference;
         [SerializeField] private Transform leftPosition;
         [SerializeField] private Transform rightPosition;
-        private NavMeshAgent _agent;
+        [SerializeField] private PlayerMovement playerMovement;
 
         [Header("Visual Component")]
-        //[SerializeField] private Rigidbody2D rb;
-        [SerializeField] public HealthBarUI hb;
-        [SerializeField] public Animator anim;
+        public HealthBarUI hb;
+        public Animator anim;
 
-        [SerializeField] public int hit;
-    
-        //Wander Setup
-        //private Transform target;
-        [SerializeField] public float wanderRadius;
-        [SerializeField] public float wanderTimer;
-        [SerializeField] public float coolDownTimer;
-        [SerializeField] private float countTimer;
+        [Header("Event Timer")] 
+        [SerializeField] private bool stunActivated;
         [SerializeField] private float stunTimer;
-
-        //Fields
+        public float coolDownTimer = 1.5f;
+        public int hit;
+        
         [Header("Classic Stats")]
         [SerializeField] private float searchRadius = 8.5f;
-        [SerializeField] private float attRad = 1.25f;
-
-        [SerializeField] private int baseHealth;
+        [SerializeField] private float mv = 3.15f;
+        
         [SerializeField] private int maxHealth = 20;
-        // [SerializeField] private int damage = 2;
-        // [HideInInspector] 
-        public bool sawPlayer;
+        [SerializeField] private int baseHealth;
+        
+        [SerializeField] private Transform castPoint;
+        public float castDistance;
+        public bool isCheck;
+
+        [Header("Condition Event")]
         public bool prepareForAttack;
-    
         public bool missAttack;
         public bool faceRight;
+        public bool sawPlayer;
         public bool isDead;
-
+        
         public enum StateMachine{
-            Idle,
-            Chase,
-            Attack,
-            Stun
-        }
-    
-        [Header("StateMachine Setup")]
-        [SerializeField] public StateMachine currentState;
-        [SerializeField] public GameObject playerReference;
-        //randInt = Mathf.RoundToInt(Random.Range(0,5));
+            Idle, Chase, Attack, Stun
+        } public StateMachine currentState;
+        
+        //! Animation Boolean
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
+        private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
+        private static readonly int IsDead = Animator.StringToHash("isDead");
+        private static readonly int IsHit = Animator.StringToHash("isHit");
 
-        public void Awake(){
-            //CombatManager.AddToList(this);
-            //One for player position
+
+        private void Awake(){
+            //! Collect Player's Components
             playerReference = GameObject.FindGameObjectWithTag("Player");
-            playerInfo = playerReference.transform;
-            leftPosition = playerInfo.transform.Find("LeftTrigger");
-            rightPosition = playerInfo.transform.Find("RightTrigger");
-        
-            //Get Animator component
+            leftPosition = playerReference.transform.Find("LeftTrigger");
+            rightPosition = playerReference.transform.Find("RightTrigger");
+            playerMovement = playerReference.GetComponent<PlayerMovement>();
+            
             anim = GetComponent<Animator>();
-        
-            //Setup AI Function
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.updateRotation = false;
-            _agent.updateUpAxis = false;
-
-            //Health Setup
-            baseHealth = maxHealth;
+            baseHealth = maxHealth; 
             hb.SetMaxHealth(maxHealth);
-        
-            //Wander time
-            countTimer = wanderTimer;
-        
-            //Set initial Boolean
+
             sawPlayer = false;
-            missAttack = false;
-            prepareForAttack = false;
-            isDead = false;
-        
             currentState = StateMachine.Idle;
         }
 
-        public void Update()
-        {
-            //Wander
-            countTimer += Time.deltaTime;
-            stunTimer += Time.deltaTime;
+        private void Update() {
+            if (stunActivated){
+                stunTimer += Time.deltaTime;
+            }
 
             switch(currentState){
                 case StateMachine.Idle:
-                    Flip();
                     Idle();
                     break;
                 case StateMachine.Chase:
@@ -106,116 +80,119 @@ namespace _06_Scripts._04_Enemy
                     AttackPlayer();
                     break;
                 case StateMachine.Stun:
+                    stunActivated = true;
                     Stunning();
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
-        //Flip based on Player position
-        private void Flip(){
-            var localOffset = transform.localPosition.x - playerInfo.transform.localPosition.x;
-            if(localOffset < 0 && !faceRight){
-                faceRight = !faceRight;
-                transform.Rotate(0, 180f, 0);
-            } else if(localOffset > 0 && faceRight){
-                faceRight = !faceRight;
-                transform.Rotate(0, 180f, 0);
-            }
-
-        }
-
-        protected virtual void Idle(){
-            Vector2 radar = transform.position - playerInfo.position;
-            if(radar.sqrMagnitude < searchRadius * searchRadius){
-                currentState = StateMachine.Chase;
-                sawPlayer = true;
-            }
-        }
-
-        protected virtual void Chasing() {
-            anim.SetBool("isMoving", true);
-            Vector2 attackRadar = (transform.position - playerInfo.position);
-            if (attackRadar.sqrMagnitude < attRad * attRad) {
-                currentState = StateMachine.Attack;
-            }
-
-            if (!prepareForAttack) {
-                if (countTimer >= wanderTimer)
-                {
-                    Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-                    _agent.SetDestination(newPos);
-                    countTimer = 0;
-                }
-            } else {
-                if(faceRight) {
-                    if (!playerReference.GetComponent<PlayerMovement>().facingRight){
-                        _agent.SetDestination(rightPosition.position);
-                    } else {
-                        _agent.SetDestination(leftPosition.position);
-                    }
-                } else {
-                    if (!playerReference.GetComponent<PlayerMovement>().facingRight){
-                        _agent.SetDestination(leftPosition.position);
-                    } else {
-                        _agent.SetDestination(rightPosition.position);
-                    }
-                }
-            }
-        }
-
-        protected virtual void AttackPlayer(){
-            anim.SetBool("isMoving", false);
+        //! Method Field: State Event for Behaviour
         
-            if(!missAttack){
-                anim.SetBool("isAttack", true);
-            } else {
-                hit = 0;
-                anim.SetBool("isAttack", false);
-                currentState = StateMachine.Chase;
+        private void Idle(){
+            Vector2 radar = transform.position - playerReference.transform.position;
             
-                //Reset Default
-                missAttack = false;
+            if (!(radar.sqrMagnitude < searchRadius * searchRadius)) return;
+            currentState = StateMachine.Chase;
+            sawPlayer = true;
+        }
+
+        private void Chasing() {
+            if (InRange(1.5f)){
+                anim.SetBool(IsMoving, false);
+                currentState = StateMachine.Attack;   
+            }
+            
+            if (!InRange(1.5f)){
+                anim.SetBool(IsMoving, true);
+                
+                transform.position = faceRight 
+                    ? Vector2.MoveTowards(transform.position, !playerMovement.facingRight 
+                        ? rightPosition.position 
+                        : leftPosition.position, mv * Time.deltaTime) 
+                    : Vector2.MoveTowards(transform.position, !playerMovement.facingRight 
+                        ? leftPosition.position 
+                        : rightPosition.position, mv * Time.deltaTime);
+            }
+            
+            // if (prepareForAttack){
+            //     
+            // } else {
+            //     anim.SetBool(IsMoving, false);
+            // }
+        }
+
+        private void AttackPlayer(){
+            if(!missAttack){
+                anim.SetBool(IsAttacking, true);
+            } else {
+                hit = 0; missAttack = false;
+                anim.SetBool(IsAttacking, false);
+                currentState = StateMachine.Chase;
             }
         }
 
-        protected virtual void DeathReset() {
+        private void DeathReset() {
             isDead = true;
-            GetComponent<Collider2D>().enabled = false;
-            //Give Points to score
+            anim.SetBool(IsDead, true);
         }
 
-        protected virtual void Stunning(){
-            anim.SetBool("isHit", true);
-            if (stunTimer >= coolDownTimer){
-                anim.SetBool("isHit", false);
+        private void Stunning(){
+            anim.SetBool(IsHit, true);
+            if(stunTimer >= coolDownTimer){
+                anim.SetBool(IsHit, false);
                 currentState = StateMachine.Chase;
                 stunTimer = 0;
             }
         }
 
-        //Wander Method
-        private static Vector3 RandomNavSphere(Vector3 origin, float dist, int tempMask) {
-            Vector3 aa = Random.insideUnitCircle * dist;
-            aa += origin;
+        //! Method Field 2
+        private void Flip() {
+            var localOffset = transform.localPosition.x - playerReference.transform.localPosition.x;
+            switch(localOffset){
+                case < 0 when !faceRight:
+                    faceRight = !faceRight;
+                    transform.Rotate(0, 180f, 0);
+                    break;
+                case > 0 when faceRight:
+                    faceRight = !faceRight;
+                    transform.Rotate(0, 180f, 0);
+                    break;
+            }
+        }
         
-            NavMeshHit navHit;
-            NavMesh.SamplePosition(aa, out navHit, dist, tempMask);
-            return navHit.position;
+        private bool InRange(float distance) {
+            var startPosition = castPoint.position;
+            castDistance = distance; 
+            isCheck = false;
+            
+            if(!faceRight){
+                castDistance = -distance;
+            }
+            
+            Vector2 endPos = startPosition + Vector3.left * castDistance;
+            RaycastHit2D at = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
+            if (at.collider != null){
+                isCheck = at.collider.gameObject.CompareTag("Player");
+                Debug.DrawLine(startPosition, endPos, Color.green);
+            } else {
+                Debug.DrawLine(startPosition, endPos, Color.yellow);
+            }
+            return isCheck;
         }
 
-        public virtual void ReceiveDamage(int damage) {
-            anim.SetBool("isAttack", false);
-            anim.SetBool("isMoving", false);
-
+        public void ReceiveDamage(int damage) {
+            anim.SetBool(IsAttacking, false);
+            anim.SetBool(IsMoving, false);
+            
             baseHealth -= damage;
             hb.SetHealth(baseHealth);
             
             if(baseHealth <= 0){
-                anim.SetBool("isDead", true);
                 //FindObjectOfType<AudioManager>().Play("EnemyDeath");
                 DeathReset();
-            }
-            currentState = StateMachine.Stun;
+            } currentState = StateMachine.Stun;
         }
     }
 }

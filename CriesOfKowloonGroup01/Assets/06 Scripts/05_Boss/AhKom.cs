@@ -7,7 +7,6 @@ namespace _06_Scripts._05_Boss {
         //! This extract Player's Components
         [Header("Target Components Field")] 
         [SerializeField] public GameObject targetInfo;
-        [SerializeField] private Transform targetPosition;
         [SerializeField] private Transform targetL;
         [SerializeField] private Transform targetR;
         [SerializeField] private PlayerMovement tMovement;
@@ -152,7 +151,7 @@ namespace _06_Scripts._05_Boss {
             if (!missAttack && comboHit < 1){
                 bossAnimation.SetBool(IsAttacking, true);
             } else{
-                comboHit = 0;
+                comboHit = 0; missAttack = false;
                 bossAnimation.SetBool(IsAttacking, false);
                 ahKomStage = StateMachine.Chase;
             }
