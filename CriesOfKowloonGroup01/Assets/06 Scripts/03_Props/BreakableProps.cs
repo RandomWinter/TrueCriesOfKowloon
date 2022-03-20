@@ -19,12 +19,12 @@ namespace _06_Scripts._03_Props {
         private void ReceivingDamage(int dmg){
             maxHealth -= dmg;
             if(maxHealth <= 0){
-                var radNum1 = Random.Range(0, 2);
+                var radNum1 = Random.Range(0, 3);
                 var radNum2 = Random.Range(0, 10);
                 var radNum3 = Random.Range(0, 12); 
                 var foodSelect = Random.Range(0, 3); 
                 switch(sceneName){
-                   case "level 1-1": case "level 1-2": case "DavidExperiment":
+                   case "level 1-1": case "level 1-2":
                        if (radNum1 == 1)
                            SpawnObject(foodSelect);
                        break;
