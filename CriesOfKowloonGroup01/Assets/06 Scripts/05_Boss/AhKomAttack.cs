@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 namespace _06_Scripts._05_Boss {
-    public class AhKomBehaviour : MonoBehaviour{
+    public class AhKomAttack : MonoBehaviour{
         [Header("Attack Stage")] 
         [SerializeField] private bool isAttack;
         [SerializeField] private bool isTargetHit;
@@ -24,15 +24,20 @@ namespace _06_Scripts._05_Boss {
             var check = c.GetComponent<PlayerHealth>();
 
             if (check == null || !isAttack) return;
-            switch (ahKom.GetComponent<AhKom>().comboHit){
-                case 0:
-                    check.TakeDamage(10);
-                    break;
-                case 1:
-                    check.TakeDamage(15);
-                    break;
-            } ahKom.GetComponent<AhKom>().comboHit += 1;
-            isAttack = false; isTargetHit = true;
+            if (ahKom.GetComponent<AhKom>().comboHit == 0){
+                ahKom.GetComponent<AhKom>().comboHit += 1;
+                check.TakeDamage(6);
+                isTargetHit = true;
+            }
+            
+            if (ahKom.GetComponent<AhKom>().wMActivated){
+                check.TakeDamage(12);
+            }
+
+            if (ahKom.GetComponent<AhKom>().bRActivated){
+                check.TakeDamage(16);
+            }
+            isAttack = false; 
         }
     }
 }
