@@ -167,11 +167,9 @@ public class EnemyBehavior : MonoBehaviour
         
         if(!missAttack){
             anim.SetBool("isAttack", true);
-            Debug.Log("Num: " + hit);
         } else
         {
             hit = 0;
-            Debug.Log("Num: " + hit);
             anim.SetBool("isAttack", false);
             anim.SetBool("chainAttack", false);
             currentState = StateMachine.Chase;

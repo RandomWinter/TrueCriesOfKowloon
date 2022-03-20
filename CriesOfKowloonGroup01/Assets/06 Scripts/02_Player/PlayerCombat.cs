@@ -112,7 +112,7 @@ public class PlayerCombat : MonoBehaviour
         {
             foreach (Collider2D enemy in hitEnemies)
             {
-                // Debug.Log("Enemy hit");
+                Debug.Log("Enemy hit");
                 enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
                 print("launch right");
@@ -122,7 +122,7 @@ public class PlayerCombat : MonoBehaviour
         {
             foreach (Collider2D enemy in hitEnemies)
             {
-                // Debug.Log("Enemy hit");
+                Debug.Log("Enemy hit");
                 enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
                 print("launch left");
