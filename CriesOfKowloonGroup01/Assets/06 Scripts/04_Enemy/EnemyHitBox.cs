@@ -1,3 +1,4 @@
+using _06_Scripts._04_Enemy;
 using UnityEngine;
 
 public class EnemyHitBox : MonoBehaviour{

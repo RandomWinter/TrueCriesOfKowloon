@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _06_Scripts._04_Enemy;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
