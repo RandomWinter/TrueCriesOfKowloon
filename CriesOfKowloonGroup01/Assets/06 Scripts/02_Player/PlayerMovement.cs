@@ -36,11 +36,12 @@ public class PlayerMovement : MonoBehaviour
         if(movement.x > 0 && !facingRight)
         {
             Flip();
-            print("left");
+            
         }
         else if(movement.x < 0 && facingRight)
         {
             Flip();
+            
         }
 
         if(Time.time >= nextDashTime)

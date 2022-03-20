@@ -18,10 +18,10 @@ public class PlayerCombat : MonoBehaviour
     public int heavyDamage = 5;
     public int lightCount;
     public int heavyCount;
-    public float knockBack;
-    public float knockForce;
+    public  float knockBack;
+    public  float knockForce;
     public float cancelCombo = 3f;
-
+    public GameObject Player;
 
     void Start()
     {
@@ -108,14 +108,28 @@ public class PlayerCombat : MonoBehaviour
     {
         animator.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
-
+        if (Player.GetComponent<PlayerMovement>().facingRight)
+        {
             foreach (Collider2D enemy in hitEnemies)
             {
                 // Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(2);
                 enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+                print("launch right");
             }
+        }
+        else
+        {
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                // Debug.Log("Enemy hit");
+                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
+                print("launch left");
+            }
+        }
+        
+            
     }
 
     void Attack2()
@@ -123,12 +137,48 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("Attack2");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
 
-        foreach (Collider2D enemy in hitEnemies)
+        if (Player.GetComponent<PlayerMovement>().facingRight)
         {
-            // Debug.Log("Enemy hit");
-            enemy.GetComponent<EnemyBehavior>().ReceiveDamage(2);
-            enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
-            enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                // Debug.Log("Enemy hit");
+                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+            }
+        }
+        else
+        {
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                // Debug.Log("Enemy hit");
+                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
+            }
+        }
+
+    }
+
+    void FlashFist()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+
+        if (Player.GetComponent<PlayerMovement>().facingRight)
+        {
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                // Debug.Log("Enemy hit");
+                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+            }
+        }
+        else
+        {
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                // Debug.Log("Enemy hit");
+                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
+            }
         }
     }
 
