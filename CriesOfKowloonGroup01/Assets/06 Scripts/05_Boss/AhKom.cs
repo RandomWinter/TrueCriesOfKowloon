@@ -120,7 +120,7 @@ namespace _06_Scripts._05_Boss {
         //! Method Field: State Event for Behaviour
         private void Chasing(){
             bossAnimation.SetBool(IsWalking, true);
-            if (!InRange(1)) {
+            if (!InRange(1.5f)) {
                 transform.position = faceRight 
                     ? Vector2.MoveTowards(transform.position, !tMovement.facingRight 
                         ? targetR.position 
@@ -130,7 +130,7 @@ namespace _06_Scripts._05_Boss {
                         : targetR.position, mv * Time.deltaTime);
             }
 
-            if (InRange(1)){
+            if (InRange(1.5f)){
                 var selectSpecMov = Random.Range(0, 5);
                 bossAnimation.SetBool(IsWalking, false);
                 switch (selectSpecMov){
@@ -150,11 +150,7 @@ namespace _06_Scripts._05_Boss {
         
         private void Attack(){
             if (!missAttack && comboHit < 1){
-                switch (comboHit){
-                    case 0:
-                        bossAnimation.SetBool(IsAttacking, true);
-                        break;
-                }
+                bossAnimation.SetBool(IsAttacking, true);
             } else{
                 comboHit = 0;
                 bossAnimation.SetBool(IsAttacking, false);
@@ -276,7 +272,7 @@ namespace _06_Scripts._05_Boss {
                 castDistance = -distance;
             }
             
-            Vector2 endPos = startPosition + Vector3.left * distance;
+            Vector2 endPos = startPosition + Vector3.right * castDistance;
             RaycastHit2D hit = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
             if (hit.collider != null){
                 isCheck = hit.collider.gameObject.CompareTag("Player");
