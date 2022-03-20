@@ -27,7 +27,7 @@ public class EnemyHitBox : MonoBehaviour{
         var force = col.GetComponent<Rigidbody2D>();
 
         if (check == null || !attackOn) return;
-        check.takeDamage(attackDamage);
+        check.TakeDamage(attackDamage);
         attackOn = false;
         hit = true;
         enemy.GetComponent<EnemyBehavior>().hit += 1;

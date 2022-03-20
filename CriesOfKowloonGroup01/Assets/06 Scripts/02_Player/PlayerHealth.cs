@@ -14,7 +14,6 @@ public class PlayerHealth : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collisionInfo){
         if(collisionInfo.CompareTag("HealthPotion")){
             Destroy(collisionInfo.gameObject, .5f);
-
             if(currentHealth >= 90){
                 currentHealth = maxHealth;
                 hb.SetHealth(currentHealth);
@@ -24,9 +23,14 @@ public class PlayerHealth : MonoBehaviour {
             currentHealth += 10;
             hb.SetHealth(currentHealth);
         }
+
+        if (collisionInfo.CompareTag("Projectile")){
+            Destroy(collisionInfo.gameObject);
+            TakeDamage(3);
+        }
     }
 
-    public void takeDamage(int damage){
+    public void TakeDamage(int damage){
         currentHealth -= damage;
         hb.SetHealth(currentHealth);
 

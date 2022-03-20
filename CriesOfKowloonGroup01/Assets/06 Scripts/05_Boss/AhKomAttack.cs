@@ -26,10 +26,10 @@ namespace _06_Scripts._05_Boss {
             if (check == null || !isAttack) return;
             switch (ahKom.GetComponent<AhKom>().comboHit){
                 case 0:
-                    check.takeDamage(10);
+                    check.TakeDamage(10);
                     break;
                 case 1:
-                    check.takeDamage(15);
+                    check.TakeDamage(15);
                     break;
             } ahKom.GetComponent<AhKom>().comboHit += 1;
             isAttack = false; isTargetHit = true;
