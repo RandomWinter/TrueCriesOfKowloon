@@ -138,24 +138,24 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("Attack2");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
 
-        if (Player.GetComponent<PlayerMovement>().facingRight)
+
+        foreach (Collider2D enemy in hitEnemies)
         {
-            foreach (Collider2D enemy in hitEnemies)
+            if (Player.GetComponent<PlayerMovement>().facingRight)
             {
                 // Debug.Log("Enemy hit");
                 enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
             }
-        }
-        else
-        {
-            foreach (Collider2D enemy in hitEnemies)
+            else
             {
                 // Debug.Log("Enemy hit");
                 enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
             }
         }
+        
+        
 
     }
 
