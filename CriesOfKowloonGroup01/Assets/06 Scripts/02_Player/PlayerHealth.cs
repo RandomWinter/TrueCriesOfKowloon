@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour {
     public int currentHealth;
@@ -35,7 +36,7 @@ public class PlayerHealth : MonoBehaviour {
         hb.SetHealth(currentHealth);
 
         if (currentHealth <= 0){
-            //Dead
+            SceneManager.LoadScene(0);
         }
     }
 }

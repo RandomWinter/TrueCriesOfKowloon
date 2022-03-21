@@ -16,7 +16,7 @@ namespace _06_Scripts._03_Props {
             sceneName = currentStage.name;
         }
 
-        private void ReceivingDamage(int dmg){
+         public void ReceivingDamage(int dmg){
             maxHealth -= dmg;
             if(maxHealth <= 0){
                 var radNum1 = Random.Range(0, 3);

@@ -3944,6 +3944,10 @@ PrefabInstance:
       propertyPath: hb
       value: 
       objectReference: {fileID: 1473415700}
+    - target: {fileID: 1790741656339251158, guid: 483b70a3470bf51478517b17d8eaedbd, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1790741656339251160, guid: 483b70a3470bf51478517b17d8eaedbd, type: 3}
       propertyPath: timer
       value: 3

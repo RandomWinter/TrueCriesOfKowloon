@@ -5,22 +5,60 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-     void Update()
+    public GameObject menuUi;
+    public GameObject settingsMenu;
+    public GameObject controlList;
+    public GameObject menuBackground;
+    public GameObject backButton;
+
+    public bool menuOpen;
+
+    void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        menuOpen = false;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SceneManager.LoadScene(1);
         }
-    }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            menuUi.SetActive(false);
+            settingsMenu.SetActive(true);
+            controlList.SetActive(false);
+            menuOpen = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            menuUi.SetActive(false);
+            settingsMenu.SetActive(false);
+            menuBackground.SetActive(false);
+            controlList.SetActive(true);
+            backButton.SetActive(true);
+            menuOpen = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Application.Quit();
+        }
 
-    public void PlayGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
+        if (menuOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                Debug.Log("Menu is closed");
+                menuUi.SetActive(true);
+                menuBackground.SetActive(true);
+                settingsMenu.SetActive(false);
+                controlList.SetActive(false);
+                backButton.SetActive(false);
+                menuOpen = false;
+                
+            }
+        }
     }
 
     

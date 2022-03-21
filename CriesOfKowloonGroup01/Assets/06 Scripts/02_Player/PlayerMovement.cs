@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public float baseSpeed;
@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         moveSpeed = baseSpeed;
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            Flip();
+        }
     }
 
     void Update()
