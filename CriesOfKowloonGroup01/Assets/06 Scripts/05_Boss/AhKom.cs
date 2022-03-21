@@ -119,7 +119,7 @@ namespace _06_Scripts._05_Boss {
         //! Method Field: State Event for Behaviour
         private void Chasing(){
             bossAnimation.SetBool(IsWalking, true);
-            if (!InRange(1.5f)) {
+            if (!InRange(1.5f)){
                 transform.position = faceRight 
                     ? Vector2.MoveTowards(transform.position, !tMovement.facingRight 
                         ? targetR.position 
@@ -271,7 +271,7 @@ namespace _06_Scripts._05_Boss {
                 castDistance = -distance;
             }
             
-            Vector2 endPos = startPosition + Vector3.right * castDistance;
+            Vector2 endPos = startPosition + Vector3.left * castDistance;
             RaycastHit2D hit = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
             if (hit.collider != null){
                 isCheck = hit.collider.gameObject.CompareTag("Player");

@@ -24,10 +24,9 @@ namespace _06_Scripts._05_Boss {
             var check = c.GetComponent<PlayerHealth>();
 
             if (check == null || !isAttack) return;
-            if (ahKom.GetComponent<AhKom>().comboHit == 0){
+            if (ahKom.GetComponent<AhKom>().comboHit < 1){
                 ahKom.GetComponent<AhKom>().comboHit += 1;
                 check.TakeDamage(20);
-                isTargetHit = true;
             }
             
             if (ahKom.GetComponent<AhKom>().wMActivated){
@@ -37,6 +36,8 @@ namespace _06_Scripts._05_Boss {
             if (ahKom.GetComponent<AhKom>().bRActivated){
                 check.TakeDamage(35);
             }
+            
+            isTargetHit = true;
             isAttack = false; 
         }
     }
