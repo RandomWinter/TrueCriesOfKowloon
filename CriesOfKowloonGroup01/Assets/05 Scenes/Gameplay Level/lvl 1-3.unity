@@ -1600,6 +1600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ah Kom (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3453934501565086322, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4141405035353155108, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9974134
@@ -1711,6 +1715,14 @@ PrefabInstance:
     - target: {fileID: 5141708647440647964, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.22770026
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276229183461696977, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4500794
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276229183461696977, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.02782452
       objectReference: {fileID: 0}
     - target: {fileID: 5610419340739975265, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
       propertyPath: m_LocalRotation.w
