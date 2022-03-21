@@ -57,10 +57,10 @@ public class PlayerCombat : MonoBehaviour
                     }
                     break;
                 case 2:
-                    animator.SetTrigger("Attack2");
-                    Debug.Log("light attack");
-                    NextAttack = Time.time + AttackL;
-                    Attack1();
+                        animator.SetTrigger("Attack2");
+                        Debug.Log("light attack");
+                        NextAttack = Time.time + AttackL;
+                        Attack1();
                     break;
                 case 3:
                     animator.SetTrigger("FlashFist");
