@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace _06_Scripts._05_Boss {
     public class AhKom : MonoBehaviour {
-        //! This extract Player's Components
+        #region Variable
         [Header("Target Components Field")] 
         [SerializeField] public GameObject targetInfo;
         [SerializeField] private Transform targetL;
@@ -34,29 +34,31 @@ namespace _06_Scripts._05_Boss {
         public bool missAttack; 
 
         [Header("1st Special: Bull Rush")] 
-        [SerializeField] private float bRChargeTime = 2f;
-        [SerializeField] private float bRCoolDown = 1.75f; //! Patch: 2s
-        [SerializeField] public bool bRActivated; //! Activated when In Position
-        [SerializeField] private bool bRFinished; //! Special Finished
-        [SerializeField] private int bRNum; //! Repeating Move
-        [SerializeField] private float distance1; //!Compare point Distance with Target (L/R)
-        [SerializeField] private float distance2;
-        [SerializeField] private Vector2 lCharge;
-        [SerializeField] private Vector2 rCharge;
+        private float bRChargeTime = 2f;
+        private float bRCoolDown = 1.75f; //! Patch: 2s
+        public bool bRActivated; //! Activated when In Position
+        private bool _bRFinished; //! Special Finished
+        private int _bRNum; //! Repeating Move
+        private float _distance1; //!Compare point Distance with Target (L/R)
+        private float _distance2;
+        private Vector2 _lCharge;
+        private Vector2 _rCharge;
         public bool isRCharge; //! Is he right charge?
         public bool recordOnce; //! Record Distance each move
         public bool checkOnce; //! Check for last y-position to charge
         
         [Header("2nd Special: Windmill")] 
-        [SerializeField] private float wMChaseTime = 5f;
-        [SerializeField] private float wMCoolDown = 1.25f; //! Patch: 2s ~ 2.5s
-        [SerializeField] public bool wMActivated;
-        [SerializeField] private bool wMFinished;
+        private float wMChaseTime = 5f;
+        private float wMCoolDown = 1.25f; //! Patch: 2s ~ 2.5s
+        private bool _wMFinished;
+        public bool wMActivated;
 
         [Header("Event Countdown")] 
         [SerializeField] private float countDown1; //! Count for Special Duration
         [SerializeField] private float countDown2; //! Count for cool-down
+        #endregion
 
+        #region StateMachine and Animation
         public enum StateMachine{
             Chase, Attack, BullRush, WindMill, Defeated
         } public StateMachine ahKomStage;
@@ -70,7 +72,9 @@ namespace _06_Scripts._05_Boss {
         private static readonly int IsTired = Animator.StringToHash("isTired");
         private static readonly int IsChargeMove = Animator.StringToHash("isChargeMove");
         private static readonly int IsCharging = Animator.StringToHash("isCharging");
-
+        #endregion
+        
+        #region Core
         private void Awake(){
             //! Collect Player's Components
             targetInfo = GameObject.FindGameObjectWithTag("Player");
@@ -91,7 +95,7 @@ namespace _06_Scripts._05_Boss {
             if (wMActivated || bRActivated) //! Count when Special is triggered
                 countDown1 += Time.deltaTime;
 
-            if (wMFinished || bRFinished) //! Count when Special is finished
+            if (_wMFinished || _bRFinished) //! Count when Special is finished
                 countDown2 += Time.deltaTime;
 
             switch(ahKomStage){
@@ -102,7 +106,7 @@ namespace _06_Scripts._05_Boss {
                 case StateMachine.Attack:
                     Attack();
                     break;
-                case StateMachine.BullRush:
+                case StateMachine.BullRush:  
                     BullRush();
                     break;
                 case StateMachine.WindMill:
@@ -115,7 +119,9 @@ namespace _06_Scripts._05_Boss {
                     throw new ArgumentOutOfRangeException();
             }
         }
+        #endregion
         
+        #region State Event
         //! Method Field: State Event for Behaviour
         private void Chasing(){
             bossAnimation.SetBool(IsWalking, true);
@@ -165,14 +171,14 @@ namespace _06_Scripts._05_Boss {
                 transform.position = Vector2.MoveTowards(transform.position, targetInfo.transform.position,
                     mvWindMill * Time.deltaTime);
             } else {
-                wMFinished = true;
+                _wMFinished = true;
                 bossAnimation.SetBool(IsWindMill, false);
                 bossAnimation.SetBool(IsTired, true);
                 
                 if (!(countDown2 >= wMCoolDown)) return;
                 bossAnimation.SetBool(IsTired, false);
                 countDown1 = countDown2 = 0;
-                wMActivated = wMFinished = false; //! Reset WindMill variables
+                wMActivated = _wMFinished = false; //! Reset WindMill variables
                 ahKomStage = StateMachine.Chase; //! Return to Chase
             }
         }
@@ -186,13 +192,13 @@ namespace _06_Scripts._05_Boss {
 
             if (!bRActivated){
                 if (!checkOnce){
-                    distance1 = Vector2.Distance(holdL, target);
-                    distance2 = Vector2.Distance(holdR, target);
+                    _distance1 = Vector2.Distance(holdL, target);
+                    _distance2 = Vector2.Distance(holdR, target);
                     checkOnce = true;
                 }
 
                 bossAnimation.SetBool(IsChargeMove, true);
-                if (distance1 > distance2){
+                if (_distance1 > _distance2){
                     transform.position = Vector2.MoveTowards(bossP, holdL, mv * Time.deltaTime);
                     isRCharge = false;
                 } else {
@@ -205,7 +211,7 @@ namespace _06_Scripts._05_Boss {
             }
 
             //! Track Player's Y-Position
-            if (countDown1 <= bRChargeTime && bRNum != 2){
+            if (countDown1 <= bRChargeTime && _bRNum != 2){
                 bossAnimation.SetBool(IsChargeMove, true);
                 var xTarget = new Vector2(bossP.x, target.y);
                 transform.position = Vector2.MoveTowards(bossP, xTarget, mv * Time.deltaTime);
@@ -214,29 +220,29 @@ namespace _06_Scripts._05_Boss {
             }
 
             //! Record Player's Final Position
-            if (!recordOnce && bRNum != 2){
-                lCharge = new Vector2(holdL.x, target.y);
-                rCharge = new Vector2(holdR.x, target.y);
+            if (!recordOnce && _bRNum != 2){
+                _lCharge = new Vector2(holdL.x, target.y);
+                _rCharge = new Vector2(holdR.x, target.y);
                 recordOnce = true;
             }
 
-            if (countDown1 >= bRChargeTime && bRNum != 2){
+            if (countDown1 >= bRChargeTime && _bRNum != 2){
                 bossAnimation.SetBool(IsChargeMove, false);
                 bossAnimation.SetBool(IsCharging, true);
                 if (isRCharge) {
-                    transform.position = Vector2.MoveTowards(bossP, lCharge, 6 * mv * Time.deltaTime);
+                    transform.position = Vector2.MoveTowards(bossP, _lCharge, 6 * mv * Time.deltaTime);
                     if (bossP.x == holdL.x) {
                         bossAnimation.SetBool(IsCharging, false);
-                        bRNum += 1;
+                        _bRNum += 1;
                         countDown1 = 0;
                         recordOnce = false;
                         isRCharge = !isRCharge;
                     }
                 } else {
-                    transform.position = Vector2.MoveTowards(bossP, rCharge, 6 * mv * Time.deltaTime);
+                    transform.position = Vector2.MoveTowards(bossP, _rCharge, 6 * mv * Time.deltaTime);
                     if(bossP.x == holdR.x){
                         bossAnimation.SetBool(IsCharging, false);
-                        bRNum += 1;
+                        _bRNum += 1;
                         countDown1 = 0;
                         recordOnce = false;
                         isRCharge = !isRCharge;
@@ -244,23 +250,25 @@ namespace _06_Scripts._05_Boss {
                 }
             } else {
                 bossAnimation.SetBool(IsTired, true);
-                bRFinished = true;
+                _bRFinished = true;
             }
 
             //! Used Tired Animation
-            if (!(countDown2 >= bRCoolDown) || bRNum != 2) return;
+            if (!(countDown2 >= bRCoolDown) || _bRNum != 2) return;
                 bossAnimation.SetBool(IsTired, false);
                 countDown1 = countDown2 = 0;
                 checkOnce = recordOnce = false;
                 ahKomStage = StateMachine.Chase;
         }
-        
+
         private void Defeated(){
             //Death Animation
             bossAnimation.SetBool(IsDead, true);
             defeated = true;
         }
+        #endregion
         
+        #region Special Statement
         //! Method Field 2
         private bool InRange(float distance) {
             var startPosition = castPoint.position;
@@ -271,7 +279,7 @@ namespace _06_Scripts._05_Boss {
                 castDistance = -distance;
             }
             
-            Vector2 endPos = startPosition + Vector3.left * castDistance;
+            Vector2 endPos = startPosition + Vector3.right * castDistance;
             RaycastHit2D hit = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
             if (hit.collider != null){
                 isCheck = hit.collider.gameObject.CompareTag("Player");
@@ -283,7 +291,7 @@ namespace _06_Scripts._05_Boss {
         }
         
         private void Flip(){
-            var localOffset = transform.localPosition.x - targetInfo.transform.localPosition.x;
+            var localOffset = transform.position.x - targetInfo.transform.position.x;
             switch(localOffset){
                 case < 0 when !faceRight:
                     faceRight = !faceRight;
@@ -308,5 +316,6 @@ namespace _06_Scripts._05_Boss {
             if (currentHealth > 0) return;
             ahKomStage = StateMachine.Defeated;
         }
+        #endregion
     }
 }

@@ -60,8 +60,7 @@ namespace _06_Scripts._04_Enemy
             tMovement = targetInfo.GetComponent<PlayerMovement>();
 
             isDefeated = isShooting = isStunned = false;
-            //rangerState = StateMachine.Idle;
-            rangerState = StateMachine.Fire;
+            rangerState = StateMachine.Idle;
         }
 
         private void Update() {
@@ -74,28 +73,12 @@ namespace _06_Scripts._04_Enemy
             }
 
             switch (rangerState) {
-                case StateMachine.Idle:
-                    Idle();
-                    break;
-                case StateMachine.Chase:
-                    FacePlayer();
-                    ChaseTarget();
-                    break;
-                case StateMachine.Fire:
-                    isShooting = true;
-                    Fire();
-                    break;
-                case StateMachine.Stun:
-                    isStunned = true;
-                    Stun();
-                    break;
-                case StateMachine.Dead:
-                    c2D.enabled = false;
-                    isDefeated = true;
-                    Dead();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                case StateMachine.Idle: Idle(); break;
+                case StateMachine.Chase: FacePlayer(); ChaseTarget(); break;
+                case StateMachine.Fire: isShooting = true; Fire(); break;
+                case StateMachine.Stun: isStunned = true; Stun(); break;
+                case StateMachine.Dead: c2D.enabled = false; isDefeated = true; Dead(); break;
+                default: throw new ArgumentOutOfRangeException();
             }
         }
 

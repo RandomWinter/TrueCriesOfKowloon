@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace _06_Scripts._04_Enemy{
     public class EnemyBehavior : MonoBehaviour{
+        #region Variables
         [Header("Components Field")]
         [SerializeField] private GameObject playerReference;
         [SerializeField] private Transform leftPosition;
@@ -40,10 +41,14 @@ namespace _06_Scripts._04_Enemy{
         public enum StateMachine{
             Idle, Chase, Attack, Stun
         } public StateMachine currentState;
+        private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
+        private static readonly int IsHit = Animator.StringToHash("isHit");
+        private static readonly int IsDead = Animator.StringToHash("isDead");
+        #endregion
 
-
+        #region Awake and Update
         private void Awake(){
-            //! Collect Player's Components
             playerReference = GameObject.FindGameObjectWithTag("Player");
             leftPosition = playerReference.transform.Find("LeftTrigger");
             rightPosition = playerReference.transform.Find("RightTrigger");
@@ -81,9 +86,9 @@ namespace _06_Scripts._04_Enemy{
                     throw new ArgumentOutOfRangeException();
             }
         }
+        #endregion
 
-        //! Method Field: State Event for Behaviour
-        
+        #region States Field
         private void Idle(){
             Vector2 radar = transform.position - playerReference.transform.position;
             
@@ -94,13 +99,13 @@ namespace _06_Scripts._04_Enemy{
 
         private void Chasing() {
             if (InRange(1.5f)){
-                anim.SetBool("isMoving", false);
+                anim.SetBool(IsMoving, false);
                 currentState = StateMachine.Attack;   
             }
 
             if (prepareForAttack){
                 if (!InRange(1.5f)){
-                    anim.SetBool("isMoving", true);
+                    anim.SetBool(IsMoving, true);
                     transform.position = faceRight 
                         ? Vector2.MoveTowards(transform.position, !playerMovement.facingRight 
                             ? rightPosition.position 
@@ -110,37 +115,38 @@ namespace _06_Scripts._04_Enemy{
                             : rightPosition.position, mv * Time.deltaTime);
                 }
             } else {
-                anim.SetBool("isMoving", false);
+                anim.SetBool(IsMoving, false);
             }
         }
 
         private void AttackPlayer(){
             if(!missAttack){
-                anim.SetBool("isAttacking", true);
+                anim.SetBool(IsAttacking, true);
             } else {
                 hit = 0; missAttack = false;
-                anim.SetBool("isAttacking", false);
+                anim.SetBool(IsAttacking, false);
                 currentState = StateMachine.Chase;
             }
         }
 
         private void DeathReset() {
             isDead = true;
-            anim.SetBool("isDead", true);
+            anim.SetBool(IsDead, true);
             gameObject.SetActive(false);
         }
-
+        
         private void Stunning(){
-            anim.SetBool("isHit", true);
+            anim.SetBool(IsHit, true);
             if(stunTimer >= coolDownTimer){
-                anim.SetBool("isHit", false);
+                anim.SetBool(IsHit, false);
                 currentState = StateMachine.Chase;
                 stunActivated = false;
                 stunTimer = 0;
             }
         }
+        #endregion
 
-        //! Method Field 2
+        #region Flip, InRange, ReceiveDamage
         private void Flip() {
             var localOffset = transform.localPosition.x - playerReference.transform.localPosition.x;
             switch(localOffset){
@@ -176,8 +182,8 @@ namespace _06_Scripts._04_Enemy{
         }
 
         public void ReceiveDamage(int damage) {
-            anim.SetBool("isAttacking", false);
-            anim.SetBool("isMoving", false);
+            anim.SetBool(IsAttacking, false);
+            anim.SetBool(IsMoving, false);
             
             baseHealth -= damage;
             hb.SetHealth(baseHealth);
@@ -187,5 +193,6 @@ namespace _06_Scripts._04_Enemy{
                 DeathReset();
             } currentState = StateMachine.Stun;
         }
+        #endregion
     }
 }
