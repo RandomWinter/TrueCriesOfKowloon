@@ -17,17 +17,16 @@ namespace _06_Scripts._04_Enemy {
         private void OnDisable() {
             if (_targetHit) return;
             enemy.GetComponent<MeleeCombat>().didIMissAttack = true;
-            enemy.GetComponent<MeleeCombat>().targetHit += 1;
         }
 
         private void OnTriggerEnter2D(Collider2D col){
             var check = col.GetComponent<PlayerHealth>();
 
             if (check == null || !_isAttackOn) return;
+            enemy.GetComponent<MeleeCombat>().targetHit += 1;
             check.TakeDamage(attackDamage);
             _isAttackOn = false;
             _targetHit = true;
-        
         }
     }
 }

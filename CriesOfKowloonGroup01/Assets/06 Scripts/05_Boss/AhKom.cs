@@ -62,16 +62,16 @@ namespace _06_Scripts._05_Boss {
         public enum StateMachine{
             Chase, Attack, BullRush, WindMill, Defeated
         } public StateMachine ahKomStage;
-        
+        private static readonly int Walk = Animator.StringToHash("Walk");
+        private static readonly int Attack1 = Animator.StringToHash("Attack");
+        private static readonly int Windmill = Animator.StringToHash("Windmill");
+        private static readonly int Tired = Animator.StringToHash("tired");
+        private static readonly int ChargeWalk = Animator.StringToHash("ChargeWalk");
+        private static readonly int Charging = Animator.StringToHash("Charging");
+        private static readonly int Dead = Animator.StringToHash("Dead");
+        private static readonly int Hit = Animator.StringToHash("Hit");
+
         //! Animation Boolean
-        private static readonly int IsHit = Animator.StringToHash("isHit");
-        private static readonly int IsDead = Animator.StringToHash("isDead");
-        private static readonly int IsWalking = Animator.StringToHash("isWalking");
-        private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
-        private static readonly int IsWindMill = Animator.StringToHash("isWindMill");
-        private static readonly int IsTired = Animator.StringToHash("isTired");
-        private static readonly int IsChargeMove = Animator.StringToHash("isChargeMove");
-        private static readonly int IsCharging = Animator.StringToHash("isCharging");
         #endregion
         
         #region Core
@@ -92,39 +92,28 @@ namespace _06_Scripts._05_Boss {
         }
 
         private void Update(){
-            if (wMActivated || bRActivated) //! Count when Special is triggered
-                countDown1 += Time.deltaTime;
+            if (wMActivated || bRActivated){
+                countDown1 += Time.deltaTime; 
+            }
 
-            if (_wMFinished || _bRFinished) //! Count when Special is finished
+            if (_wMFinished || _bRFinished) {
                 countDown2 += Time.deltaTime;
-
+            }
+            
             switch(ahKomStage){
-                case StateMachine.Chase:
-                    Flip();
-                    Chasing();
-                    break;
-                case StateMachine.Attack:
-                    Attack();
-                    break;
-                case StateMachine.BullRush:  
-                    BullRush();
-                    break;
-                case StateMachine.WindMill:
-                    WindMill();
-                    break;
-                case StateMachine.Defeated:
-                    Defeated();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                case StateMachine.Chase: ChangeDirection(); Chasing(); break;
+                case StateMachine.Attack: Attack(); break;
+                case StateMachine.BullRush: BullRush(); break;
+                case StateMachine.WindMill: WindMill(); break;
+                case StateMachine.Defeated: Defeated(); break;
+                default: throw new ArgumentOutOfRangeException();
             }
         }
         #endregion
         
-        #region State Event
-        //! Method Field: State Event for Behaviour
+        #region Chasing, Attack
         private void Chasing(){
-            bossAnimation.SetBool(IsWalking, true);
+            bossAnimation.SetBool(Walk, true);
             if (!InRange(1.5f)){
                 transform.position = faceRight 
                     ? Vector2.MoveTowards(transform.position, !tMovement.facingRight 
@@ -137,9 +126,9 @@ namespace _06_Scripts._05_Boss {
 
             if (InRange(1.5f)){
                 var selectSpecMov = Random.Range(0, 5);
-                bossAnimation.SetBool(IsWalking, false);
+                bossAnimation.SetBool(Walk, false);
                 switch (selectSpecMov){
-                    case <= 1 when !wMActivated && currentHealth <= 90:
+                    case <= 1 when !wMActivated && currentHealth <= 90: 
                         wMActivated = true;
                         ahKomStage = StateMachine.WindMill;
                         break;
@@ -153,13 +142,32 @@ namespace _06_Scripts._05_Boss {
             }
         }
         
+        private bool InRange(float distance) {
+            var startPosition = castPoint.position;
+            isCheck = false;
+
+            castDistance = faceRight switch{
+                true => distance, false => -distance
+            };
+            
+            Vector2 endPos = startPosition + Vector3.right * castDistance;
+            RaycastHit2D hit = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
+            if (hit.collider != null){
+                isCheck = hit.collider.gameObject.CompareTag("Player");
+            }
+            
+            return isCheck;
+        }
+        #endregion
+        
+        #region Attack, Windmill
         private void Attack(){
-            if (!missAttack && comboHit < 1){
-                bossAnimation.SetBool(IsAttacking, true);
+            if (!missAttack && comboHit != 1){
+                bossAnimation.SetTrigger(Attack1);
             } else{
-                comboHit = 0; missAttack = false;
-                bossAnimation.SetBool(IsAttacking, false);
                 ahKomStage = StateMachine.Chase;
+                comboHit = 0; 
+                missAttack = false;
             }
         }
         
@@ -167,22 +175,23 @@ namespace _06_Scripts._05_Boss {
         private void WindMill(){
             var mvWindMill = mv * 0.85f;
             if (countDown1 <= wMChaseTime){
-                bossAnimation.SetBool(IsWindMill, true);
+                bossAnimation.SetBool(Windmill, true);
                 transform.position = Vector2.MoveTowards(transform.position, targetInfo.transform.position,
                     mvWindMill * Time.deltaTime);
             } else {
                 _wMFinished = true;
-                bossAnimation.SetBool(IsWindMill, false);
-                bossAnimation.SetBool(IsTired, true);
+                bossAnimation.SetBool(Windmill, false);
+                bossAnimation.SetTrigger(Tired);
                 
                 if (!(countDown2 >= wMCoolDown)) return;
-                bossAnimation.SetBool(IsTired, false);
                 countDown1 = countDown2 = 0;
                 wMActivated = _wMFinished = false; //! Reset WindMill variables
                 ahKomStage = StateMachine.Chase; //! Return to Chase
             }
         }
+        #endregion
         
+        #region BullRush
         //! Bull Rush Function well
         private void BullRush(){
             Vector2 target = targetInfo.transform.position;
@@ -197,7 +206,7 @@ namespace _06_Scripts._05_Boss {
                     checkOnce = true;
                 }
 
-                bossAnimation.SetBool(IsChargeMove, true);
+                bossAnimation.SetBool(ChargeWalk, true);
                 if (_distance1 > _distance2){
                     transform.position = Vector2.MoveTowards(bossP, holdL, mv * Time.deltaTime);
                     isRCharge = false;
@@ -212,7 +221,7 @@ namespace _06_Scripts._05_Boss {
 
             //! Track Player's Y-Position
             if (countDown1 <= bRChargeTime && _bRNum != 2){
-                bossAnimation.SetBool(IsChargeMove, true);
+                bossAnimation.SetBool(ChargeWalk, true);
                 var xTarget = new Vector2(bossP.x, target.y);
                 transform.position = Vector2.MoveTowards(bossP, xTarget, mv * Time.deltaTime);
                 Flip();
@@ -227,12 +236,11 @@ namespace _06_Scripts._05_Boss {
             }
 
             if (countDown1 >= bRChargeTime && _bRNum != 2){
-                bossAnimation.SetBool(IsChargeMove, false);
-                bossAnimation.SetBool(IsCharging, true);
+                bossAnimation.SetBool(ChargeWalk, false);
+                bossAnimation.SetTrigger(Charging);
                 if (isRCharge) {
                     transform.position = Vector2.MoveTowards(bossP, _lCharge, 6 * mv * Time.deltaTime);
                     if (bossP.x == holdL.x) {
-                        bossAnimation.SetBool(IsCharging, false);
                         _bRNum += 1;
                         countDown1 = 0;
                         recordOnce = false;
@@ -241,7 +249,6 @@ namespace _06_Scripts._05_Boss {
                 } else {
                     transform.position = Vector2.MoveTowards(bossP, _rCharge, 6 * mv * Time.deltaTime);
                     if(bossP.x == holdR.x){
-                        bossAnimation.SetBool(IsCharging, false);
                         _bRNum += 1;
                         countDown1 = 0;
                         recordOnce = false;
@@ -249,72 +256,54 @@ namespace _06_Scripts._05_Boss {
                     }
                 }
             } else {
-                bossAnimation.SetBool(IsTired, true);
+                bossAnimation.ResetTrigger(Charging);
+                bossAnimation.SetTrigger(Tired);
                 _bRFinished = true;
             }
 
             //! Used Tired Animation
             if (!(countDown2 >= bRCoolDown) || _bRNum != 2) return;
-                bossAnimation.SetBool(IsTired, false);
+                bossAnimation.ResetTrigger(Tired);
                 countDown1 = countDown2 = 0;
                 checkOnce = recordOnce = false;
                 ahKomStage = StateMachine.Chase;
         }
-
-        private void Defeated(){
-            //Death Animation
-            bossAnimation.SetBool(IsDead, true);
-            defeated = true;
-        }
         #endregion
         
-        #region Special Statement
-        //! Method Field 2
-        private bool InRange(float distance) {
-            var startPosition = castPoint.position;
-            castDistance = distance; 
-            isCheck = false;
+        #region DamageReceived, Stun, Defeated
+        public void DamageReceived(int dmg) {
+            if (defeated) return;
             
-            if(!faceRight){
-                castDistance = -distance;
-            }
-            
-            Vector2 endPos = startPosition + Vector3.right * castDistance;
-            RaycastHit2D hit = Physics2D.Linecast(startPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
-            if (hit.collider != null){
-                isCheck = hit.collider.gameObject.CompareTag("Player");
-                Debug.DrawLine(startPosition, endPos, Color.green);
-            } else {
-                Debug.DrawLine(startPosition, endPos, Color.yellow);
-            }
-            return isCheck;
-        }
-        
-        private void Flip(){
-            var localOffset = transform.position.x - targetInfo.transform.position.x;
-            switch(localOffset){
-                case < 0 when !faceRight:
-                    faceRight = !faceRight;
-                    transform.Rotate(0, 180f, 0);
-                    break;
-                case > 0 when faceRight:
-                    faceRight = !faceRight;
-                    transform.Rotate(0, 180f, 0);
-                    break;
-            }
-        }
-
-        public void DamageReceived(int dmg){
             currentHealth -= dmg;
             bossHb.SetMaxHealth(currentHealth);
             
             if (!wMActivated || !bRActivated){
-                //! Enable Hit Animation in non-special move
-                bossAnimation.SetBool(IsHit, true);
-            } bossAnimation.SetBool(IsHit, false);
-            
+                bossAnimation.SetTrigger(Hit);
+            }
+
             if (currentHealth > 0) return;
             ahKomStage = StateMachine.Defeated;
+        }
+        
+        private void Defeated(){
+            //Death Animation
+            defeated = true;
+            bossAnimation.SetTrigger(Dead);
+        }
+        #endregion
+        
+        #region Flip the Character
+        private void Flip(){
+            faceRight = !faceRight;
+            transform.Rotate(0, 180f, 0);
+        }
+
+        private void ChangeDirection(){
+            var localOffset = transform.position.x - targetInfo.transform.position.x;
+            switch(localOffset){
+                case < 0 when !faceRight: Flip(); break;
+                case > 0 when faceRight: Flip(); break;
+            }
         }
         #endregion
     }

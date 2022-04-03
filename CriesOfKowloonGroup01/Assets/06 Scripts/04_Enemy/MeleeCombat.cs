@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _06_Scripts._04_Enemy{
     //! This code is an improvement of previous script, simplified, and flexible for changes
-    //! 1. Attack Range will be replaced by Radius or Collider, if raycast isn't working properly
     //! 2. Navmesh will Re-Enable back, avoiding the Invisible Wall
-    //! 3. Animation will be mixed, WALK is under boolean, others will be a trigger animation (avoiding loop)
     public class MeleeCombat : MonoBehaviour{
         #region Variable Setup
         //! Search player's transform and script
@@ -41,7 +40,7 @@ namespace _06_Scripts._04_Enemy{
 
         #region StateMachine, Awake, Update
         public enum StateMachine{
-            Idle, Follow, Attack, Dead
+            Idle, Follow, Attack, Dead, Stun
         } public StateMachine minionStates;
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int Attack = Animator.StringToHash("Attack");
@@ -50,7 +49,7 @@ namespace _06_Scripts._04_Enemy{
         private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
         private static readonly int Dead = Animator.StringToHash("dead");
 
-        private void Awake(){
+        private void Start(){
             _target = GameObject.FindGameObjectWithTag("Player");
             _pFront = _target.transform.Find("RightTrigger");
             _pBehind = _target.transform.Find("LeftTrigger");
@@ -68,7 +67,8 @@ namespace _06_Scripts._04_Enemy{
                 case StateMachine.Idle: Idle(); break;
                 case StateMachine.Follow: ChangeDirection(); Follow(); break;
                 case StateMachine.Attack: AttackPlayer(); break;
-                case StateMachine.Dead: Death(); break;
+                case StateMachine.Dead: StartCoroutine(Vanish()); break;
+                case StateMachine.Stun: StartCoroutine(CantMove()); break;
                 default: throw new ArgumentOutOfRangeException();
             }
         }
@@ -94,19 +94,23 @@ namespace _06_Scripts._04_Enemy{
             var check = Physics2D.Linecast(sPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
             if(check.collider != null){
                 isDetected = check.collider.gameObject.CompareTag("Player");
-                print("Raycast: Target has been Found");
-            } return isDetected;
+                Debug.DrawLine(sPosition, endPos, Color.green);
+            }
+            else {
+                Debug.DrawLine(sPosition, endPos, Color.red);
+            }
+            return isDetected;
         }
 
         private void Follow(){
-            if (InRange(1.5f)){
+            if (InRange(1f) && !isDead){
                 anim.SetBool(IsMoving, false);
                 minionStates = StateMachine.Attack;
             }
             
             //! if readyToAttack = true, chase the target
             // if(readyToAttack){
-                if (!InRange(1.5f)){
+                if (!InRange(1f) && !isDead){
                     anim.SetBool(IsMoving, true);
                     transform.position = isFacingRight 
                         ? Vector2.MoveTowards(transform.position, !_targetMv.facingRight 
@@ -122,30 +126,22 @@ namespace _06_Scripts._04_Enemy{
         }
         #endregion
 
-        #region  Attack, Dead, Vanish Timer
+        #region  Attack, Vanish Timer
         private void AttackPlayer(){
-            if (!didIMissAttack && targetHit < 1){
-                anim.SetBool(IsAttacking, true);
+            if (!didIMissAttack && targetHit != 1){
+                anim.SetTrigger(Attack);
             } else {
-                anim.SetBool(IsAttacking, false);
+                minionStates = StateMachine.Follow;
                 targetHit = 0; //! Resetting Target_Hit and Miss Attack, so it can attack again;
                 didIMissAttack = false;
-                minionStates = StateMachine.Follow;
             }
-        }
-
-        private void Death(){
-            if (!isDead){
-                anim.SetTrigger(Dead);
-                isDead = true;
-            }
-            
-            StartCoroutine(Vanish());
         }
 
         //! Description: It will be disable after its death animation 
         private IEnumerator Vanish(){
-            yield return new WaitForSeconds(2f);
+            isDead = true;
+            anim.SetTrigger(Dead);
+            yield return new WaitForSeconds(4f);
             gameObject.SetActive(false);
         }
         #endregion
@@ -167,32 +163,22 @@ namespace _06_Scripts._04_Enemy{
         #endregion
         
         #region Receive Damage and Stun Timer
-        public void ReceiveDamage(int dmg) {
+        public void ReceiveDamage(int dmg){
+            if (isDead) return;
+            anim.ResetTrigger(Attack);
             anim.SetBool(IsMoving, false);
-            anim.SetBool(IsAttacking, false);
-            if (dmg > currentHealth){
-                minionStates = StateMachine.Dead;
-            }
             
             currentHealth -= dmg;
-            anim.SetBool(IsHit, true);
             minionHb.SetHealth(currentHealth);
-
-            if (dmg >= 10){
-                StartCoroutine(CantMove());
-            } else {
-                anim.SetBool(IsHit, false);
-                minionStates = StateMachine.Follow;
-            }
+            minionStates = currentHealth <= 0 ? StateMachine.Dead : StateMachine.Stun;
         }
 
         private IEnumerator CantMove(){
-            anim.SetBool(IsHit, true);
             anim.SetTrigger(Hit);
-            yield return new WaitForSeconds(0.5f);
-            anim.SetBool(IsHit, false);
-            anim.ResetTrigger(Hit);
-            minionStates = StateMachine.Follow;
+            yield return new WaitForSeconds(1f);
+            if (!isDead) {
+                minionStates = StateMachine.Follow;
+            }
         }
         #endregion
     }

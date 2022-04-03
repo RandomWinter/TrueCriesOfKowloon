@@ -147,14 +147,17 @@ public class PlayerCombat : MonoBehaviour
             if (Player.GetComponent<PlayerMovement>().facingRight)
             {
                 Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
                 print("launch right");
             }
             else
             {
                     Debug.Log("Enemy hit");
-                    enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                    //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                    
+                    enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
                     enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
                     print("launch left");
             }
@@ -188,14 +191,16 @@ public class PlayerCombat : MonoBehaviour
             if (Player.GetComponent<PlayerMovement>().facingRight)
             {
                 // Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(heavyDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
                 
             }
             else
             {
                 // Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(heavyDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
             }
         }
@@ -227,14 +232,16 @@ public class PlayerCombat : MonoBehaviour
             if (Player.GetComponent<PlayerMovement>().facingRight)
             {
                 // Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
 
             }
             else
             {
                 // Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
             }
         }
@@ -267,14 +274,16 @@ public class PlayerCombat : MonoBehaviour
             if (Player.GetComponent<PlayerMovement>().facingRight)
             {
                 // Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
 
             }
             else
             {
                 // Debug.Log("Enemy hit");
-                enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
                 enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
             }
         }
