@@ -273,7 +273,7 @@ public class PlayerCombat : MonoBehaviour
 
     void UpstreamPunch()
     {
-        animator.SetTrigger("Upstream Punch");
+        animator.SetTrigger("UpstreamPunch");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
         Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
