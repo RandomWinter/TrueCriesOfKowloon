@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            PlayerPrefs.SetInt("Upgraded", 0);
             SceneManager.LoadScene(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))

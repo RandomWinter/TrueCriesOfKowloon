@@ -8,6 +8,7 @@ namespace _06_Scripts._04_Enemy{
         private GameObject _target;
         private Vector2 _direction;
         public float speed = 6f;
+        public int bulletDamage;
 
 
         private void Start(){
@@ -18,7 +19,11 @@ namespace _06_Scripts._04_Enemy{
         }
 
         private void OnTriggerEnter2D(Collider2D col){
-            throw new NotImplementedException();
+            var check = col.GetComponent<PlayerHealth>();
+
+            if (check == null) return;
+            check.TakeDamage(bulletDamage);
+            Destroy(gameObject);
         }
 
         private void OnBecameInvisible(){
