@@ -154,30 +154,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a273ddd3f5b8c42929b9159f3bf32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetInfo: {fileID: 0}
-  targetL: {fileID: 0}
-  targetR: {fileID: 0}
-  tMovement: {fileID: 0}
-  rangerHealthBar: {fileID: 0}
-  rangerAnimation: {fileID: 0}
+  rHealthBar: {fileID: 0}
+  rAnim: {fileID: 0}
+  c2D: {fileID: 120429273}
   searchRadius: 10
   currentHealth: 20
-  mv: 3.25
-  c2D: {fileID: 120429273}
-  castPoint: {fileID: 1348043440}
-  castDistance: 0
-  isCheck: 0
-  perishTimer: 2.5
-  stunTimer: 1.5
   preFire: 1.25
-  countDown1: 0
-  countDown2: 0
   launchOffset: {fileID: 1348043440}
   bullet: {fileID: 2621178819143588213, guid: 6f16260cbe2e24344adabc592bff9a81, type: 3}
   faceRight: 0
-  isStunned: 0
   isDefeated: 0
-  isShooting: 0
   rangerState: 0
 --- !u!212 &120429271
 SpriteRenderer:
@@ -478,7 +464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1091131192
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -817,7 +803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1449167604
 Transform:
   m_ObjectHideFlags: 0

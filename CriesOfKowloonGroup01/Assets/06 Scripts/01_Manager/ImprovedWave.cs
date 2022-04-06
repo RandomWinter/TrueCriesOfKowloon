@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,7 +34,7 @@ namespace _06_Scripts._01_Manager{
         
         private void Awake(){
             _cState = WaveState.Idle;
-        }
+        }   
 
         private void Start(){
             targetEnter.OnTargetEnter += Founder;
@@ -41,47 +42,56 @@ namespace _06_Scripts._01_Manager{
         }
 
         private void Update(){
-            if (_cState == WaveState.Wait){
-                if (EnemyAlive()) return;
-                WaveEnd(); return;
-            }
-
-            if (waveCountDown <= 0 || _cState != WaveState.Finish){
-                if (_cState != WaveState.Active){
-                    _cState = WaveState.Active;
-                    StartCoroutine(WaveSpawn(waves[_nextWave]));
+            if (_cState != WaveState.Idle){
+                if (_cState == WaveState.Wait){
+                    if (!EnemyAlive()){
+                        WaveEnd();
+                        return;
+                    }
+                    return;
                 }
-            } else if(waveCountDown >= 0){
-                waveCountDown -= Time.deltaTime;
+
+                if (waveCountDown <= 0 || _cState != WaveState.Finish){
+                    if (_cState != WaveState.Active){
+                        _cState = WaveState.Active;
+                        StartCoroutine(WaveSpawn(waves[_nextWave]));
+                    }
+                } else {
+                    waveCountDown -= Time.deltaTime;
+                }
             }
         }
 
         private void Founder(object sender, EventArgs e){
             if (_cState != WaveState.Idle) return;
+            print("Stage 0: Begin");
             targetEnter.OnTargetEnter -= Founder;
             WaveBegin();
         }
         
         private IEnumerator WaveSpawn(Wave w){
             for(int i = 0; i < w.count; i++){
+                print("Stage 2: Spawn");
                 SpawnEnemy();
                 yield return new WaitForSeconds(1f);
             }
-            
             _cState = WaveState.Wait;
         }
 
         private void WaveBegin(){
-            _cState = WaveState.Active;
+            print("Stage 1: Start");
+            _cState = WaveState.Count;
             BattleBegin?.Invoke(this, EventArgs.Empty); //! Instruct the Door to Shutdown
         }
 
         private void WaveEnd(){
             _cState = WaveState.Count;
             if (_nextWave + 1 > waves.Length - 1){
+                print("Stage 5: End Battle");
                 BattleOver?.Invoke(this, EventArgs.Empty);
                 _cState = WaveState.Finish;
             } else {
+                print("Next Wave");
                 waveCountDown = timeBetweenWaves;
                 _nextWave++;
             }
@@ -91,11 +101,11 @@ namespace _06_Scripts._01_Manager{
             _searchCountDown -= Time.deltaTime;
             if (_searchCountDown <= 0f){
                 _searchCountDown = 1f;
-                if (GameObject.FindGameObjectWithTag("MeleeCombat") == null || GameObject.FindGameObjectWithTag("Ranger") == null){
+                if (GameObject.FindGameObjectWithTag("MeleeEnemy") == null){
                     return false;
                 }
             }
-            
+
             return true;
         }
 
@@ -103,8 +113,8 @@ namespace _06_Scripts._01_Manager{
             Transform sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
             var spawn = Random.Range(0, 2);
             switch (spawn){
-                case 1: Instantiate(cEnemy, sp.position, sp.rotation); break;
-                case 2: Instantiate(rEnemy, sp.position, sp.rotation); break;
+                case 0: Instantiate(cEnemy, sp.position, sp.rotation); break;
+                case 1: Instantiate(rEnemy, sp.position, sp.rotation); break;
             }
             
         }

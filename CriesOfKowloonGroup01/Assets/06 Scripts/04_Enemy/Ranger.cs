@@ -16,9 +16,15 @@ namespace _06_Scripts._04_Enemy {
         #region Variables
         //! It's Health and Movement
         [SerializeField] private float searchRadius = 10f;
-        //[SerializeField] private float movement = 3.25f;
+        [SerializeField] private float movement = 3.25f;
         [HideInInspector] public int currentHealth = 20;
         public float preFire = 1.25f;
+
+        [SerializeField] private Transform path;
+        [SerializeField] private Transform[] destArray;
+        public int currentDest;
+        public bool once;
+        public bool fired;
         
         //! Spawn GameObject position
         public Transform launchOffset;
@@ -42,6 +48,12 @@ namespace _06_Scripts._04_Enemy {
             //! Setup Animator and Health Bar
             //rHealthBar.SetMaxHealth(currentHealth);
             //rAnim == GetComponent<Animator>();
+
+            var size = path.childCount;
+            destArray = new Transform[size];
+            for (var i = 0; i < size; i++) {
+                destArray[i] = path.transform.GetChild(i);
+            }
             
             rangerState = StateMachine.Idle;
         }
@@ -68,20 +80,42 @@ namespace _06_Scripts._04_Enemy {
         }
 
         private void ChaseTarget() {
-            //! New Format: Instead of Chase Target, Freeze them
+            if (transform.position != destArray[currentDest].position) {
+                transform.position = Vector3.MoveTowards(transform.position, destArray[currentDest].position,
+                    movement * Time.deltaTime);
+            } else {
+                if (!fired) {
+                    rangerState = StateMachine.Fire;
+                    return;
+                }
+
+                if (!once){
+                    once = true;
+                    StartCoroutine(MoveNextDest());
+                }
+            }
+        }
+
+        private IEnumerator MoveNextDest() {
+            yield return new WaitForSeconds(1f);
+            if (currentDest + 1 < destArray.Length){
+                currentDest += 1;
+            } else {
+                currentDest = 0;
+            }
+
+            once = false;
+            fired = false;
         }
         #endregion
         
         #region Fire
         private IEnumerator FireWeapon() {
             yield return new WaitForSeconds(preFire);
+            fired = true;
             Instantiate(bullet, launchOffset.position, transform.rotation);
             rangerState = StateMachine.Chase;
         }
-        #endregion
-
-        #region Stun, Dead
-        
         #endregion
         
         //============================================
