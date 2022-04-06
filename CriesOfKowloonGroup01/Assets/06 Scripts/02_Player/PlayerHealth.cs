@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour {
     public int currentHealth;
     public int maxHealth = 100;
+    public int newMaxHealth = 0;
     public HealthBarUI hb;
 
     private void Start(){
@@ -36,7 +37,7 @@ public class PlayerHealth : MonoBehaviour {
         hb.SetHealth(currentHealth);
 
         if (currentHealth <= 0){
-            SceneManager.LoadScene(0);
+            FindObjectOfType<LevelManager>().Restart();
         }
     }
 }

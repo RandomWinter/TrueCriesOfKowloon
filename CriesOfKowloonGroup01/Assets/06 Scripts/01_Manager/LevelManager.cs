@@ -5,44 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public string stageName;
     public GameObject player;
+    Vector2 playerInitPosition;
 
     public void Awake()
     {
-        var currentStage = SceneManager.GetActiveScene();
-        stageName = currentStage.name;
-
         player = GameObject.FindGameObjectWithTag("Player");
+        playerInitPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
     }
 
     public void Restart()
     {
-        switch(stageName)
-        {
-            case "Level 1-1":
-            SceneManager.LoadScene(2);
-            player.GetComponent<PlayerCombat>().lightDamage += 0;
-            player.GetComponent<PlayerCombat>().heavyDamage += 0;
-            player.GetComponent<PlayerHealth>().maxHealth += 0;
-            player.GetComponent<PlayerHealth>().currentHealth = player.GetComponent<PlayerHealth>().maxHealth;
-            break;
+        SceneManager.LoadScene(2);
+        GameObject.FindGameObjectWithTag("Player").transform.position = playerInitPosition;
+        player.GetComponent<PlayerCombat>().lightDamage = player.GetComponent<PlayerCombat>().lightDamage + player.GetComponent<PlayerCombat>().newLightDamage;
+        player.GetComponent<PlayerCombat>().heavyDamage = player.GetComponent<PlayerCombat>().heavyDamage + player.GetComponent<PlayerCombat>().newHeavyDamage;
+        player.GetComponent<PlayerHealth>().maxHealth = player.GetComponent<PlayerHealth>().maxHealth + player.GetComponent<PlayerHealth>().newMaxHealth;
+        player.GetComponent<PlayerHealth>().currentHealth = player.GetComponent<PlayerHealth>().maxHealth;
 
-            case "Level 1-2":
-            SceneManager.LoadScene(2);
-            player.GetComponent<PlayerCombat>().lightDamage += 5;
-            player.GetComponent<PlayerCombat>().heavyDamage += 2;
-            player.GetComponent<PlayerHealth>().maxHealth += 5;
-            player.GetComponent<PlayerHealth>().currentHealth = player.GetComponent<PlayerHealth>().maxHealth;
-            break;
-
-            case "Level 1-3":
-            SceneManager.LoadScene(2);
-            player.GetComponent<PlayerCombat>().lightDamage += 10;
-            player.GetComponent<PlayerCombat>().heavyDamage += 10;
-            player.GetComponent<PlayerHealth>().maxHealth += 10;
-            player.GetComponent<PlayerHealth>().currentHealth = player.GetComponent<PlayerHealth>().maxHealth;
-            break;
-        }
+        player.GetComponent<PlayerCombat>().newLightDamage = 0;
+        player.GetComponent<PlayerCombat>().newHeavyDamage = 0;
+        player.GetComponent<PlayerHealth>().newMaxHealth = 0;
     }
 }

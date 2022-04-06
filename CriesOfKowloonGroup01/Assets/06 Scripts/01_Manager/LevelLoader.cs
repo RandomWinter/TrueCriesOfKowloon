@@ -12,6 +12,7 @@ public class LevelLoader : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             SceneManager.LoadScene(index);
+            other.transform.position = new Vector2(2f, 7f);
         }
     }
 }

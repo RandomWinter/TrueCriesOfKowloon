@@ -21,7 +21,9 @@ public class PlayerCombat : MonoBehaviour
     public bool canDoCombo;
 
     public int lightDamage = 2;
+    public int newLightDamage = 0;
     public int heavyDamage = 5;
+    public int newHeavyDamage = 0;
     public int lightCount;
     public int heavyCount;
 
