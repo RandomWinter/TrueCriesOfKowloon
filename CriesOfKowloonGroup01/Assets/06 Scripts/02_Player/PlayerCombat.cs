@@ -16,7 +16,8 @@ public class PlayerCombat : MonoBehaviour
     public int attackDamage;
     public  float knockBack;
     public  float knockForce;
-    public float cancelCombo = 3f;
+    public float cancelCombo;
+    public float coolDown = 3f;
 
     public bool canDoCombo;
 
@@ -34,65 +35,68 @@ public class PlayerCombat : MonoBehaviour
     public LayerMask propLayer;
     public GameObject Player;
 
+    
+
     void Start()
     {
+        
         lightCount = heavyCount = 0;
     }
 
     void Update()
     {
-        
+        if (cancelCombo <= Time.time)
+        {
+            ResetAttackCount();
+            print(lightCount);
+            print(heavyCount);
+        }
+
         // Light attack and combos
         if (Input.GetKeyDown(KeyCode.K) && Time.time > NextAttack)
         {
-            
+
             Debug.Log("light attack");
             NextAttack = Time.time + AttackL;
             Attack1();
             Debug.Log(NextAttack);
             lightCount++;
-            canDoCombo = true;
+            cancelCombo = Time.time + coolDown;
 
-            
-
-            if (canDoCombo)
+            switch (lightCount)
             {
-                switch (lightCount)
-                {
-                    case 1:
-                        if (heavyCount == 2)
-                        {
-                            Debug.Log("Dragon Sweep");
-                            NextAttack = Time.time + AttackH;
-                            ResetAttackCount();
-                        }
-                        break;
-                    case 2:
-                        animator.SetTrigger("Attack2");
-                        Debug.Log("light attack");
-                        NextAttack = Time.time + AttackL;
-                        Attack1();
-                        break;
-                    case 3:
-                        animator.SetTrigger("FlashFist");
-                        Debug.Log("Flash Fist");
-                        NextAttack = Time.time + 2;
-                        FlashFist();
-                        Debug.Log(NextAttack);
+                case 1:
+                    if (heavyCount == 2)
+                    {
+                        Debug.Log("Dragon Sweep");
+                        NextAttack = Time.time + AttackH;
                         ResetAttackCount();
-                        lightCount = 0;
-                        heavyCount = 0;
-                        break;
+                    }
+                    break;
+                case 2:
+                    animator.SetTrigger("Attack2");
+                    Debug.Log("light attack");
+                    NextAttack = Time.time + AttackL;
+                    Attack1();
+                    cancelCombo = Time.time + coolDown;
+                    break;
+                case 3:
+                    animator.SetTrigger("FlashFist");
+                    Debug.Log("Flash Fist");
+                    NextAttack = Time.time + 2;
+                    FlashFist();
+                    Debug.Log(NextAttack);
+                    ResetAttackCount();
+                    lightCount = 0;
+                    heavyCount = 0;
+                    break;
 
-                    default:
-                        ResetAttackCount();
-                        break;
+                default:
+                    cancelCombo = Time.time + coolDown;
+                    break;
 
-                }
             }
-            
         }
-
         //Heavy attack and combos
         if (Input.GetKeyDown(KeyCode.L) && Time.time > NextAttack)
         {
@@ -101,6 +105,7 @@ public class PlayerCombat : MonoBehaviour
             Attack2();
             Debug.Log(NextAttack);
             heavyCount++;
+            cancelCombo = Time.time + coolDown;
 
             switch (heavyCount)
             {
@@ -138,12 +143,13 @@ public class PlayerCombat : MonoBehaviour
 
                     break;
                 default:
-                    ResetAttackCount();
+                    cancelCombo = Time.time + coolDown;
                     break;
 
             }
 
         }
+        
     }
 
     void Attack1()
@@ -319,17 +325,5 @@ public class PlayerCombat : MonoBehaviour
         heavyCount = 0;
     }
 
-    void CancelChain()
-    {
-        if (canDoCombo)
-        {
-            cancelCombo -= Time.deltaTime;
-            if (cancelCombo <= 0)
-            {
-                canDoCombo = false;
-                ResetAttackCount();
-            }
-        }
-       
-    }
+
 }
