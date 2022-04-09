@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _06_Scripts._04_Enemy{
@@ -45,8 +44,6 @@ namespace _06_Scripts._04_Enemy{
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int Hit = Animator.StringToHash("Hit");
-        private static readonly int IsHit = Animator.StringToHash("IsHit");
-        private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
         private static readonly int Dead = Animator.StringToHash("dead");
 
         private void Start(){
@@ -141,7 +138,7 @@ namespace _06_Scripts._04_Enemy{
         private IEnumerator Vanish(){
             isDead = true;
             anim.SetTrigger(Dead);
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(2f);
             gameObject.SetActive(false);
         }
         #endregion

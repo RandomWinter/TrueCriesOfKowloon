@@ -6,10 +6,10 @@ namespace _06_Scripts._05_Boss {
     public class AhKom : MonoBehaviour {
         #region Variable
         [Header("Target Components Field")] 
-        [SerializeField] public GameObject targetInfo;
-        [SerializeField] private Transform targetL;
-        [SerializeField] private Transform targetR;
-        [SerializeField] private PlayerMovement tMovement;
+        public GameObject targetInfo;
+        private Transform _targetL;
+        private Transform _targetR;
+        private PlayerMovement _tMovement;
 
         [Header("Position Components")] 
         [SerializeField] private GameObject holdRight;
@@ -62,6 +62,8 @@ namespace _06_Scripts._05_Boss {
         public enum StateMachine{
             Chase, Attack, BullRush, WindMill, Defeated
         } public StateMachine ahKomStage;
+        
+        //! Animation Boolean
         private static readonly int Walk = Animator.StringToHash("Walk");
         private static readonly int Attack1 = Animator.StringToHash("Attack");
         private static readonly int Windmill = Animator.StringToHash("Windmill");
@@ -70,17 +72,15 @@ namespace _06_Scripts._05_Boss {
         private static readonly int Charging = Animator.StringToHash("Charging");
         private static readonly int Dead = Animator.StringToHash("Dead");
         private static readonly int Hit = Animator.StringToHash("Hit");
-
-        //! Animation Boolean
         #endregion
         
         #region Core
         private void Awake(){
             //! Collect Player's Components
             targetInfo = GameObject.FindGameObjectWithTag("Player");
-            targetL = targetInfo.transform.Find("LeftTrigger");
-            targetR = targetInfo.transform.Find("RightTrigger");
-            tMovement = targetInfo.GetComponent<PlayerMovement>();
+            _targetL = targetInfo.transform.Find("LeftTrigger");
+            _targetR = targetInfo.transform.Find("RightTrigger");
+            _tMovement = targetInfo.GetComponent<PlayerMovement>();
             
             bossAnimation = GetComponent<Animator>();
             bossHb.SetMaxHealth(currentHealth);
@@ -116,12 +116,12 @@ namespace _06_Scripts._05_Boss {
             bossAnimation.SetBool(Walk, true);
             if (!InRange(1.5f)){
                 transform.position = faceRight 
-                    ? Vector2.MoveTowards(transform.position, !tMovement.facingRight 
-                        ? targetR.position 
-                        : targetL.position, mv * Time.deltaTime) 
-                    : Vector2.MoveTowards(transform.position, !tMovement.facingRight 
-                        ? targetL.position 
-                        : targetR.position, mv * Time.deltaTime);
+                    ? Vector2.MoveTowards(transform.position, !_tMovement.facingRight 
+                        ? _targetR.position 
+                        : _targetL.position, mv * Time.deltaTime) 
+                    : Vector2.MoveTowards(transform.position, !_tMovement.facingRight 
+                        ? _targetL.position 
+                        : _targetR.position, mv * Time.deltaTime);
             }
 
             if (InRange(1.5f)){

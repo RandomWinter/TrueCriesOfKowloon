@@ -39,22 +39,29 @@ namespace _06_Scripts._04_Enemy {
         public enum StateMachine {
             Idle, Chase, Fire, Stun, Dead
         } public StateMachine rangerState;
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
+        private static readonly int Attack = Animator.StringToHash("Attack");
+        private static readonly int Dead = Animator.StringToHash("dead");
+        private static readonly int Hit = Animator.StringToHash("Hit");
+
         #endregion
 
         //============================================
+        private void Awake(){
+            int size = path.childCount;
+            destArray = new Transform[size];
+            for (var i = 0; i < size; i++) {
+                destArray[i] = path.transform.GetChild(i);
+            }
+        }
+        
         private void Start(){
             _targetInfo = GameObject.FindGameObjectWithTag("Player");
             
             //! Setup Animator and Health Bar
             //rHealthBar.SetMaxHealth(currentHealth);
-            //rAnim == GetComponent<Animator>();
+            rAnim = GetComponent<Animator>();
 
-            var size = path.childCount;
-            destArray = new Transform[size];
-            for (var i = 0; i < size; i++) {
-                destArray[i] = path.transform.GetChild(i);
-            }
-            
             rangerState = StateMachine.Idle;
         }
 
@@ -81,15 +88,17 @@ namespace _06_Scripts._04_Enemy {
 
         private void ChaseTarget() {
             if (transform.position != destArray[currentDest].position) {
+                rAnim.SetBool(IsMoving, true);
                 transform.position = Vector3.MoveTowards(transform.position, destArray[currentDest].position,
                     movement * Time.deltaTime);
             } else {
+                rAnim.SetBool(IsMoving, false);
                 if (!fired) {
                     rangerState = StateMachine.Fire;
                     return;
                 }
-
-                if (!once){
+                
+                if (!once && fired){
                     once = true;
                     StartCoroutine(MoveNextDest());
                 }
@@ -112,8 +121,12 @@ namespace _06_Scripts._04_Enemy {
         #region Fire
         private IEnumerator FireWeapon() {
             yield return new WaitForSeconds(preFire);
-            fired = true;
-            Instantiate(bullet, launchOffset.position, transform.rotation);
+            if (!fired){
+                rAnim.SetTrigger(Attack);
+                Instantiate(bullet, launchOffset.position, transform.rotation);
+                fired = true;
+            }
+            
             rangerState = StateMachine.Chase;
         }
         #endregion
@@ -123,8 +136,9 @@ namespace _06_Scripts._04_Enemy {
         #region ReceiveDamage, StunDown, Vanish
         private void ReceivedDamage(int dmg){
             if (isDefeated) return;
-            //!anim.ResetTrigger(Attack);
-            //!anim.SetBool(IsMoving, false);
+            rAnim.ResetTrigger(Attack);
+            rAnim.SetBool(IsMoving, false);
+            rAnim.SetTrigger(Hit);
             
             currentHealth -= dmg;
             //!minionHb.SetHealth(_currentHealth);
@@ -141,7 +155,7 @@ namespace _06_Scripts._04_Enemy {
 
         private IEnumerator Vanish(){
             isDefeated = true;
-            //! anim.SetTrigger(Dead);
+            rAnim.SetTrigger(Dead);
             yield return new WaitForSeconds(5f);
             gameObject.SetActive(false);
         }
