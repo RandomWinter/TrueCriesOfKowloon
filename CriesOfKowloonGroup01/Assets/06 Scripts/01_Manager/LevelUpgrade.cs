@@ -20,7 +20,7 @@ public class LevelUpgrade : MonoBehaviour
     {
         switch(stageName)
         {
-            case "level 1-2":
+            case "level 1-1":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 0) == 0)
@@ -33,15 +33,119 @@ public class LevelUpgrade : MonoBehaviour
             }
             break;
 
-            case "lvl 1-3":
+            case "level 1-2":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 1) == 1)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 10;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 10;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 10;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
                     PlayerPrefs.SetInt("Upgraded", 2);
+                }
+            }
+            break;
+
+            case "lvl 1-3":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 2) == 2)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 3);
+                }
+            }
+            break;
+
+            case "lvl 2-1":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 3) == 3)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 4);
+                }
+            }
+            break;
+
+            case "lvl 2-2":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 4) == 4)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 5);
+                }
+            }
+            break;
+
+            case "lvl 2-3":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 5) == 5)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 6);
+                }
+            }
+            break;
+
+            case "lvl 3-1":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 6) == 6)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 7);
+                }
+            }
+            break;
+
+            case "lvl 3-2":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 7) == 7)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 8);
+                }
+            }
+            break;
+
+            case "lvl 3-3":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 8) == 8)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 9);
+                }
+            }
+            break;
+
+            case "lvl 3-4":
+            if(other.CompareTag("Player"))
+            {
+                if(PlayerPrefs.GetInt("Upgraded", 9) == 9)
+                {
+                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    PlayerPrefs.SetInt("Upgraded", 10);
                 }
             }
             break;
