@@ -72,23 +72,31 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void Resume() {
+    public void Resume() 
+    {
         Debug.Log(" Game Is Not Paused");
         pauseMenuUi.SetActive(false);
         MenuImage.SetActive(false);
         ComboList.SetActive(false);
         ControlScheme.SetActive(false);
-        
+
         Time.timeScale = 1f;
         GamePaused = false;
     }
 
-    void Pause() {
+    public void Pause() 
+    {
         Debug.Log("Game Is Paused");
         pauseMenuUi.SetActive(true);
         MenuImage.SetActive(true);
         
         Time.timeScale = 0f;
         GamePaused = true;
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
     }
 }

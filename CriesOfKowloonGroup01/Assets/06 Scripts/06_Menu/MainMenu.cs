@@ -20,11 +20,13 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
+        //plays game 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             PlayerPrefs.SetInt("Upgraded", 0);
             SceneManager.LoadScene(1);
         }
+        //opens settings menu
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             menuUi.SetActive(false);
@@ -32,6 +34,7 @@ public class MainMenu : MonoBehaviour
             controlList.SetActive(false);
             menuOpen = true;
         }
+        //opens controls list
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             menuUi.SetActive(false);
@@ -41,6 +44,7 @@ public class MainMenu : MonoBehaviour
             backButton.SetActive(true);
             menuOpen = true;
         }
+        //closes the game
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             Application.Quit();
@@ -61,6 +65,8 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
+
+    
 
     
 }
