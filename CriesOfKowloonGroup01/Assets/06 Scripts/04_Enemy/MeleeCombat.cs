@@ -28,8 +28,8 @@ namespace _06_Scripts._04_Enemy{
         [HideInInspector] public bool isDetected;
         
         //! Boolean Event, used to inform Manager about current situation
-        public bool targetFound; //! Description: Check Target in its radius
-        public bool readyToAttack; //! Description: when other is attacking, it will wait
+        public bool stunOnce; //! Description: Check Target in its radius
+        public bool deadOnce; //! Description: when other is attacking, it will wait
         public bool isDead; //! Description: when it died, manager will check and asked other to take over its job
 
         [HideInInspector] public bool didIMissAttack; //! Description: Received from Animation feedback
@@ -60,6 +60,10 @@ namespace _06_Scripts._04_Enemy{
         }
 
         private void Update(){
+            if (currentHealth <= 0 && !deadOnce){
+                minionStates = StateMachine.Dead;
+            }
+            
             switch (minionStates){
                 case StateMachine.Idle: Idle(); break;
                 case StateMachine.Follow: ChangeDirection(); Follow(); break;
@@ -76,7 +80,6 @@ namespace _06_Scripts._04_Enemy{
             Vector2 radar = transform.position - _target.transform.position;
             if (!(radar.sqrMagnitude < searchRange * searchRange)) return;
             minionStates = StateMachine.Follow;
-            targetFound = true;
         }
         
         private bool InRange(float dist) {
@@ -137,7 +140,11 @@ namespace _06_Scripts._04_Enemy{
         //! Description: It will be disable after its death animation 
         private IEnumerator Vanish(){
             isDead = true;
-            anim.SetTrigger(Dead);
+            if (!deadOnce){
+                anim.SetTrigger(Dead);
+                deadOnce = true;
+            }
+            
             yield return new WaitForSeconds(2f);
             gameObject.SetActive(false);
         }
@@ -171,9 +178,14 @@ namespace _06_Scripts._04_Enemy{
         }
 
         private IEnumerator CantMove(){
-            anim.SetTrigger(Hit);
+            if (!stunOnce){
+                anim.SetTrigger(Hit);
+                stunOnce = true;
+            }
+            
             yield return new WaitForSeconds(1f);
-            if (!isDead) {
+            if (!isDead){
+                stunOnce = false;
                 minionStates = StateMachine.Follow;
             }
         }

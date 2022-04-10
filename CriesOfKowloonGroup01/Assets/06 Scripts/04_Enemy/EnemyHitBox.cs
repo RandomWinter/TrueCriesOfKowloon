@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _06_Scripts._04_Enemy {
     public class EnemyHitBox : MonoBehaviour{
-        private int attackDamage = 15;
+        public int attackDamage = 15;
         private bool _isAttackOn;
         private bool _targetHit;
         public GameObject enemy;

@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6353809247972394361, guid: 578fe41989890f24fad64d3f44032569, type: 3}
       propertyPath: m_Name
-      value: Enemy_1(1.5)
+      value: Enemy_1(2 ver)
       objectReference: {fileID: 0}
     - target: {fileID: 6353809247972394361, guid: 578fe41989890f24fad64d3f44032569, type: 3}
       propertyPath: m_Layer
@@ -368,14 +368,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minionHb: {fileID: 364372155266644016}
   anim: {fileID: 2490627080783370620}
-  searchRange: 10
+  searchRange: 25
   movementS: 2.85
   currentHealth: 20
   castPoint: {fileID: 6890092613106517042}
   castDistance: 0
   isDetected: 0
-  targetFound: 0
-  readyToAttack: 0
+  stunOnce: 0
+  deadOnce: 0
   isDead: 0
   didIMissAttack: 0
   targetHit: 0

@@ -25,11 +25,7 @@ namespace _06_Scripts._04_Enemy {
         public int currentDest;
         public bool once;
         public bool fired;
-        
-        //! Spawn GameObject position
-        public Transform launchOffset;
-        public RangerBullet bullet;
-        
+
         //! Boolean Event
         [HideInInspector] public bool faceRight;
         public bool isDefeated;
@@ -59,7 +55,7 @@ namespace _06_Scripts._04_Enemy {
             _targetInfo = GameObject.FindGameObjectWithTag("Player");
             
             //! Setup Animator and Health Bar
-            //rHealthBar.SetMaxHealth(currentHealth);
+            rHealthBar.SetMaxHealth(currentHealth);
             rAnim = GetComponent<Animator>();
 
             rangerState = StateMachine.Idle;
@@ -121,27 +117,24 @@ namespace _06_Scripts._04_Enemy {
         #region Fire
         private IEnumerator FireWeapon() {
             yield return new WaitForSeconds(preFire);
-            if (!fired){
-                rAnim.SetTrigger(Attack);
-                Instantiate(bullet, launchOffset.position, transform.rotation);
-                fired = true;
+            switch (fired){
+                case true: rangerState = StateMachine.Chase; break;
+                case false: rAnim.SetTrigger(Attack); break;
             }
-            
-            rangerState = StateMachine.Chase;
         }
         #endregion
         
         //============================================
 
         #region ReceiveDamage, StunDown, Vanish
-        private void ReceivedDamage(int dmg){
+        public void ReceivedDamage(int dmg){
             if (isDefeated) return;
             rAnim.ResetTrigger(Attack);
             rAnim.SetBool(IsMoving, false);
             rAnim.SetTrigger(Hit);
             
             currentHealth -= dmg;
-            //!minionHb.SetHealth(_currentHealth);
+            rHealthBar.SetHealth(currentHealth);
             rangerState = currentHealth <= 0 ? StateMachine.Dead : StateMachine.Stun;
         }
         
