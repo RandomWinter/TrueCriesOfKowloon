@@ -13,17 +13,15 @@ public class PlayerCombat : MonoBehaviour
     public float attackCD;
     private float NextAttack;
     public float attackRange = 0.5f;
-    public int attackDamage;
     public  float knockBack;
     public  float knockForce;
     public float cancelCombo;
     public float coolDown = 3f;
 
-    public bool canDoCombo;
-
-    public int lightDamage = 2;
+    public int attackDamage;
+    public int lightDamage = 1;
     public int newLightDamage = 0;
-    public int heavyDamage = 5;
+    public int heavyDamage = 2;
     public int newHeavyDamage = 0;
     public int lightCount;
     public int heavyCount;
@@ -83,12 +81,10 @@ public class PlayerCombat : MonoBehaviour
                 case 3:
                     animator.SetTrigger("FlashFist");
                     Debug.Log("Flash Fist");
-                    NextAttack = Time.time + 2;
+                    NextAttack = Time.time + 0.75f;
                     FlashFist();
                     Debug.Log(NextAttack);
                     ResetAttackCount();
-                    lightCount = 0;
-                    heavyCount = 0;
                     break;
 
                 default:
@@ -114,11 +110,9 @@ public class PlayerCombat : MonoBehaviour
                     {
                         animator.SetTrigger("UpstreamPunch");
                         Debug.Log("Upstream Punch");
-                        NextAttack = Time.time + 2;
+                        NextAttack = Time.time + 1.5f;
                         UpstreamPunch();
                         ResetAttackCount();
-                        lightCount = 0;
-                        heavyCount = 0;
                     }
                     break;
                 case 2:
@@ -166,7 +160,7 @@ public class PlayerCombat : MonoBehaviour
                 Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
-                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
                 print("launch right");
             }
             else
@@ -175,7 +169,7 @@ public class PlayerCombat : MonoBehaviour
                     //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
                     
                     enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
-                    enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
+                    enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
                     print("launch left");
             }
             
@@ -210,7 +204,7 @@ public class PlayerCombat : MonoBehaviour
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(heavyDamage);
-                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+                enemy.attachedRigidbody.AddForce(new Vector2(75 * 5, 0 * 5));
                 
             }
             else
@@ -218,7 +212,7 @@ public class PlayerCombat : MonoBehaviour
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(heavyDamage);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(heavyDamage);
-                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
+                enemy.attachedRigidbody.AddForce(new Vector2(75 * -5, 0 * -5));
             }
         }
 
@@ -250,16 +244,16 @@ public class PlayerCombat : MonoBehaviour
             {
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
-                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
-                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(90 * 5, 0 * 5));
 
             }
             else
             {
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
-                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
-                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(90 * -5, 0 * -5));
             }
         }
 
@@ -293,7 +287,7 @@ public class PlayerCombat : MonoBehaviour
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
-                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * 5, knockForce * 5));
+                enemy.attachedRigidbody.AddForce(new Vector2(20 * 5, 100 * 5));
 
             }
             else
@@ -301,7 +295,7 @@ public class PlayerCombat : MonoBehaviour
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
-                enemy.attachedRigidbody.AddForce(new Vector2(knockBack * -5, knockForce * -5));
+                enemy.attachedRigidbody.AddForce(new Vector2(-20 * -5, 100 * -5));
             }
         }
 
@@ -317,6 +311,12 @@ public class PlayerCombat : MonoBehaviour
             boss.GetComponent<AhKom>().DamageReceived(lightDamage);
         }
         ResetAttackCount();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(AttackPoint.position, attackRange);
     }
 
     void ResetAttackCount()
