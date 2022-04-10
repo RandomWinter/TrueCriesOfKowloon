@@ -287,7 +287,7 @@ public class PlayerCombat : MonoBehaviour
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
-                enemy.attachedRigidbody.AddForce(new Vector2(20 * 5, 100 * 5));
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 100 * 5));
 
             }
             else
@@ -295,8 +295,40 @@ public class PlayerCombat : MonoBehaviour
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
-                enemy.attachedRigidbody.AddForce(new Vector2(-20 * -5, 100 * -5));
+                enemy.attachedRigidbody.AddForce(new Vector2(0 * 5, -100 * 5));
             }
+        }
+
+        foreach (Collider2D Props in hitProps)
+        {
+            print("Prop hit");
+            Props.GetComponent<BreakableProps>().ReceivingDamage(heavyDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss)
+        {
+            print("Boss hit");
+            boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+        }
+        ResetAttackCount();
+    }
+
+    void DragonSweep()
+    {
+        animator.SetTrigger("DragonSweep");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            
+                // Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(100 * 5, 0 * 5));
+                enemy.attachedRigidbody.AddForce(new Vector2(-100 * 5, 0 * 5));
+            
         }
 
         foreach (Collider2D Props in hitProps)
