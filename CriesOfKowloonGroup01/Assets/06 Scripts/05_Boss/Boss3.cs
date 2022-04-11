@@ -65,6 +65,8 @@ namespace _06_Scripts._05_Boss {
             _pFront = _target.transform.Find("RightTrigger");
             _pBehind = _target.transform.Find("LeftTrigger");
             _targetMv = _target.GetComponent<PlayerMovement>();
+            
+            _inchActivate = true;
         }
 
         private void Update(){
@@ -75,7 +77,7 @@ namespace _06_Scripts._05_Boss {
             switch (boss3States){
                 case StateMachine3.Follow: ChangeDirection(); Follow(); break;
                 case StateMachine3.Attack: Attack(); break; 
-                case StateMachine3.InchPunch: _inchActivate = true; InchPunch(); break;
+                case StateMachine3.InchPunch: InchPunch(); break;
                 case StateMachine3.StraightKick: _xKickActive = true; StraightKick(); break;
                 case StateMachine3.Defeat: StartCoroutine(Vanish()); break;
                 case StateMachine3.Stun: StartCoroutine(Hit()); break;
@@ -91,7 +93,7 @@ namespace _06_Scripts._05_Boss {
                 var selectSpecMove = Random.Range(0, 5);
                 switch (selectSpecMove){
                     case <= 1 when currentHealth <= 80: boss3States = StateMachine3.StraightKick; break;
-                    case 2 when currentHealth <= 50: boss3States = StateMachine3.InchPunch; break;
+                    case 2 when currentHealth <= 50: _inchActivate = true; boss3States = StateMachine3.InchPunch; break;
                     default: boss3States = StateMachine3.Attack; break;
                 }
                 return;
