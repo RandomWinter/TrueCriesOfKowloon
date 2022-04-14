@@ -46,8 +46,8 @@ public class PlayerCombat : MonoBehaviour
         if (cancelCombo <= Time.time)
         {
             ResetAttackCount();
-            print(lightCount);
-            print(heavyCount);
+            //print(lightCount);
+            //print(heavyCount);
         }
 
         // Light attack and combos
@@ -66,11 +66,14 @@ public class PlayerCombat : MonoBehaviour
                 case 1:
                     if (heavyCount == 2)
                     {
+                        animator.SetTrigger("DragonSweep");
                         Debug.Log("Dragon Sweep");
-                        NextAttack = Time.time + AttackH;
+                        //NextAttack = Time.time + 0.85f;
+                        DragonSweep();
                         ResetAttackCount();
                     }
                     break;
+
                 case 2:
                     animator.SetTrigger("Attack2");
                     Debug.Log("light attack");
@@ -83,7 +86,7 @@ public class PlayerCombat : MonoBehaviour
                     Debug.Log("Flash Fist");
                     NextAttack = Time.time + 0.75f;
                     FlashFist();
-                    Debug.Log(NextAttack);
+                    //Debug.Log(NextAttack);
                     ResetAttackCount();
                     break;
 
@@ -118,13 +121,19 @@ public class PlayerCombat : MonoBehaviour
                 case 2:
                     if (lightCount == 1)
                     {
+                        animator.SetTrigger("RockBreaker");
                         Debug.Log("Rock Breaker");
+                        NextAttack = Time.time + 1.5f;
+                        RockBreaker();
                         ResetAttackCount();
 
                     }
                     else if (lightCount == 2)
                     {
+                        animator.SetTrigger("EmotionalDamage");
                         Debug.Log("Emotional Damage");
+                        NextAttack = Time.time + 1.5f;
+                        EmotionalDamage();
                         ResetAttackCount();
                     }
                     else
@@ -132,9 +141,13 @@ public class PlayerCombat : MonoBehaviour
                         animator.SetTrigger("HeavyAttack2");
                         NextAttack = Time.time + AttackH;
                         Attack2();
-                        ResetAttackCount();
+                        cancelCombo = Time.time + coolDown;
+
                     }
 
+                    break;
+                case 3:
+                    heavyCount = 1;
                     break;
                 default:
                     cancelCombo = Time.time + coolDown;
@@ -151,7 +164,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -232,7 +245,6 @@ public class PlayerCombat : MonoBehaviour
 
     void FlashFist()
     {
-        print("Working");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
         Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
@@ -313,6 +325,46 @@ public class PlayerCombat : MonoBehaviour
         ResetAttackCount();
     }
 
+    void RockBreaker()
+    {
+        animator.SetTrigger("RockBreaker");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                // Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 100 * 5));
+
+            }
+            else
+            {
+                // Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(0 * 5, -100 * 5));
+            }
+        }
+
+        foreach (Collider2D Props in hitProps)
+        {
+            print("Prop hit");
+            Props.GetComponent<BreakableProps>().ReceivingDamage(heavyDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss)
+        {
+            print("Boss hit");
+            boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+        }
+        ResetAttackCount();
+    }
+
     void DragonSweep()
     {
         animator.SetTrigger("DragonSweep");
@@ -322,13 +374,62 @@ public class PlayerCombat : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(150 * 5, 0 * 5));
+
+            }
+            else
+            {
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
-                enemy.attachedRigidbody.AddForce(new Vector2(100 * 5, 0 * 5));
-                enemy.attachedRigidbody.AddForce(new Vector2(-100 * 5, 0 * 5));
-            
+                enemy.attachedRigidbody.AddForce(new Vector2(150 * -5, 0 * -5));
+            }
+
+        }
+
+        foreach (Collider2D Props in hitProps)
+        {
+            print("Prop hit");
+            Props.GetComponent<BreakableProps>().ReceivingDamage(heavyDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss)
+        {
+            print("Boss hit");
+            boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+        }
+        ResetAttackCount();
+    }
+
+    void EmotionalDamage()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 4);
+                enemy.attachedRigidbody.AddForce(new Vector2(90 * 5, 0 * 5));
+
+            }
+            else
+            {
+                // Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 4);
+                enemy.attachedRigidbody.AddForce(new Vector2(90 * -5, 0 * -5));
+            }
         }
 
         foreach (Collider2D Props in hitProps)
