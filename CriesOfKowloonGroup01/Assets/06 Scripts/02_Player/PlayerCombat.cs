@@ -31,6 +31,7 @@ public class PlayerCombat : MonoBehaviour
     public Transform AttackPoint;
     public LayerMask enemyLayer;
     public LayerMask propLayer;
+    public LayerMask bossLayer;
     public GameObject Player;
 
     
@@ -164,7 +165,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -207,7 +208,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("HeavyAttack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
 
         foreach (Collider2D enemy in hitEnemies)
@@ -247,7 +248,7 @@ public class PlayerCombat : MonoBehaviour
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
 
         foreach (Collider2D enemy in hitEnemies)
@@ -290,7 +291,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("UpstreamPunch");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -330,7 +331,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("RockBreaker");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -370,7 +371,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("DragonSweep");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -410,7 +411,7 @@ public class PlayerCombat : MonoBehaviour
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
-        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
 
         foreach (Collider2D enemy in hitEnemies)

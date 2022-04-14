@@ -273,7 +273,8 @@ namespace _06_Scripts._05_Boss {
         #region DamageReceived, Stun, Defeated
         public void DamageReceived(int dmg) {
             if (defeated) return;
-            
+
+            print("hit");
             currentHealth -= dmg;
             bossHb.SetMaxHealth(currentHealth);
             
