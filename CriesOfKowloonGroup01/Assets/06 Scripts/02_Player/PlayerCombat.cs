@@ -90,6 +90,9 @@ public class PlayerCombat : MonoBehaviour
                     //Debug.Log(NextAttack);
                     ResetAttackCount();
                     break;
+                case 4:
+                    lightCount = 0;
+                    break;
 
                 default:
                     cancelCombo = Time.time + coolDown;
@@ -176,17 +179,17 @@ public class PlayerCombat : MonoBehaviour
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
                 print("launch right");
+                
             }
             else
             {
-                    Debug.Log("Enemy hit");
-                    //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
-                    
-                    enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
-                    enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
-                    print("launch left");
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                print("launch left");
             }
-            
+
         }
 
         foreach (Collider2D Props in hitProps)
@@ -198,7 +201,9 @@ public class PlayerCombat : MonoBehaviour
         foreach (Collider2D boss in hitBoss)
         {
             print("Boss hit");
-            boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<AhKom>().DamageReceived(lightDamage);
         }
 
     }

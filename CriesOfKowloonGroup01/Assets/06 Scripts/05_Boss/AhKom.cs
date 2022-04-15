@@ -274,7 +274,7 @@ namespace _06_Scripts._05_Boss {
         public void DamageReceived(int dmg) {
             if (defeated) return;
 
-            print("hit");
+            Debug.Log("Ah Kom has taken damage");
             currentHealth -= dmg;
             bossHb.SetMaxHealth(currentHealth);
             

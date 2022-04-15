@@ -817,6 +817,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.9984583
       objectReference: {fileID: 0}
+    - target: {fileID: 5842790604253911677, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7585074825917892142, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.61807793
@@ -837,6 +841,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8992594528715897885, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992594529291539376, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_Size.y
+      value: 8.596904
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992594529291539376, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.55043006
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992594529291539376, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_Offset.y
+      value: 4.9688554
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992594529291539376, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8992594529291539383, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
       propertyPath: mv
       value: 3.15
@@ -851,32 +875,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
---- !u!1 &898427080 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3453934501565086322, guid: e6e5103bdb01c1345925c82e3e2bc35a, type: 3}
-  m_PrefabInstance: {fileID: 898427079}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &898427081
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898427080}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 3
-  m_LinearDrag: 2.5
-  m_AngularDrag: 1.15
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1266545567
 GameObject:
   m_ObjectHideFlags: 0

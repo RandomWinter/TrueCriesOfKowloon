@@ -171,7 +171,8 @@ namespace _06_Scripts._04_Enemy{
             if (isDead) return;
             anim.ResetTrigger(Attack);
             anim.SetBool(IsMoving, false);
-            
+
+            print("i have been hit");
             currentHealth -= dmg;
             minionHb.SetHealth(currentHealth);
             minionStates = currentHealth <= 0 ? StateMachine.Dead : StateMachine.Stun;
