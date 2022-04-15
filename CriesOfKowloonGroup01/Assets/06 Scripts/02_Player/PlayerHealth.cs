@@ -37,7 +37,8 @@ public class PlayerHealth : MonoBehaviour {
         hb.SetHealth(currentHealth);
 
         if (currentHealth <= 0){
-            SceneManager.LoadScene(0);
+            //SceneManager.LoadScene(0);
+            FindObjectOfType<LevelManager>().Restart();
         }
     }
 }
