@@ -82,7 +82,8 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(dashTime);
 
-        moveSpeed = baseSpeed;
+        moveSpeed /= dashPower;
         isDashing = false;
+        
     }
 }

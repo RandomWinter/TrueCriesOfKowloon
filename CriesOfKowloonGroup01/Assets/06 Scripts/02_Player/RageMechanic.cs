@@ -18,6 +18,8 @@ public class RageMechanic : MonoBehaviour
     public bool IsRaging;
     public RageBarUI ragebar;
 
+    public GameObject rageMode;
+
     private void Start()
     {
         ragebar.SetStartRage();
@@ -57,7 +59,7 @@ public class RageMechanic : MonoBehaviour
         {
             if(!IsRaging)
             {
-                currentRageXP += 5;
+                currentRageXP += 100;
                 ragebar.SetRage(currentRageXP);
             }
         }
@@ -101,6 +103,7 @@ public class RageMechanic : MonoBehaviour
         if(IsRaging)
         {
             Raging();
+            rageMode.SetActive(true);
         }
         
         if(currentRageXP >= 100)
@@ -116,17 +119,18 @@ public class RageMechanic : MonoBehaviour
                 {
                     GetComponent<PlayerCombat>().lightDamage -= 5;
                     GetComponent<PlayerCombat>().heavyDamage -= 5;
-                    GetComponent<PlayerMovement>().moveSpeed -= 5;
+                    GetComponent<PlayerMovement>().moveSpeed = 5;
                 }
             }
         }
 
         if(IsRaging && currentRageXP == 0)
         {
+            rageMode.SetActive(false);
             IsRaging = false;
             GetComponent<PlayerCombat>().lightDamage -= 5;
             GetComponent<PlayerCombat>().heavyDamage -= 5;
-            GetComponent<PlayerMovement>().moveSpeed -= 5;
+            GetComponent<PlayerMovement>().moveSpeed = 5;
         }
     }
 
