@@ -136,19 +136,6 @@ public class LevelUpgrade : MonoBehaviour
                 }
             }
             break;
-
-            case "lvl 3-4":
-            if(other.CompareTag("Player"))
-            {
-                if(PlayerPrefs.GetInt("Upgraded", 9) == 9)
-                {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
-                    PlayerPrefs.SetInt("Upgraded", 10);
-                }
-            }
-            break;
         }
     }
 }
