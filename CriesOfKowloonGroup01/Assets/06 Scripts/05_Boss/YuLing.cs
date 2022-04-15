@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,34 +26,38 @@ namespace _06_Scripts._05_Boss {
         //! It's Health and Movement
         [SerializeField] private float movement = 4.5f;
         public int currentHealth = 30;
+        public bool normalAttack;
         public int chainHit;
         
         //!Knife Field
         public GameObject knifePrefab;
         public Transform throwPoint;
+        
         private float kTChargeTime = 1.25f; //Knife Throw Timer
         private float _throwKnife;
+        
         public int waveKnife;
         public int numKnife = 2;
         public int knifeThrown;
+        
         private bool _distanceCheck;
         private bool _kTActivated;
         public bool kTFinish;
+        
         private Vector2 _direction;
-        public float kForce = 3f;
         
         //!Spin Death Field
         private float sDChargeTime = 1f;
         private float sDChaseTime = 5f;
         private float sDCoolDown = 2f;
         private bool _sDPrepared;
-        private bool _sDActivated;
+        public bool _sDActivated;
         private bool _sDFinished; 
         
         //!Emotional Damage Field
         [SerializeField] private float eDCoolDown = 1.25f; //Emotional Damage Timer
-        [SerializeField] private bool eDActivated;
-        [SerializeField] public bool eDFinish;
+        public bool eDActivated;
+        public bool eDFinish;
         
         [Header("Event Countdown / CoolDown")]
         private float _chargeDown; //Specified for Spin Death
@@ -157,18 +160,14 @@ namespace _06_Scripts._05_Boss {
         }
 
         private void Attack(){
-            if (!missAtt && chainHit < 3) {
-                switch (chainHit) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                }
+            normalAttack = true;
+            if (!missAtt && chainHit != 1) {
+               //! animation set trigger
             } else {
-                chainHit = 0;
                 yuLingState = StateMachine.Chase;
+                normalAttack = false;
+                missAtt = false;
+                chainHit = 0;
             }
         }
 

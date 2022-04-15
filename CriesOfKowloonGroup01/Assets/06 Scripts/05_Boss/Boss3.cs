@@ -23,6 +23,7 @@ namespace _06_Scripts._05_Boss {
         [HideInInspector] public int currentHealth = 100;
 
         //! Normal Attack
+        public bool normalAtt;
         public bool missAttack;
         public int targetHit;
     
@@ -32,13 +33,13 @@ namespace _06_Scripts._05_Boss {
     
         //! Straight Kick
         private Vector2 _kickCoordinate;
-        private bool _xKickActive;
+        public bool xKickActive;
         private bool _readOnce;
         private int _kickNum;
         public float kickForce = 2;
 
         //! Inch Punch
-        private bool _inchActivate;
+        public bool inchActivate;
         [FormerlySerializedAs("_inchDash")] public float inchDash = 15;
     
         //! Raycast for Attack
@@ -65,20 +66,18 @@ namespace _06_Scripts._05_Boss {
             _pFront = _target.transform.Find("RightTrigger");
             _pBehind = _target.transform.Find("LeftTrigger");
             _targetMv = _target.GetComponent<PlayerMovement>();
-            
-            _inchActivate = true;
         }
 
         private void Update(){
-            if (_xKickActive) {
+            if (xKickActive) {
                 _countDown += Time.deltaTime;
             }
 
             switch (boss3States){
                 case StateMachine3.Follow: ChangeDirection(); Follow(); break;
-                case StateMachine3.Attack: Attack(); break; 
+                case StateMachine3.Attack: normalAtt = true; Attack(); break; 
                 case StateMachine3.InchPunch: InchPunch(); break;
-                case StateMachine3.StraightKick: _xKickActive = true; StraightKick(); break;
+                case StateMachine3.StraightKick: xKickActive = true; StraightKick(); break;
                 case StateMachine3.Defeat: StartCoroutine(Vanish()); break;
                 case StateMachine3.Stun: StartCoroutine(Hit()); break;
                 default: throw new ArgumentOutOfRangeException();
@@ -93,7 +92,7 @@ namespace _06_Scripts._05_Boss {
                 var selectSpecMove = Random.Range(0, 5);
                 switch (selectSpecMove){
                     case <= 1 when currentHealth <= 80: boss3States = StateMachine3.StraightKick; break;
-                    case 2 when currentHealth <= 50: _inchActivate = true; boss3States = StateMachine3.InchPunch; break;
+                    case 2 when currentHealth <= 50: inchActivate = true; boss3States = StateMachine3.InchPunch; break;
                     default: boss3States = StateMachine3.Attack; break;
                 }
                 return;
@@ -133,6 +132,7 @@ namespace _06_Scripts._05_Boss {
             } else {
                 boss3States = StateMachine3.Follow;
                 missAttack = false;
+                normalAtt = false;
                 targetHit = 0;
             }
         }
@@ -163,14 +163,14 @@ namespace _06_Scripts._05_Boss {
         }
     
         private void InchPunch(){
-            if (_inchActivate){
+            if (inchActivate){
                 //! Play Animation
                 print("InchPunch");
                 rb2d.velocity = _isFacingRight switch{
                     true => Vector2.right * inchDash,
                     false => Vector2.left * inchDash
                 };
-                _inchActivate = false;
+                inchActivate = false;
             }
 
             StartCoroutine(Tired());
@@ -178,10 +178,11 @@ namespace _06_Scripts._05_Boss {
 
         private IEnumerator Tired(){
             //! anim.ResetTrigger(kick);
-            //!anim.ResetTrigger(Tired);
+            //! anim.ResetTrigger(IPunch);
+            //!anim.SetTrigger(Tired);
             yield return new WaitForSeconds(2f);
             _countDown = 0;
-            _readOnce = _xKickActive = false;
+            _readOnce = xKickActive = false;
             boss3States = StateMachine3.Follow;
         }
 

@@ -6,8 +6,6 @@ namespace _06_Scripts._04_Enemy {
         private bool _isAttackOn;
         private bool _targetHit;
         public GameObject enemy;
-        
-        private EnemyBehavior _checker;
 
         private void OnEnable() {
             _isAttackOn = true;
