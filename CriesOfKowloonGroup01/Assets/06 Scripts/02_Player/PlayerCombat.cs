@@ -385,7 +385,7 @@ public class PlayerCombat : MonoBehaviour
                 Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
-                enemy.attachedRigidbody.AddForce(new Vector2(150 * 5, 0 * 5));
+                enemy.attachedRigidbody.AddForce(new Vector2(200 * 5, 0 * 5));
 
             }
             else
@@ -393,7 +393,7 @@ public class PlayerCombat : MonoBehaviour
                 // Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(attackDamage + 5);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
-                enemy.attachedRigidbody.AddForce(new Vector2(150 * -5, 0 * -5));
+                enemy.attachedRigidbody.AddForce(new Vector2(200 * -5, 0 * 5));
             }
 
         }

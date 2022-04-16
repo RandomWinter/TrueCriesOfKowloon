@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RageMechanic : MonoBehaviour
 {
@@ -17,8 +18,10 @@ public class RageMechanic : MonoBehaviour
     public float maxRageXP = 100;
     public bool IsRaging;
     public RageBarUI ragebar;
-
+    public Image rageFill;
     public GameObject rageMode;
+
+    public Animator animator;
 
     private void Start()
     {
@@ -47,6 +50,7 @@ public class RageMechanic : MonoBehaviour
         {
             currentRageXP = maxRageXP;
             ragebar.SetRage(currentRageXP);
+            rageFill.fillAmount = currentRageXP/maxRageXP;
         }
     }
 
@@ -61,6 +65,7 @@ public class RageMechanic : MonoBehaviour
             {
                 currentRageXP += 100;
                 ragebar.SetRage(currentRageXP);
+                rageFill.fillAmount = currentRageXP / maxRageXP;
             }
         }
 
@@ -70,6 +75,7 @@ public class RageMechanic : MonoBehaviour
             {
                 currentRageXP += 5;
                 ragebar.SetRage(currentRageXP);
+                rageFill.fillAmount = currentRageXP / maxRageXP;
             }
         }
     }
@@ -85,6 +91,7 @@ public class RageMechanic : MonoBehaviour
             {
                 currentRageXP += 5;
                 ragebar.SetRage(currentRageXP);
+                rageFill.fillAmount = currentRageXP / maxRageXP;
             }
         }
 
@@ -94,6 +101,7 @@ public class RageMechanic : MonoBehaviour
             {
                 currentRageXP += 5;
                 ragebar.SetRage(currentRageXP);
+                rageFill.fillAmount = currentRageXP / maxRageXP;
             }
         }
     }
@@ -110,6 +118,7 @@ public class RageMechanic : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
+                animator.SetTrigger("Rage");
                 GetComponent<PlayerCombat>().lightDamage += 5;
                 GetComponent<PlayerCombat>().heavyDamage += 5;
                 GetComponent<PlayerMovement>().moveSpeed += 5;
@@ -138,11 +147,13 @@ public class RageMechanic : MonoBehaviour
     {
         currentRageXP -= Time.deltaTime * 8;
         ragebar.SetRage(currentRageXP);
+        rageFill.fillAmount = currentRageXP / maxRageXP;
 
-        if(currentRageXP < 0)
+        if (currentRageXP < 0)
         {
             currentRageXP = 0;
             ragebar.SetStartRage();
+            rageFill.fillAmount = 0;
         }
     }
 }
