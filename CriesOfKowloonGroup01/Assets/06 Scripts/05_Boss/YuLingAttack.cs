@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace _06_Scripts._05_Boss {
@@ -6,7 +5,7 @@ namespace _06_Scripts._05_Boss {
         public int attack = 20;
         private bool _isAttackOn;
         private bool _targetHit;
-        private GameObject boss2;
+        public GameObject boss2;
 
         private void OnEnable(){
             _isAttackOn = true;
@@ -24,8 +23,9 @@ namespace _06_Scripts._05_Boss {
             if (det == null || !_isAttackOn) return;
             _isAttackOn = false;
             _targetHit = true;
-            
-            if (boss2.GetComponent<YuLing>()._sDActivated){
+
+            if (boss2.GetComponent<YuLing>().normalAttack) {
+                boss2.GetComponent<YuLing>().chainHit += 1;
                 det.TakeDamage(attack);
                 return;
             }

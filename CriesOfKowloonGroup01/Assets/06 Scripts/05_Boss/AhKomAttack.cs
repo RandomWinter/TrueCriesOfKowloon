@@ -25,27 +25,23 @@ namespace _06_Scripts._05_Boss {
             var check = c.GetComponent<PlayerHealth>();
 
             if (check == null || !isAttack) return;
-            // ahKom.GetComponent<AhKom>().comboHit += 1;
-            // check.TakeDamage(20);
+            isAttack = false; 
+            isTargetHit = true;
             
-            if (ahKom.GetComponent<AhKom>().comboHit < 1){
+            if (ahKom.GetComponent<AhKom>().normalAttack){
                 ahKom.GetComponent<AhKom>().comboHit += 1;
                 check.TakeDamage(20);
                 return;
             }
             
             if (ahKom.GetComponent<AhKom>().wMActivated){
-                check.TakeDamage(21);
+                check.TakeDamage(15);
                 return;
             }
             
             if (ahKom.GetComponent<AhKom>().bRActivated){
                 check.TakeDamage(35);
-                return;
             }
-            
-            isAttack = false; 
-            isTargetHit = true;
         }
     }
 }

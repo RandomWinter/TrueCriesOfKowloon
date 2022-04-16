@@ -31,7 +31,8 @@ namespace _06_Scripts._05_Boss {
         [SerializeField] private bool faceRight;
         [SerializeField] private bool defeated;
         public int comboHit;
-        public bool missAttack; 
+        public bool missAttack;
+        public bool normalAttack;
 
         [Header("1st Special: Bull Rush")] 
         private float bRChargeTime = 2f;
@@ -276,7 +277,7 @@ namespace _06_Scripts._05_Boss {
 
             Debug.Log("Ah Kom has taken damage");
             currentHealth -= dmg;
-            bossHb.SetMaxHealth(currentHealth);
+            bossHb.SetHealth(currentHealth);
             
             if (!wMActivated || !bRActivated){
                 bossAnimation.SetTrigger(Hit);

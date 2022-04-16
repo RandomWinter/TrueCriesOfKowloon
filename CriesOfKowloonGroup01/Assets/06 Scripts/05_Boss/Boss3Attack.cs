@@ -6,7 +6,7 @@ namespace _06_Scripts._05_Boss {
         public int attack = 20;
         private bool _isAttackOn;
         private bool _targetHit;
-        private GameObject boss3;
+        public GameObject boss3;
 
         private void OnEnable(){
             _isAttackOn = true;

@@ -14,8 +14,8 @@ namespace _06_Scripts._05_Boss {
         private PlayerMovement _targetMv;
 
         //! Connect with Health Bar and Animator (Visual Effects)
-        public HealthBarUI boss3Hb;
-        public Animator boss3Animation;
+        public HealthBarUI b3Hb;
+        public Animator b3Anim;
         public Rigidbody2D rb2d;
 
         //! Health and Mobility
@@ -50,7 +50,9 @@ namespace _06_Scripts._05_Boss {
 
         private bool _isFacingRight;
         public bool isDead;
-    
+        
+        private bool stunOnce;
+        private bool deadOnce;
         #endregion
     
         #region StateMachine, Animation
@@ -66,6 +68,11 @@ namespace _06_Scripts._05_Boss {
             _pFront = _target.transform.Find("RightTrigger");
             _pBehind = _target.transform.Find("LeftTrigger");
             _targetMv = _target.GetComponent<PlayerMovement>();
+
+            b3Anim = GetComponent<Animator>();
+            b3Hb.SetMaxHealth(currentHealth);
+
+            boss3States = StateMachine3.Follow;
         }
 
         private void Update(){
@@ -202,24 +209,40 @@ namespace _06_Scripts._05_Boss {
             }
         }
         #endregion
-    
+        
         #region Receive Damage, Stun Timer, Defeated
         public void ReceiveDamage(int dmg){
             if (isDead) return;
-            //ResetTrigger(Attack);
-
+            
             currentHealth -= dmg;
-            //SetHealth
-            boss3States = currentHealth <= 0 ? StateMachine3.Defeat : StateMachine3.Stun;
+            b3Hb.SetHealth(currentHealth);
+            if (currentHealth > 0){
+                if (!inchActivate && !xKickActive){
+                    boss3States = StateMachine3.Stun;
+                }
+            } else {
+                boss3States = StateMachine3.Defeat;
+            }
         }
-
         private IEnumerator Hit(){
+            if (!stunOnce) {
+                stunOnce = true;
+            }
+            
             yield return new WaitForSeconds(1.5f);
-            boss3States = StateMachine3.Follow;
+            if (!isDead) {
+                stunOnce = false;
+                boss3States = StateMachine3.Follow;
+            }
         }
 
         private IEnumerator Vanish(){
             isDead = true;
+            if (!deadOnce) {
+                
+                deadOnce = true;
+            }
+            
             yield return new WaitForSeconds(2f);
             gameObject.SetActive(false);
         }
