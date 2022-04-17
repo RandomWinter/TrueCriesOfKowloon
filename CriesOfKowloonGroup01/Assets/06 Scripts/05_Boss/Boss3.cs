@@ -49,6 +49,7 @@ namespace _06_Scripts._05_Boss {
         public float adjDist = 1.5f;
 
         private bool _isFacingRight;
+        public bool isTired;
         public bool isDead;
         
         private bool stunOnce;
@@ -59,7 +60,14 @@ namespace _06_Scripts._05_Boss {
         public enum StateMachine3 {
             Follow, Attack, StraightKick, InchPunch, Defeat, Stun
         } public StateMachine3 boss3States;
-    
+        private static readonly int IsMove = Animator.StringToHash("isMove");
+        private static readonly int Attack1 = Animator.StringToHash("attack");
+        private static readonly int Charge = Animator.StringToHash("charge");
+        private static readonly int Kick = Animator.StringToHash("straightKick");
+        private static readonly int Punch = Animator.StringToHash("inchPunch");
+        private static readonly int Tired1 = Animator.StringToHash("tired");
+        private static readonly int Death = Animator.StringToHash("death");
+
         #endregion
     
         #region Awake, Start, Update
@@ -96,6 +104,7 @@ namespace _06_Scripts._05_Boss {
         private void Follow(){
             if (isDead) return;
             if(InRange(adjDist)){
+                b3Anim.SetBool(IsMove, false);
                 var selectSpecMove = Random.Range(0, 5);
                 switch (selectSpecMove){
                     case <= 1 when currentHealth <= 80: boss3States = StateMachine3.StraightKick; break;
@@ -106,6 +115,7 @@ namespace _06_Scripts._05_Boss {
             }
         
             if (!InRange(adjDist)){
+                b3Anim.SetBool(IsMove, true);
                 transform.position = _isFacingRight 
                     ? Vector2.MoveTowards(transform.position, !_targetMv.facingRight 
                         ? _pFront.position 
@@ -134,8 +144,7 @@ namespace _06_Scripts._05_Boss {
     
         private void Attack(){
             if (!missAttack && targetHit != 1){
-                print("Punch");
-                //! anim.SetTrigger(Attack);
+                b3Anim.SetTrigger(Attack1);
             } else {
                 boss3States = StateMachine3.Follow;
                 missAttack = false;
@@ -150,17 +159,21 @@ namespace _06_Scripts._05_Boss {
             Vector2 tar = _target.transform.position;
             Vector2 cur = transform.position;
 
+            b3Anim.SetBool(Charge, true);
             if (_countDown <= _sMoveTimer) return;
             if (!_readOnce && _kickNum != 3){
                 _kickCoordinate = new Vector2(tar.x, tar.y);
                 ChangeDirection();
                 _readOnce = true;
             }
-        
+            
+            b3Anim.SetBool(Charge, false);
             if (_kickNum != 3){
-                print("Oh Boi");
+                b3Anim.SetTrigger(Kick);
                 transform.position = Vector2.MoveTowards(cur, _kickCoordinate, kickForce * (mobility * Time.deltaTime));
+                
                 if (cur != _kickCoordinate) return;
+                b3Anim.ResetTrigger(Kick);
                 _kickNum += 1;
                 _countDown = 0;
                 _readOnce = false;
@@ -171,8 +184,7 @@ namespace _06_Scripts._05_Boss {
     
         private void InchPunch(){
             if (inchActivate){
-                //! Play Animation
-                print("InchPunch");
+                b3Anim.SetTrigger(Punch);
                 rb2d.velocity = _isFacingRight switch{
                     true => Vector2.right * inchDash,
                     false => Vector2.left * inchDash
@@ -184,12 +196,15 @@ namespace _06_Scripts._05_Boss {
         }
 
         private IEnumerator Tired(){
-            //! anim.ResetTrigger(kick);
-            //! anim.ResetTrigger(IPunch);
-            //!anim.SetTrigger(Tired);
+            isTired = true;
+            b3Anim.ResetTrigger(Kick);
+            b3Anim.ResetTrigger(Punch);
+            b3Anim.SetBool(Tired1, true);
+            
             yield return new WaitForSeconds(2f);
             _countDown = 0;
-            _readOnce = xKickActive = false;
+            b3Anim.SetBool(Tired1, false);
+            _readOnce = xKickActive = isTired = false;
             boss3States = StateMachine3.Follow;
         }
 
@@ -213,11 +228,13 @@ namespace _06_Scripts._05_Boss {
         #region Receive Damage, Stun Timer, Defeated
         public void ReceiveDamage(int dmg){
             if (isDead) return;
+            b3Anim.SetBool(IsMove, false);
+            b3Anim.ResetTrigger(Attack1);
             
             currentHealth -= dmg;
             b3Hb.SetHealth(currentHealth);
             if (currentHealth > 0){
-                if (!inchActivate && !xKickActive){
+                if (!inchActivate && !xKickActive && !isTired){
                     boss3States = StateMachine3.Stun;
                 }
             } else {
@@ -239,11 +256,11 @@ namespace _06_Scripts._05_Boss {
         private IEnumerator Vanish(){
             isDead = true;
             if (!deadOnce) {
-                
+                b3Anim.SetTrigger(Death);
                 deadOnce = true;
             }
             
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3.5f);
             gameObject.SetActive(false);
         }
         #endregion

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _06_Scripts._04_Enemy{
     //! This code is an improvement of previous script, simplified, and flexible for changes
-    //! 2. Navmesh will Re-Enable back, avoiding the Invisible Wall
+    //! 2. Navmesh will Re-Enable back, avoiding the Invisible Wall  
     public class MeleeCombat : MonoBehaviour{
         #region Variable Setup
         //! Search player's transform and script
