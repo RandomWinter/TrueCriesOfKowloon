@@ -114,7 +114,7 @@ namespace _06_Scripts._05_Boss {
                 return;
             }
         
-            if (!InRange(adjDist)){
+            if (!InRange(adjDist) && !isDead){
                 b3Anim.SetBool(IsMove, true);
                 transform.position = _isFacingRight 
                     ? Vector2.MoveTowards(transform.position, !_targetMv.facingRight 
@@ -129,14 +129,20 @@ namespace _06_Scripts._05_Boss {
         private bool InRange(float dist){
             var sPosition = castPoint.position;
             isDetected = false;
+            
             castDistance = _isFacingRight switch {
-                true => dist, false => dist
+                true => dist, false => -dist
             };
 
             Vector2 endPos = sPosition + Vector3.right * castDistance;
             var check = Physics2D.Linecast(sPosition, endPos, 1 << LayerMask.NameToLayer("Players"));
             if (check.collider != null){
                 isDetected = check.collider.gameObject.CompareTag("Player");
+                Debug.DrawLine(sPosition, endPos, Color.green);
+            }
+            else
+            {
+                Debug.DrawLine(sPosition, endPos, Color.red);
             }
         
             return isDetected;

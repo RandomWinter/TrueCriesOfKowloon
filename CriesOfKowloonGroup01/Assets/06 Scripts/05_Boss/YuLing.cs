@@ -179,7 +179,7 @@ namespace _06_Scripts._05_Boss {
             var sPosition = castPoint.position;
             isDetected = false;
             castDistance = _faceRight switch {
-                true => dist, false => dist
+                true => dist, false => -dist
             };
 
             Vector2 endPos = sPosition + Vector3.right * castDistance;
