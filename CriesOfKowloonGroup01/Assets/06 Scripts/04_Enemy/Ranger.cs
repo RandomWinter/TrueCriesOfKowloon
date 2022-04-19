@@ -82,7 +82,8 @@ namespace _06_Scripts._04_Enemy {
             }
         }
 
-        private void ChaseTarget() {
+        private void ChaseTarget(){
+            if (isDefeated) return;
             if (transform.position != destArray[currentDest].position) {
                 rAnim.SetBool(IsMoving, true);
                 transform.position = Vector3.MoveTowards(transform.position, destArray[currentDest].position,
@@ -131,24 +132,35 @@ namespace _06_Scripts._04_Enemy {
             if (isDefeated) return;
             rAnim.ResetTrigger(Attack);
             rAnim.SetBool(IsMoving, false);
-            rAnim.SetTrigger(Hit);
+            
             
             currentHealth -= dmg;
             rHealthBar.SetHealth(currentHealth);
             rangerState = currentHealth <= 0 ? StateMachine.Dead : StateMachine.Stun;
         }
-        
+
+        private bool stunOnce;
         private IEnumerator StunDown(){
-            //! anim.SetTrigger(Hit);
+            if (!stunOnce){
+                rAnim.SetTrigger(Hit);
+                stunOnce = true;
+            }
+            
             yield return new WaitForSeconds(1f);
             if (!isDefeated){
+                stunOnce = false;
                 rangerState = StateMachine.Chase;
             }
         }
 
+        private bool deadOnce;
         private IEnumerator Vanish(){
             isDefeated = true;
-            rAnim.SetTrigger(Dead);
+            if (!deadOnce) {
+                rAnim.SetTrigger(Dead);
+                deadOnce = true;
+            }
+            
             yield return new WaitForSeconds(5f);
             gameObject.SetActive(false);
         }

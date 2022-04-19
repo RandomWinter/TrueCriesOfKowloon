@@ -719,7 +719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   launchOffset: {fileID: 1667239315}
-  bullet: {fileID: 2621178819143588213, guid: 6f16260cbe2e24344adabc592bff9a81, type: 3}
+  bullet: {fileID: 2621178819143588213, guid: cd1b16b2c2c0f404f9d342375ce5b3bf, type: 3}
   personal: {fileID: 7627518288028074648}
 --- !u!1 &1765780548
 GameObject:
@@ -1595,7 +1595,7 @@ MonoBehaviour:
   movement: 3.25
   currentHealth: 20
   preFire: 1.25
-  path: {fileID: 6872446888814067270, guid: e076837614070b74c991373a8df28eb8, type: 3}
+  path: {fileID: 9181326776112814431, guid: a33b7a1db5ca0b848b019e12f046be41, type: 3}
   destArray: []
   currentDest: 0
   once: 0

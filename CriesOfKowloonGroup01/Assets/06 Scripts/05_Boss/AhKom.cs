@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using _06_Scripts._03_Props;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -61,7 +63,7 @@ namespace _06_Scripts._05_Boss {
 
         #region StateMachine and Animation
         public enum StateMachine{
-            Chase, Attack, BullRush, WindMill, Defeated
+            Chase, Attack, BullRush, WindMill, Stun, Defeated
         } public StateMachine ahKomStage;
         
         //! Animation Boolean
@@ -89,7 +91,7 @@ namespace _06_Scripts._05_Boss {
             holdRight = GameObject.Find("R_END");
 
             wMActivated = bRActivated = defeated = false;
-            //ahKomStage = StateMachine.Chase;
+            ahKomStage = StateMachine.Chase;
         }
 
         private void Update(){
@@ -106,7 +108,8 @@ namespace _06_Scripts._05_Boss {
                 case StateMachine.Attack: Attack(); break;
                 case StateMachine.BullRush: BullRush(); break;
                 case StateMachine.WindMill: WindMill(); break;
-                case StateMachine.Defeated: Defeated(); break;
+                case StateMachine.Stun: StartCoroutine(StunTimer()); break;
+                case StateMachine.Defeated: StartCoroutine(VanishDeath()); break;
                 default: throw new ArgumentOutOfRangeException();
             }
         }
@@ -164,11 +167,13 @@ namespace _06_Scripts._05_Boss {
         #region Attack, Windmill
         private void Attack(){
             if (!missAttack && comboHit != 1){
+                normalAttack = true;
                 bossAnimation.SetTrigger(Attack1);
             } else{
                 ahKomStage = StateMachine.Chase;
                 comboHit = 0; 
                 missAttack = false;
+                normalAttack = false;
             }
         }
         
@@ -274,23 +279,45 @@ namespace _06_Scripts._05_Boss {
         #region DamageReceived, Stun, Defeated
         public void DamageReceived(int dmg) {
             if (defeated) return;
+            bossAnimation.SetBool(Walk, false);
+            bossAnimation.ResetTrigger(Attack1);
 
-            Debug.Log("Ah Kom has taken damage");
             currentHealth -= dmg;
             bossHb.SetHealth(currentHealth);
+            if (currentHealth <= 0){
+                ahKomStage = StateMachine.Defeated;
+                return;
+            }
             
-            if (!wMActivated || !bRActivated){
+            if (!wMActivated || !bRActivated) {
+                ahKomStage = StateMachine.Stun;
+            }
+        }
+
+        private bool stunOnce;
+        private IEnumerator StunTimer(){
+            if (!stunOnce){
                 bossAnimation.SetTrigger(Hit);
+                stunOnce = true;
             }
 
-            if (currentHealth > 0) return;
-            ahKomStage = StateMachine.Defeated;
+            yield return new WaitForSeconds(1.25f);
+            if (!defeated){
+                stunOnce = false;
+                ahKomStage = StateMachine.Chase;
+            }
         }
         
-        private void Defeated(){
-            //Death Animation
+        private bool deathOnce;
+        private IEnumerator VanishDeath(){
             defeated = true;
-            bossAnimation.SetTrigger(Dead);
+            if (!deathOnce){
+                bossAnimation.SetTrigger(Dead);
+                deathOnce = true;
+            }
+            
+            yield return new WaitForSeconds(5f);
+            gameObject.SetActive(false);
         }
         #endregion
         
