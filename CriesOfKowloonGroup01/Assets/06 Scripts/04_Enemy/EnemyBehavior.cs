@@ -74,6 +74,7 @@ namespace _06_Scripts._04_Enemy{
                 case StateMachine.Chase:
                     Flip();
                     Chasing();
+                    SoundManager.PlaySound("Footstep");
                     break;
                 case StateMachine.Attack:
                     AttackPlayer();
@@ -189,7 +190,7 @@ namespace _06_Scripts._04_Enemy{
             hb.SetHealth(baseHealth);
             
             if(baseHealth <= 0){
-                //FindObjectOfType<AudioManager>().Play("EnemyDeath");
+                SoundManager.PlaySound("EnemyDeath");
                 DeathReset();
             } currentState = StateMachine.Stun;
         }

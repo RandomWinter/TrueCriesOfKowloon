@@ -61,6 +61,7 @@ public class PlayerCombat : MonoBehaviour
             Debug.Log("light attack");
             NextAttack = Time.time + AttackL;
             Attack1();
+            SoundManager.PlaySound("Punch");
             Debug.Log(NextAttack);
             lightCount++;
             cancelCombo = Time.time + coolDown;
@@ -109,6 +110,7 @@ public class PlayerCombat : MonoBehaviour
             Debug.Log("heavy attack");
             NextAttack = Time.time + AttackH;
             Attack2();
+            SoundManager.PlaySound("Punch");
             Debug.Log(NextAttack);
             heavyCount++;
             cancelCombo = Time.time + coolDown;
@@ -141,6 +143,7 @@ public class PlayerCombat : MonoBehaviour
                         Debug.Log("Emotional Damage");
                         NextAttack = Time.time + 1.5f;
                         EmotionalDamage();
+                        SoundManager.PlaySound("EmotionalDamage");
                         ResetAttackCount();
                     }
                     else

@@ -154,6 +154,7 @@ public class RageMechanic : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 animator.SetTrigger("Rage");
+                SoundManager.PlaySound("Rage");
                 GetComponent<PlayerCombat>().lightDamage += 5;
                 GetComponent<PlayerCombat>().heavyDamage += 5;
                 GetComponent<PlayerMovement>().moveSpeed += 5;
