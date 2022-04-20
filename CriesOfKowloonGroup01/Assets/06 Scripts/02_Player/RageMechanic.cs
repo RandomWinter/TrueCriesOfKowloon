@@ -7,7 +7,9 @@ public class RageMechanic : MonoBehaviour
 {
     public Transform AttackPoint;
     public LayerMask enemyLayer;
+    public LayerMask enemy2Layer;
     public LayerMask bossLayer;
+    public LayerMask bossLayer2;
 
     public float attackRange = 0.5f;
 
@@ -57,13 +59,25 @@ public class RageMechanic : MonoBehaviour
     void Attack1()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitEnemies2 = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemy2Layer);
         Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
+        Collider2D[] hitBoss2 = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer2);
 
         foreach(Collider2D enemy in hitEnemies)
         {
             if(!IsRaging)
             {
-                currentRageXP += 100;
+                currentRageXP += 5;
+                ragebar.SetRage(currentRageXP);
+                rageFill.fillAmount = currentRageXP / maxRageXP;
+            }
+        }
+
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (!IsRaging)
+            {
+                currentRageXP += 5;
                 ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
             }
@@ -78,16 +92,37 @@ public class RageMechanic : MonoBehaviour
                 rageFill.fillAmount = currentRageXP / maxRageXP;
             }
         }
+
+        foreach (Collider2D boss in hitBoss2)
+        {
+            if (!IsRaging)
+            {
+                currentRageXP += 5;
+                ragebar.SetRage(currentRageXP);
+                rageFill.fillAmount = currentRageXP / maxRageXP;
+            }
+        }
     }
 
     void Attack2()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitEnemies2 = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemy2Layer);
         Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
 
         foreach(Collider2D enemy in hitEnemies)
         {
             if(!IsRaging)
+            {
+                currentRageXP += 5;
+                ragebar.SetRage(currentRageXP);
+                rageFill.fillAmount = currentRageXP / maxRageXP;
+            }
+        }
+
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (!IsRaging)
             {
                 currentRageXP += 5;
                 ragebar.SetRage(currentRageXP);

@@ -434,6 +434,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1335046669}
     m_Modifications:
+    - target: {fileID: -7362360428139198018, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
+      propertyPath: m_Size.x
+      value: 2.343821
+      objectReference: {fileID: 0}
+    - target: {fileID: -7362360428139198018, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
+      propertyPath: m_Size.y
+      value: 9.1582155
+      objectReference: {fileID: 0}
+    - target: {fileID: -7362360428139198018, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.67191017
+      objectReference: {fileID: 0}
+    - target: {fileID: -7362360428139198018, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
+      propertyPath: m_Offset.y
+      value: 4.80413
+      objectReference: {fileID: 0}
     - target: {fileID: 281769622, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.000001505017
@@ -549,6 +565,10 @@ PrefabInstance:
     - target: {fileID: 8091224710465768514, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
       propertyPath: m_Name
       value: Boss_2.0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091224710465768514, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8273342962617867567, guid: da15da068831d0142bb65d8cbcec9180, type: 3}
       propertyPath: m_LocalRotation.w

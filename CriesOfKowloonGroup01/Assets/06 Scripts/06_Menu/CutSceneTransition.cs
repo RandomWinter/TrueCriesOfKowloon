@@ -5,12 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CutSceneTransition : MonoBehaviour
 {
-    // Update is called once per frame
-    void Update()
+    public void NextScene()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

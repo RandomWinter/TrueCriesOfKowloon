@@ -30,8 +30,11 @@ public class PlayerCombat : MonoBehaviour
 
     public Transform AttackPoint;
     public LayerMask enemyLayer;
+    public LayerMask enemy2Layer;
     public LayerMask propLayer;
     public LayerMask bossLayer;
+    public LayerMask boss2Layer;
+    public LayerMask boss3Layer;
     public GameObject Player;
 
     
@@ -167,8 +170,11 @@ public class PlayerCombat : MonoBehaviour
     {
         animator.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitEnemies2 = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemy2Layer);
         Collider2D[] hitProps = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, propLayer);
         Collider2D[] hitBoss = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, bossLayer);
+        Collider2D[] hitBoss2 = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, boss2Layer);
+        Collider2D[] hitBoss3 = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, boss3Layer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -178,6 +184,7 @@ public class PlayerCombat : MonoBehaviour
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
                 print("launch right");
                 
             }
@@ -186,6 +193,29 @@ public class PlayerCombat : MonoBehaviour
                 Debug.Log("Enemy hit");
                 //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(lightDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                enemy.GetComponent<Ranger>().ReceivedDamage(lightDamage);
+                print("launch left");
+            }
+
+        }
+
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                enemy.GetComponent<Ranger>().ReceivedDamage(lightDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
+                print("launch right");
+
+            }
+            else
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<Ranger>().ReceivedDamage(lightDamage);
                 enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
                 print("launch left");
             }
@@ -204,6 +234,22 @@ public class PlayerCombat : MonoBehaviour
             Debug.Log(boss.gameObject.name);
             //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
             boss.gameObject.GetComponent<AhKom>().DamageReceived(lightDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss2)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<YuLing>().DamageReceived(lightDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss3)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<Boss3>().ReceiveDamage(lightDamage);
         }
 
     }
