@@ -59,7 +59,7 @@ public class LevelUpgrade : MonoBehaviour
             }
             break;
 
-            case "lvl 2-1":
+            case "lvl 2 - 1":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 3) == 3)
@@ -72,7 +72,7 @@ public class LevelUpgrade : MonoBehaviour
             }
             break;
 
-            case "lvl 2-2":
+            case "lvl 2 - 2":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 4) == 4)
@@ -85,7 +85,7 @@ public class LevelUpgrade : MonoBehaviour
             }
             break;
 
-            case "lvl 2-3":
+            case "lvl 2 - 3":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 5) == 5)
@@ -98,7 +98,7 @@ public class LevelUpgrade : MonoBehaviour
             }
             break;
 
-            case "lvl 3-1":
+            case "lvl 3 - 1":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 6) == 6)
@@ -111,7 +111,7 @@ public class LevelUpgrade : MonoBehaviour
             }
             break;
 
-            case "lvl 3-2":
+            case "lvl 3 - 2":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 7) == 7)
@@ -124,7 +124,7 @@ public class LevelUpgrade : MonoBehaviour
             }
             break;
 
-            case "lvl 3-3":
+            case "lvl 3 - 3":
             if(other.CompareTag("Player"))
             {
                 if(PlayerPrefs.GetInt("Upgraded", 8) == 8)

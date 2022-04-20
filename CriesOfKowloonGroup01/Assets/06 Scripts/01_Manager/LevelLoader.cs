@@ -41,7 +41,7 @@ public class LevelLoader : MonoBehaviour
             }
             break;
 
-            case "lvl 2-1":
+            case "lvl 2 - 1":
             if(other.CompareTag("Player"))
             {
                 SceneManager.LoadScene(6);
@@ -49,7 +49,7 @@ public class LevelLoader : MonoBehaviour
             }
             break;
 
-            case "lvl 2-2":
+            case "lvl 2 - 2":
             if(other.CompareTag("Player"))
             {
                 SceneManager.LoadScene(7);
@@ -57,7 +57,7 @@ public class LevelLoader : MonoBehaviour
             }
             break;
 
-            case "lvl 2-3":
+            case "lvl 2 - 3":
             if(other.CompareTag("Player"))
             {
                 SceneManager.LoadScene(8);
@@ -65,7 +65,7 @@ public class LevelLoader : MonoBehaviour
             }
             break;
 
-            case "lvl 3-1":
+            case "lvl 3 - 1":
             if(other.CompareTag("Player"))
             {
                 SceneManager.LoadScene(9);
@@ -73,7 +73,7 @@ public class LevelLoader : MonoBehaviour
             }
             break;
 
-            case "lvl 3-2":
+            case "lvl 3 - 2":
             if(other.CompareTag("Player"))
             {
                 SceneManager.LoadScene(10);

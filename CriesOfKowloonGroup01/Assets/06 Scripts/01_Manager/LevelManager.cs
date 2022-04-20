@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
     {
         switch(stageName)
         {
-            case "level 1-1": case "level 1-2": case "lvl 2-1": case "lvl 2-2": case "lvl 3-1": case "lvl 3-2":
+            case "level 1-1": case "level 1-2": case "lvl 2 - 1": case "lvl 2 - 2": case "lvl 3 - 1": case "lvl 3 - 2":
             SceneManager.LoadScene(12);
             player.GetComponent<PlayerCombat>().lightDamage = player.GetComponent<PlayerCombat>().lightDamage + player.GetComponent<PlayerCombat>().newLightDamage;
             player.GetComponent<PlayerCombat>().heavyDamage = player.GetComponent<PlayerCombat>().heavyDamage + player.GetComponent<PlayerCombat>().newHeavyDamage;
@@ -33,10 +33,10 @@ public class LevelManager : MonoBehaviour
             player.GetComponent<PlayerCombat>().newHeavyDamage = 0;
             player.GetComponent<PlayerHealth>().newMaxHealth = 0;
 
-            GameObject.FindGameObjectWithTag("Player").transform.position = playerInitPosition;
+            player.transform.position = new Vector2(2f, 7f);
             break;
 
-            case "lvl 1-3": case "lvl 2-3": case "lvl 3-3":
+            case "lvl 1-3": case "lvl 2 - 3": case "lvl 3 - 3":
             SceneManager.LoadScene(13);
             player.GetComponent<PlayerCombat>().lightDamage = player.GetComponent<PlayerCombat>().lightDamage + player.GetComponent<PlayerCombat>().newLightDamage;
             player.GetComponent<PlayerCombat>().heavyDamage = player.GetComponent<PlayerCombat>().heavyDamage + player.GetComponent<PlayerCombat>().newHeavyDamage;
@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
             player.GetComponent<PlayerCombat>().newHeavyDamage = 0;
             player.GetComponent<PlayerHealth>().newMaxHealth = 0;
 
-            GameObject.FindGameObjectWithTag("Player").transform.position = playerInitPosition;
+            player.transform.position = new Vector2(2f, 7f);
             break;
         }
     }
