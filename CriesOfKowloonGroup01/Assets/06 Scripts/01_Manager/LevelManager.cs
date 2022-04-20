@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
             player.transform.position = new Vector2(2f, 7f);
             break;
 
-            case "lvl 1-3": case "lvl 2 - 3": case "lvl 3 - 3":
+            case "lvl 1-3": case "lvl 2 - 3": case "lvl 3 - 3": case "lvl 3 - 4 (Boss)":
             SceneManager.LoadScene(13);
             player.GetComponent<PlayerCombat>().lightDamage = player.GetComponent<PlayerCombat>().lightDamage + player.GetComponent<PlayerCombat>().newLightDamage;
             player.GetComponent<PlayerCombat>().heavyDamage = player.GetComponent<PlayerCombat>().heavyDamage + player.GetComponent<PlayerCombat>().newHeavyDamage;

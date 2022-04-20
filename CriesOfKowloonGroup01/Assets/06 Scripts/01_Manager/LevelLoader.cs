@@ -80,6 +80,14 @@ public class LevelLoader : MonoBehaviour
                 other.transform.position = new Vector2(2f, 7f);
             }
             break;
+
+            case "lvl 3 - 3":
+            if(other.CompareTag("Player"))
+            {
+                SceneManager.LoadScene(11);
+                other.transform.position = new Vector2(44f, 5f);
+            }
+            break;
         }
     }
 }
