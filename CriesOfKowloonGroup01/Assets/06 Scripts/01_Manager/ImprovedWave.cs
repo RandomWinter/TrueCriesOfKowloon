@@ -42,6 +42,11 @@ namespace _06_Scripts._01_Manager{
         }
 
         private void Update(){
+            if(_cState == WaveState.Finish)
+            {
+                return;
+            }
+
             if (_cState != WaveState.Idle){
                 if (_cState == WaveState.Wait){
                     if (!EnemyAlive()){

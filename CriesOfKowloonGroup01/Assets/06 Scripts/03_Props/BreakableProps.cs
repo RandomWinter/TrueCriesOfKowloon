@@ -28,11 +28,11 @@ namespace _06_Scripts._03_Props {
                        if (radNum1 == 1)
                            SpawnObject(foodSelect);
                        break;
-                   case "lvl 2-1": case "lvl 2-2":
+                   case "lvl 2 - 1": case "lvl 2 - 2":
                        if (radNum2 is >= 0 and <= 4)
                            SpawnObject(foodSelect);
                        break;
-                   case "lvl 3-1": case "lvl 3-2":
+                   case "lvl 3 - 1": case "lvl 3 - 2":
                        if (radNum3 is >= 0 and <= 1)
                            SpawnObject(foodSelect);
                        break;
