@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         switch(stageName)
         {
             case "level 1-1": case "level 1-2": case "lvl 1-3": case "lvl 2 - 1": case "lvl 2 - 2": case "lvl 2 - 3": case "lvl 3 - 1": case "lvl 3 - 2": case "lvl 3 - 3":
-            SceneManager.LoadScene(12);
+            SceneManager.LoadScene(13);
             player.GetComponent<PlayerCombat>().lightDamage = player.GetComponent<PlayerCombat>().lightDamage + player.GetComponent<PlayerCombat>().newLightDamage;
             player.GetComponent<PlayerCombat>().heavyDamage = player.GetComponent<PlayerCombat>().heavyDamage + player.GetComponent<PlayerCombat>().newHeavyDamage;
             player.GetComponent<PlayerHealth>().maxHealth = player.GetComponent<PlayerHealth>().maxHealth + player.GetComponent<PlayerHealth>().newMaxHealth;
@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour
             break;
 
             case "lvl 3 - 4 (Boss)":
-            SceneManager.LoadScene(13);
+                SceneManager.LoadScene(14);
             player.GetComponent<PlayerCombat>().lightDamage = player.GetComponent<PlayerCombat>().lightDamage + player.GetComponent<PlayerCombat>().newLightDamage;
             player.GetComponent<PlayerCombat>().heavyDamage = player.GetComponent<PlayerCombat>().heavyDamage + player.GetComponent<PlayerCombat>().newHeavyDamage;
             player.GetComponent<PlayerHealth>().maxHealth = player.GetComponent<PlayerHealth>().maxHealth + player.GetComponent<PlayerHealth>().newMaxHealth;

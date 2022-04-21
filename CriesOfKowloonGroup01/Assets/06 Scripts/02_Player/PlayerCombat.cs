@@ -286,6 +286,28 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                enemy.GetComponent<Ranger>().ReceivedDamage(heavyDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
+                print("launch right");
+
+            }
+            else
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<Ranger>().ReceivedDamage(heavyDamage);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                print("launch left");
+            }
+
+        }
+
         foreach (Collider2D Props in hitProps)
         {
             print("Prop hit");
@@ -343,6 +365,28 @@ public class PlayerCombat : MonoBehaviour
                 enemy.GetComponent<MeleeCombat>().ReceiveDamage(attackDamage + 2);
                 enemy.attachedRigidbody.AddForce(new Vector2(90 * -5, 0 * -5));
             }
+        }
+
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
+                print("launch right");
+
+            }
+            else
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                print("launch left");
+            }
+
         }
 
         foreach (Collider2D Props in hitProps)
@@ -406,6 +450,28 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
+                print("launch right");
+
+            }
+            else
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                print("launch left");
+            }
+
+        }
+
         foreach (Collider2D Props in hitProps)
         {
             print("Prop hit");
@@ -416,6 +482,22 @@ public class PlayerCombat : MonoBehaviour
         {
             print("Boss hit");
             boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss2)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<YuLing>().DamageReceived(attackDamage + 2);
+        }
+
+        foreach (Collider2D boss in hitBoss3)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<Boss3>().ReceiveDamage(attackDamage + 2);
         }
         ResetAttackCount();
     }
@@ -449,6 +531,28 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
+                print("launch right");
+
+            }
+            else
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                print("launch left");
+            }
+
+        }
+
         foreach (Collider2D Props in hitProps)
         {
             print("Prop hit");
@@ -459,6 +563,22 @@ public class PlayerCombat : MonoBehaviour
         {
             print("Boss hit");
             boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss2)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<YuLing>().DamageReceived(attackDamage + 2);
+        }
+
+        foreach (Collider2D boss in hitBoss3)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<Boss3>().ReceiveDamage(attackDamage + 2);
         }
         ResetAttackCount();
     }
@@ -493,6 +613,28 @@ public class PlayerCombat : MonoBehaviour
 
         }
 
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
+                print("launch right");
+
+            }
+            else
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 2);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                print("launch left");
+            }
+
+        }
+
         foreach (Collider2D Props in hitProps)
         {
             print("Prop hit");
@@ -503,6 +645,22 @@ public class PlayerCombat : MonoBehaviour
         {
             print("Boss hit");
             boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+        }
+
+        foreach (Collider2D boss in hitBoss2)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<YuLing>().DamageReceived(attackDamage + 2);
+        }
+
+        foreach (Collider2D boss in hitBoss3)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<Boss3>().ReceiveDamage(attackDamage + 2);
         }
         ResetAttackCount();
     }
@@ -536,6 +694,28 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
+        foreach (Collider2D enemy in hitEnemies2)
+        {
+            if (Player.GetComponent<PlayerMovement>().facingRight)
+            {
+                Debug.Log("Enemy hit");
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * 5, 0 * 5));
+                Debug.Log(enemy.gameObject.name);
+                print("launch right");
+
+            }
+            else
+            {
+                Debug.Log("Enemy hit");
+                //enemy.GetComponent<EnemyBehavior>().ReceiveDamage(lightDamage);
+                enemy.GetComponent<Ranger>().ReceivedDamage(attackDamage + 5);
+                enemy.attachedRigidbody.AddForce(new Vector2(50 * -5, 0 * -5));
+                print("launch left");
+            }
+
+        }
+
         foreach (Collider2D Props in hitProps)
         {
             print("Prop hit");
@@ -545,7 +725,23 @@ public class PlayerCombat : MonoBehaviour
         foreach (Collider2D boss in hitBoss)
         {
             print("Boss hit");
-            boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.GetComponent<AhKom>().DamageReceived(attackDamage + 5);
+        }
+
+        foreach (Collider2D boss in hitBoss2)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<YuLing>().DamageReceived(attackDamage + 5);
+        }
+
+        foreach (Collider2D boss in hitBoss3)
+        {
+            print("Boss hit");
+            Debug.Log(boss.gameObject.name);
+            //boss.GetComponent<AhKom>().DamageReceived(lightDamage);
+            boss.gameObject.GetComponent<Boss3>().ReceiveDamage(attackDamage + 5);
         }
         ResetAttackCount();
     }
