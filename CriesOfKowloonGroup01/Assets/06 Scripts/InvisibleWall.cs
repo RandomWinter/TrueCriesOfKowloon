@@ -22,6 +22,7 @@ namespace _06_Scripts {
             print("Door Open");
             rightGate.SetActive(false);
             leftGate.SetActive(false);
+            
         }
     }
 }

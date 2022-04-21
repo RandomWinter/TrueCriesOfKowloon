@@ -84,7 +84,7 @@ public class LevelLoader : MonoBehaviour
             case "lvl 3 - 3":
             if(other.CompareTag("Player"))
             {
-                SceneManager.LoadScene(11);
+                SceneManager.LoadScene(12);
                 other.transform.position = new Vector2(44f, 5f);
             }
             break;

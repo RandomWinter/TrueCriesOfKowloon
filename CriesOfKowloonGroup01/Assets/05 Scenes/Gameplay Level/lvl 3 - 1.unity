@@ -246,6 +246,30 @@ PrefabInstance:
       propertyPath: waves.Array.data[4].waveTimer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1514962706571289028, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 14.670749
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706571289028, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.2295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706571289034, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706710492741, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11.281365
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706710492741, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -34.7158
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706710492747, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
 --- !u!1001 &165496175
@@ -937,7 +961,7 @@ Transform:
   - {fileID: 1507622894}
   - {fileID: 679488411}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1650250383
 PrefabInstance:
@@ -1287,7 +1311,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2071423532
 MonoBehaviour:

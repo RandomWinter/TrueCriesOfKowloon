@@ -1106,6 +1106,42 @@ PrefabInstance:
       propertyPath: waves.Array.data[0].count
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1514962706571289028, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 13.47663
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706571289028, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.8266
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706571289029, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706571289034, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706710492741, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10.760626
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706710492741, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -34.4554
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706710492742, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962706710492747, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514962708318795174, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
+      propertyPath: arrow
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac0695fa23e1b0f42a8d3502cfb095a1, type: 3}
 --- !u!114 &1660011179 stripped
@@ -1882,6 +1918,10 @@ PrefabInstance:
     - target: {fileID: 1084225393298423594, guid: 0bdfaa82d65e72e44b76f4a33440c7cc, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171066321029734066, guid: 0bdfaa82d65e72e44b76f4a33440c7cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.23
       objectReference: {fileID: 0}
     - target: {fileID: 1610265749466857858, guid: 0bdfaa82d65e72e44b76f4a33440c7cc, type: 3}
       propertyPath: m_IsActive
