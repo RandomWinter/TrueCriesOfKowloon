@@ -68,7 +68,7 @@ public class LevelManager : MonoBehaviour
     {
         switch (stageName)
         {
-            case "lvl 1-3":
+            case "lvl 1-3": 
                 playerBorder.SetActive(false);
                 healthUI.SetActive(false);
                 rageUI.SetActive(false);
@@ -94,8 +94,6 @@ public class LevelManager : MonoBehaviour
                 playerBorder3.SetActive(true);
                 healthUI3.SetActive(true);
                 rageUI3.SetActive(true);
-
-
                 break;
         }
     }
