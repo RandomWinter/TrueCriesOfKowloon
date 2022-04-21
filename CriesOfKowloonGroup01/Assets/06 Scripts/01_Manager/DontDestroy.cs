@@ -41,5 +41,14 @@ public class DontDestroy : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+
+        GameObject[] levelManager = GameObject.FindGameObjectsWithTag("LevelManager");
+
+        if (levelManager.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 }

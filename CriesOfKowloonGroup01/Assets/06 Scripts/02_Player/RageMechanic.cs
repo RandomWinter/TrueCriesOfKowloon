@@ -58,8 +58,8 @@ public class RageMechanic : MonoBehaviour
             currentRageXP = maxRageXP;
             //ragebar.SetRage(currentRageXP);
             rageFill.fillAmount = currentRageXP/maxRageXP;
-            //rageFill2.fillAmount = currentRageXP/maxRageXP;
-            //rageFill3.fillAmount = currentRageXP/maxRageXP;
+            rageFill2.fillAmount = currentRageXP / maxRageXP;
+            rageFill3.fillAmount = currentRageXP / maxRageXP;
         }
     }
 
@@ -77,8 +77,8 @@ public class RageMechanic : MonoBehaviour
                 currentRageXP += 5;
                 //ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
-                //rageFill2.fillAmount = currentRageXP / maxRageXP;
-                //rageFill3.fillAmount = currentRageXP / maxRageXP;
+                rageFill2.fillAmount = currentRageXP / maxRageXP;
+                rageFill3.fillAmount = currentRageXP / maxRageXP;
             }
         }
 
@@ -89,8 +89,8 @@ public class RageMechanic : MonoBehaviour
                 currentRageXP += 5;
                // ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
-                //rageFill2.fillAmount = currentRageXP / maxRageXP;
-                //rageFill3.fillAmount = currentRageXP / maxRageXP;
+                rageFill2.fillAmount = currentRageXP / maxRageXP;
+                rageFill3.fillAmount = currentRageXP / maxRageXP;
             }
         }
 
@@ -101,8 +101,8 @@ public class RageMechanic : MonoBehaviour
                 currentRageXP += 5;
                // ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
-                //rageFill2.fillAmount = currentRageXP / maxRageXP;
-                //rageFill3.fillAmount = currentRageXP / maxRageXP;
+                rageFill2.fillAmount = currentRageXP / maxRageXP;
+                rageFill3.fillAmount = currentRageXP / maxRageXP;
             }
         }
 
@@ -113,8 +113,8 @@ public class RageMechanic : MonoBehaviour
                 currentRageXP += 5;
                // ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
-                //rageFill2.fillAmount = currentRageXP / maxRageXP;
-                //rageFill3.fillAmount = currentRageXP / maxRageXP;
+                rageFill2.fillAmount = currentRageXP / maxRageXP;
+                rageFill3.fillAmount = currentRageXP / maxRageXP;
             }
         }
     }
@@ -132,8 +132,8 @@ public class RageMechanic : MonoBehaviour
                 currentRageXP += 5;
                 //ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
-                //rageFill2.fillAmount = currentRageXP / maxRageXP;
-                //rageFill3.fillAmount = currentRageXP / maxRageXP;
+                rageFill2.fillAmount = currentRageXP / maxRageXP;
+                rageFill3.fillAmount = currentRageXP / maxRageXP;
             }
         }
 
@@ -144,8 +144,8 @@ public class RageMechanic : MonoBehaviour
                 currentRageXP += 5;
                 //ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
-                //rageFill2.fillAmount = currentRageXP / maxRageXP;
-                //rageFill3.fillAmount = currentRageXP / maxRageXP;
+                rageFill2.fillAmount = currentRageXP / maxRageXP;
+                rageFill3.fillAmount = currentRageXP / maxRageXP;
             }
         }
 
@@ -156,8 +156,8 @@ public class RageMechanic : MonoBehaviour
                 currentRageXP += 5;
                 //ragebar.SetRage(currentRageXP);
                 rageFill.fillAmount = currentRageXP / maxRageXP;
-                //rageFill2.fillAmount = currentRageXP / maxRageXP;
-                //rageFill3.fillAmount = currentRageXP / maxRageXP;
+                rageFill2.fillAmount = currentRageXP / maxRageXP;
+                rageFill3.fillAmount = currentRageXP / maxRageXP;
             }
         }
     }
@@ -204,15 +204,15 @@ public class RageMechanic : MonoBehaviour
     public void Raging()
     {
         currentRageXP -= Time.deltaTime * 8;
-        ragebar.SetRage(currentRageXP);
+        //ragebar.SetRage(currentRageXP);
         rageFill.fillAmount = currentRageXP / maxRageXP;
-        //rageFill2.fillAmount = currentRageXP / maxRageXP;
-        //rageFill3.fillAmount = currentRageXP / maxRageXP;
+        rageFill2.fillAmount = currentRageXP / maxRageXP;
+        rageFill3.fillAmount = currentRageXP / maxRageXP;
 
         if (currentRageXP < 0)
         {
             currentRageXP = 0;
-            ragebar.SetStartRage();
+            //ragebar.SetStartRage();
             rageFill.fillAmount =  0;
             rageFill2.fillAmount = 0;
             rageFill3.fillAmount = 0;

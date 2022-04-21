@@ -8,12 +8,15 @@ public class LevelUpgrade : MonoBehaviour
 {
     public string stageName;
     public GameObject player;
+
     public GameObject playerBorder;
     public GameObject playerBorder2;
     public GameObject playerBorder3;
+
     public GameObject healthUI;
     public GameObject healthUI2;
     public GameObject healthUI3;
+
     public GameObject rageUI;
     public GameObject rageUI2;
     public GameObject rageUI3;
@@ -35,9 +38,9 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 0) == 0)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 1);
                 }
             }
@@ -48,9 +51,9 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 1) == 1)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 2);
                 }
             }
@@ -61,9 +64,9 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 2) == 2)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 3);
                 }
             }
@@ -74,18 +77,11 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 3) == 3)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 4);
 
-                    playerBorder.SetActive(false);
-                    healthUI.SetActive(false);
-                    rageUI.SetActive(false);
-
-                    playerBorder2.SetActive(true);
-                    healthUI2.SetActive(true);
-                    rageUI2.SetActive(true);
                 }
 
                
@@ -97,9 +93,9 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 4) == 4)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 5);
                 }
             }
@@ -110,9 +106,9 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 5) == 5)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 6);
                 }
             }
@@ -123,22 +119,11 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 6) == 6)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 7);
 
-                    playerBorder.SetActive(false);
-                    healthUI.SetActive(false);
-                    rageUI.SetActive(false);
-
-                    playerBorder2.SetActive(false);
-                    healthUI2.SetActive(false);
-                    rageUI2.SetActive(false);
-
-                    playerBorder3.SetActive(true);
-                    healthUI3.SetActive(true);
-                    rageUI3.SetActive(true);
                 }
 
                     
@@ -151,9 +136,9 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 7) == 7)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 8);
                 }
             }
@@ -164,9 +149,9 @@ public class LevelUpgrade : MonoBehaviour
             {
                 if(PlayerPrefs.GetInt("Upgraded", 8) == 8)
                 {
-                    player.GetComponent<PlayerCombat>().newLightDamage += 5;
-                    player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
-                    player.GetComponent<PlayerHealth>().newMaxHealth += 5;
+                    player.GetComponent<PlayerCombat>().newLightDamage += 2;
+                    player.GetComponent<PlayerCombat>().newHeavyDamage += 2;
+                    player.GetComponent<PlayerHealth>().newMaxHealth += 2;
                     PlayerPrefs.SetInt("Upgraded", 9);
                 }
             }

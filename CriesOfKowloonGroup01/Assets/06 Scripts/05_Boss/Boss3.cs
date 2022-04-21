@@ -20,7 +20,7 @@ namespace _06_Scripts._05_Boss {
 
         //! Health and Mobility
         [SerializeField] private float mobility = 3f;
-        [HideInInspector] public int currentHealth = 100;
+        [HideInInspector] public int currentHealth = 300;
 
         //! Normal Attack
         public bool normalAtt;
