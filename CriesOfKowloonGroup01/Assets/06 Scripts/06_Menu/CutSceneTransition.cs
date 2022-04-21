@@ -12,10 +12,11 @@ public class CutSceneTransition : MonoBehaviour
 
     public void RestartGame()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 12)
-        {
-            SceneManager.LoadScene(2);
-        }
-        
+        SceneManager.LoadScene(2);
+    }
+
+    public void StartMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

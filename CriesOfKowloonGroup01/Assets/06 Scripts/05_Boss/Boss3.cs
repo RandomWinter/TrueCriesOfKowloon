@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 namespace _06_Scripts._05_Boss {
     public class Boss3 : MonoBehaviour {
@@ -267,6 +268,7 @@ namespace _06_Scripts._05_Boss {
             
             yield return new WaitForSeconds(3.5f);
             gameObject.SetActive(false);
+            SceneManager.LoadScene(14);
         }
         #endregion
     }
