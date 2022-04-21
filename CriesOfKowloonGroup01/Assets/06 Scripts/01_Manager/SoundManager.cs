@@ -60,7 +60,7 @@ public class SoundManager : MonoBehaviour
             break;
 
             case "Punch":
-            audioSrc.PlayOneShot(punchSound);
+            audioSrc.PlayOneShot(punchSound, 0.1f);
             break;
 
             case "Rage":

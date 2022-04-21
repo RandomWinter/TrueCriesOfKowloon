@@ -11,7 +11,7 @@ public class BGMSelector : MonoBehaviour
 
     void Start()
     {
-        TrackSelector = Random.Range(0, 2);
+        TrackSelector = 0;
 
         if(TrackSelector == 0)
         {

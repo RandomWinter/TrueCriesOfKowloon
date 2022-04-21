@@ -14,6 +14,9 @@ public class NewMainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         PlayerPrefs.SetInt("Upgraded", 0);
+        GetComponent<PlayerCombat>().lightDamage = 1;
+        GetComponent<PlayerCombat>().heavyDamage = 2;
+        GetComponent<PlayerHealth>().maxHealth = 100;
         GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(2f, 7f);
     }
 

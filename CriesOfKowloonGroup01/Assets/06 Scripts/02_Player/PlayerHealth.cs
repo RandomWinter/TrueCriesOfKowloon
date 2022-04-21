@@ -47,7 +47,6 @@ public class PlayerHealth : MonoBehaviour {
 
         if (currentHealth <= 0){
             FindObjectOfType<LevelManager>().Restart();
-            FindObjectOfType<LevelManager>().ChangeUI();
         }
     }
 

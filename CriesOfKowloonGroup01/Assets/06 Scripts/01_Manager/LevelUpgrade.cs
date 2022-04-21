@@ -9,18 +9,6 @@ public class LevelUpgrade : MonoBehaviour
     public string stageName;
     public GameObject player;
 
-    public GameObject playerBorder;
-    public GameObject playerBorder2;
-    public GameObject playerBorder3;
-
-    public GameObject healthUI;
-    public GameObject healthUI2;
-    public GameObject healthUI3;
-
-    public GameObject rageUI;
-    public GameObject rageUI2;
-    public GameObject rageUI3;
-
     public void Awake()
     {
         var currentStage = SceneManager.GetActiveScene();
@@ -83,8 +71,6 @@ public class LevelUpgrade : MonoBehaviour
                     PlayerPrefs.SetInt("Upgraded", 4);
 
                 }
-
-               
             }
             break;
 
@@ -125,10 +111,7 @@ public class LevelUpgrade : MonoBehaviour
                     PlayerPrefs.SetInt("Upgraded", 7);
 
                 }
-
-                    
-
-                }
+            }
             break;
 
             case "lvl 3 - 2":
