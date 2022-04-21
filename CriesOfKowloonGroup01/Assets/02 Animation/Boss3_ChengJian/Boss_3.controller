@@ -86,6 +86,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: straightKick
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: charge
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4589536527972875722}
   m_Solo: 0

@@ -173,17 +173,16 @@ namespace _06_Scripts._05_Boss {
                 _readOnce = true;
             }
             
-            b3Anim.SetBool(Charge, false);
             if (_kickNum != 3){
                 b3Anim.SetTrigger(Kick);
                 transform.position = Vector2.MoveTowards(cur, _kickCoordinate, kickForce * (mobility * Time.deltaTime));
                 
                 if (cur != _kickCoordinate) return;
-                b3Anim.ResetTrigger(Kick);
                 _kickNum += 1;
                 _countDown = 0;
                 _readOnce = false;
             } else {
+                b3Anim.SetBool(Charge, false);
                 StartCoroutine(Tired());
             }
         }
