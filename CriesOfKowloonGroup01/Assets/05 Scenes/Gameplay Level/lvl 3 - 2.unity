@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBox04
       objectReference: {fileID: 0}
+    - target: {fileID: 6068293493298444940, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 6068293493298444941, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -202,6 +206,10 @@ PrefabInstance:
     - target: {fileID: 7651686301634629410, guid: c97c5629a8c98c04eadef5fd7f532fb8, type: 3}
       propertyPath: m_Name
       value: LevelManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651686301634629410, guid: c97c5629a8c98c04eadef5fd7f532fb8, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7651686301634629420, guid: c97c5629a8c98c04eadef5fd7f532fb8, type: 3}
       propertyPath: m_RootOrder
@@ -304,6 +312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelUpgrade
       objectReference: {fileID: 0}
+    - target: {fileID: 4734644174984927591, guid: c22d00c42f21b5945ba44bb1256ef56c, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c22d00c42f21b5945ba44bb1256ef56c, type: 3}
 --- !u!1001 &437508738
@@ -316,6 +328,10 @@ PrefabInstance:
     - target: {fileID: 6068293493298444940, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
       propertyPath: m_Name
       value: BreakableBox04 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068293493298444940, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6068293493298444941, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
       propertyPath: m_RootOrder
@@ -385,6 +401,10 @@ PrefabInstance:
     - target: {fileID: 2094087396859409360, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
       propertyPath: m_Name
       value: BreakableBox01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094087396859409360, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2094087396859409375, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
       propertyPath: m_RootOrder
@@ -542,6 +562,10 @@ PrefabInstance:
     - target: {fileID: 8921273932344023127, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
       propertyPath: m_Name
       value: BreakableBox02 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921273932344023127, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
@@ -722,6 +746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBox03
       objectReference: {fileID: 0}
+    - target: {fileID: 6009765982916697511, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
 --- !u!1001 &763455375
@@ -734,6 +762,10 @@ PrefabInstance:
     - target: {fileID: 2094087396859409360, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
       propertyPath: m_Name
       value: BreakableBox01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094087396859409360, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2094087396859409375, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
       propertyPath: m_RootOrder
@@ -860,6 +892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBox03 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6009765982916697511, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
 --- !u!1001 &827523497
@@ -929,6 +965,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBox03 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6009765982916697511, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
 --- !u!1001 &832465345
@@ -941,6 +981,10 @@ PrefabInstance:
     - target: {fileID: 6068293493298444940, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
       propertyPath: m_Name
       value: BreakableBox04 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068293493298444940, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6068293493298444941, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
       propertyPath: m_RootOrder
@@ -1010,6 +1054,10 @@ PrefabInstance:
     - target: {fileID: 8997245015068453072, guid: db98133b05ccb3c44a773cca9a628226, type: 3}
       propertyPath: m_Name
       value: LevelLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997245015068453072, guid: db98133b05ccb3c44a773cca9a628226, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8997245015068453073, guid: db98133b05ccb3c44a773cca9a628226, type: 3}
       propertyPath: index
@@ -1128,6 +1176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBox02
       objectReference: {fileID: 0}
+    - target: {fileID: 8921273932344023127, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
 --- !u!1001 &1079164285
@@ -1197,6 +1249,10 @@ PrefabInstance:
     - target: {fileID: 6068293493298444940, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
       propertyPath: m_Name
       value: BreakableBox04 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068293493298444940, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6068293493298444941, guid: ca6594da77c3a4949aba5a081cbf880d, type: 3}
       propertyPath: m_RootOrder
@@ -1323,6 +1379,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBox02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8921273932344023127, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
 --- !u!1001 &1729131078
@@ -1391,6 +1451,10 @@ PrefabInstance:
     - target: {fileID: 6009765982916697511, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
       propertyPath: m_Name
       value: BreakableBox03 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009765982916697511, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751265aaee4005f4496f6702dea18c40, type: 3}
@@ -1461,6 +1525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBox02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8921273932344023127, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afca2f77ba7ef0b47afc064a726ef99a, type: 3}
 --- !u!1 &1971094792
@@ -1492,7 +1560,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d73181aaf12669243b1c3d85d38c20a3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1601,6 +1669,10 @@ PrefabInstance:
     - target: {fileID: 2094087396859409360, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
       propertyPath: m_Name
       value: BreakableBox01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094087396859409360, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2094087396859409375, guid: 2c70aaf762f2afc47859df712f97e911, type: 3}
       propertyPath: m_RootOrder

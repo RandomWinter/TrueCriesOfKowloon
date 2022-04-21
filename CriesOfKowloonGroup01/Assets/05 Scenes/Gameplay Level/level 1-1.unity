@@ -1078,7 +1078,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6f2bbebb3525ac14997c06e6cea21c4d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1954,6 +1954,10 @@ PrefabInstance:
       propertyPath: rageMode
       value: 
       objectReference: {fileID: 738816898}
+    - target: {fileID: 2540081046987154406, guid: c0659f36be3c15141903073575dd022f, type: 3}
+      propertyPath: enemy2Layer.m_Bits
+      value: 16384
+      objectReference: {fileID: 0}
     - target: {fileID: 2951773406555687548, guid: c0659f36be3c15141903073575dd022f, type: 3}
       propertyPath: m_IsActive
       value: 0

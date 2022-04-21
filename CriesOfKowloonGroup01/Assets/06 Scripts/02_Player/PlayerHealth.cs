@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour {
     public int newMaxHealth;
     public HealthBarUI hb;
     public Image HPBar;
+    public Image HPBar2;
+    public Image HPBar3;
+
 
     private void Start(){
         currentHealth = maxHealth;
@@ -49,7 +52,10 @@ public class PlayerHealth : MonoBehaviour {
 
     public void UpdateHealthUI()
     {
-        float fillF = HPBar.fillAmount;
+        float fillF = HPBar.fillAmount = HPBar2.fillAmount = HPBar3.fillAmount;
         HPBar.fillAmount = currentHealth / maxHealth;
+        HPBar2.fillAmount = currentHealth / maxHealth;
+        HPBar3.fillAmount = currentHealth / maxHealth;
+
     }
 }

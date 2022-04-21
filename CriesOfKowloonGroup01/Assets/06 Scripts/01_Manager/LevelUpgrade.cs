@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LevelUpgrade : MonoBehaviour
 {
     public string stageName;
     public GameObject player;
+    public GameObject playerBorder;
+    public GameObject playerBorder2;
+    public GameObject playerBorder3;
+    public GameObject healthUI;
+    public GameObject healthUI2;
+    public GameObject healthUI3;
+    public GameObject rageUI;
+    public GameObject rageUI2;
+    public GameObject rageUI3;
 
     public void Awake()
     {
@@ -68,7 +78,17 @@ public class LevelUpgrade : MonoBehaviour
                     player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
                     player.GetComponent<PlayerHealth>().newMaxHealth += 5;
                     PlayerPrefs.SetInt("Upgraded", 4);
+
+                    playerBorder.SetActive(false);
+                    healthUI.SetActive(false);
+                    rageUI.SetActive(false);
+
+                    playerBorder2.SetActive(true);
+                    healthUI2.SetActive(true);
+                    rageUI2.SetActive(true);
                 }
+
+               
             }
             break;
 
@@ -107,8 +127,23 @@ public class LevelUpgrade : MonoBehaviour
                     player.GetComponent<PlayerCombat>().newHeavyDamage += 5;
                     player.GetComponent<PlayerHealth>().newMaxHealth += 5;
                     PlayerPrefs.SetInt("Upgraded", 7);
+
+                    playerBorder.SetActive(false);
+                    healthUI.SetActive(false);
+                    rageUI.SetActive(false);
+
+                    playerBorder2.SetActive(false);
+                    healthUI2.SetActive(false);
+                    rageUI2.SetActive(false);
+
+                    playerBorder3.SetActive(true);
+                    healthUI3.SetActive(true);
+                    rageUI3.SetActive(true);
                 }
-            }
+
+                    
+
+                }
             break;
 
             case "lvl 3 - 2":
