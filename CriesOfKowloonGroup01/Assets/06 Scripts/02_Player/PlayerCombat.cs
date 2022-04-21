@@ -73,7 +73,7 @@ public class PlayerCombat : MonoBehaviour
                     {
                         animator.SetTrigger("DragonSweep");
                         Debug.Log("Dragon Sweep");
-                        //NextAttack = Time.time + 0.85f;
+                        NextAttack = Time.time + 0.85f;
                         DragonSweep();
                         ResetAttackCount();
                     }
@@ -91,7 +91,6 @@ public class PlayerCombat : MonoBehaviour
                     Debug.Log("Flash Fist");
                     NextAttack = Time.time + 0.75f;
                     FlashFist();
-                    //Debug.Log(NextAttack);
                     ResetAttackCount();
                     break;
                 case 4:
@@ -141,7 +140,7 @@ public class PlayerCombat : MonoBehaviour
                     {
                         animator.SetTrigger("EmotionalDamage");
                         Debug.Log("Emotional Damage");
-                        NextAttack = Time.time + 1.5f;
+                        NextAttack = Time.time + 2.5f;
                         EmotionalDamage();
                         SoundManager.PlaySound("EmotionalDamage");
                         ResetAttackCount();
