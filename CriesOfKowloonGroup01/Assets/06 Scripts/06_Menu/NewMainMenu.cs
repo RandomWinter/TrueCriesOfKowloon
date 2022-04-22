@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class NewMainMenu : MonoBehaviour
 {
-    //public GameObject menuUi;
-    //public GameObject settingsMenu;
-    //public GameObject controlList;
-    //public GameObject menuBackground;
-    //public GameObject backButton;
     
     public void PlayGame()
     {
@@ -28,5 +23,10 @@ public class NewMainMenu : MonoBehaviour
     public void NextCutScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void Intro()
+    {
+        
     }
 }

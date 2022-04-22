@@ -268,7 +268,7 @@ namespace _06_Scripts._05_Boss {
             
             yield return new WaitForSeconds(3.5f);
             gameObject.SetActive(false);
-            SceneManager.LoadScene(14);
+            SceneManager.LoadScene(15);
         }
         #endregion
     }
